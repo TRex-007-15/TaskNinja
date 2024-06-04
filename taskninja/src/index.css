@@ -9,16 +9,16 @@ ul {
   list-style-type: none;
 }
 :root{
-  --primary: #BBBBBB
-  --secondary: #CCCCCC
-  --tertiary: #BFF6C3
-  --white:#EEEEEE
-  --grey:#AAAAAA
+  --primary: #61988E
+  --secondary: #61988E
+  --tertiary: #94778B
+  --quaternary:#94778B
+  --white:#F4FAFF
 
 }
 a {
   text-decoration: none;
-  color: azure;
+  color: #F4FAFF;
 }
 
 body { /* Added # to the color code */
