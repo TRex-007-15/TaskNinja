@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap');
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+ul {
+  list-style-type: none;
+}
+:root{
+  --primary: #BBBBBB
+  --secondary: #CCCCCC
+  --tertiary: #BFF6C3
+  --white:#EEEEEE
+  --grey:#AAAAAA
+
+}
+a {
+  text-decoration: none;
+  color: azure;
+}
+
+body { /* Added # to the color code */
+  line-height: 1.5;
+  font-family: "Roboto Slab", serif;
+}
+
+.primary-color{
+  color: var(--primary);
+}
