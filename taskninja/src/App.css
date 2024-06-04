@@ -8,12 +8,9 @@
   
   }
 .Header{
-    position: relative;
-    padding-left: 10%;
-    padding-right: 10%;
-    font-size: 7rem;
-    top: 60px;
     align-items: center;
     text-align: center;
     color: #61988E;
+    font-size: 7rem;
+    padding-bottom: 5%;
 }
