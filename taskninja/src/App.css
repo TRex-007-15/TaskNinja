@@ -1,19 +1,125 @@
+:root {
+  --primary: #61988E;
+  --secondary: #61988E;
+  --tertiary: #94778B;
+  --quaternary: #94778B;
+  --white: #F4FAFF;
+}
 
-:root{
-    --primary: #61988E
-    --secondary: #61988E
-    --tertiary: #94778B
-    --quaternary:#94778B
-    --white:#F4FAFF
-  
+/* General Styles */
+body, html {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Arial, sans-serif';
+  background-color: var(--white);
+  color: var(--primary);
+}
+
+/* App Container */
+.App {
+  text-align: center;
+  padding: 2rem;
+}
+
+/* Header Styling */
+.Header {
+  position: relative;
+  padding-left: 10%;
+  padding-right: 10%;
+  font-size: 4rem;
+  margin-top: 60px;
+  color: var(--primary);
+  text-align: center;
+  align-items: center;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.Header:hover {
+  color: var(--tertiary);
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Search Container */
+.search-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  padding: 0 10%;
+  gap: 10px; 
+}
+
+.search-bar {
+  width: 100%;
+  max-width: 400px;
+  padding: 0.75rem 1rem; 
+  border: 2px solid var(--primary);
+  border-radius: 4px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.search-bar:focus {
+  outline: none;
+  border-color: var(--tertiary);
+}
+
+.search-button {
+  padding: 0.75rem 1.5rem; 
+  border: none;
+  border-radius: 4px;
+  background-color: var(--primary);
+  color: var(--white);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease; 
+}
+
+.search-button:hover {
+  background-color: var(--tertiary);
+  transform: scale(1.05);
+}
+
+/* Media Queries */
+@media (max-width: 1200px) {
+  .Header {
+      font-size: 3.5rem;
   }
-.Header{
-    position: relative;
-    padding-left: 10%;
-    padding-right: 10%;
-    font-size: 7rem;
-    top: 60px;
-    align-items: center;
-    text-align: center;
-    color: #61988E;
+}
+
+@media (max-width: 768px) {
+  .Header {
+      font-size: 3rem;
+      padding-left: 5%;
+      padding-right: 5%;
+  }
+
+  .search-container {
+      padding: 0 5%;
+  }
+}
+
+@media (max-width: 480px) {
+  .Header {
+      font-size: 2.5rem;
+      padding-left: 2%;
+      padding-right: 2%;
+  }
+
+  .search-container {
+      padding: 0 2%;
+      flex-direction: column;
+  }
+
+  .search-bar {
+      width: 100%; 
+  }
+
+  .search-button {
+      margin-left: 0;
+      margin-top: 10px;
+      width: 100%;
+  }
 }

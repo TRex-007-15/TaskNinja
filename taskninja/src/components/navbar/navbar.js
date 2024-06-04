@@ -14,7 +14,7 @@ const HandleClick = () => SetClick(!click);
       <ul className={click ? "nav-menu active" : "nav-menu"}>
         <li className="nav-item"><a href="/">Home</a></li>
         <li className="nav-item"><a href="/">Services</a></li>
-        <li className="nav-item"><a href="/">Signup/Login</a></li>
+        <li className="nav-item"><a href="/">Sign up/Login</a></li>
         <li className="nav-item"><a href="/">Become a tasker</a></li>
       </ul>
       <div className="Hamburger" onClick={HandleClick}>
