@@ -1,125 +1,108 @@
-:root {
-  --primary: #61988E;
-  --secondary: #61988E;
-  --tertiary: #94778B;
-  --quaternary: #94778B;
-  --white: #F4FAFF;
-}
-
-/* General Styles */
-body, html {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Arial, sans-serif';
-  background-color: var(--white);
-  color: var(--primary);
-}
-
-/* App Container */
-.App {
-  text-align: center;
-  padding: 2rem;
-}
-
-/* Header Styling */
 .Header {
-  position: relative;
-  padding-left: 10%;
-  padding-right: 10%;
-  font-size: 4rem;
-  margin-top: 60px;
-  color: var(--primary);
-  text-align: center;
-  align-items: center;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-  transition: color 0.3s ease, text-shadow 0.3s ease;
-}
-
-.Header:hover {
-  color: var(--tertiary);
-  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
-}
-
-/* Search Container */
-.search-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 20px;
-  padding: 0 10%;
-  gap: 10px; 
-}
-
-.search-bar {
-  width: 100%;
-  max-width: 400px;
-  padding: 0.75rem 1rem; 
-  border: 2px solid var(--primary);
-  border-radius: 4px;
-  font-size: 1rem;
-  transition: border-color 0.3s ease;
-}
-
-.search-bar:focus {
-  outline: none;
-  border-color: var(--tertiary);
-}
-
-.search-button {
-  padding: 0.75rem 1.5rem; 
-  border: none;
-  border-radius: 4px;
-  background-color: var(--primary);
-  color: var(--white);
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.3s ease; 
-}
-
-.search-button:hover {
-  background-color: var(--tertiary);
-  transform: scale(1.05);
-}
-
-/* Media Queries */
-@media (max-width: 1200px) {
-  .Header {
-      font-size: 3.5rem;
+    text-align: center;
+    margin-top: 50px;
+    font-size: 2em; /* Adjust font size */
   }
-}
-
-@media (max-width: 768px) {
-  .Header {
-      font-size: 3rem;
-      padding-left: 5%;
-      padding-right: 5%;
-  }
-
+  
   .search-container {
-      padding: 0 5%;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
   }
-}
-
-@media (max-width: 480px) {
-  .Header {
-      font-size: 2.5rem;
-      padding-left: 2%;
-      padding-right: 2%;
-  }
-
-  .search-container {
-      padding: 0 2%;
-      flex-direction: column;
-  }
-
+  
   .search-bar {
-      width: 100%; 
+    padding: 10px;
+    width: 300px;
+    border-radius: 20px 0 0 20px;
+    border: 1px solid #ccc;
+    outline: none;
   }
-
+  
   .search-button {
-      margin-left: 0;
-      margin-top: 10px;
-      width: 100%;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 0 20px 20px 0;
+    cursor: pointer;
   }
-}
+  
+  .services-container {
+    display: flex;
+    overflow-x: auto; /* Enable horizontal scrolling */
+    margin-top: 50px;
+    padding: 10px; /* Add padding to the container */
+    -webkit-overflow-scrolling: touch; /* Enable smooth scrolling on iOS */
+  }
+  
+  .service-tile {
+    flex: 0 0 auto; /* Ensure tiles don't grow or shrink */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 10px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .service-tile:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+  
+  .service-tile img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+  }
+  
+  .service-name {
+    font-size: 1.2em;
+    margin-top: 10px;
+  }
+  
+  .form-container {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .form-button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .form-button + .form-button {
+    margin-left: 10px;
+  }
+  
