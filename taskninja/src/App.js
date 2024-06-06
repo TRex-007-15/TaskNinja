@@ -5,6 +5,7 @@ import './App.css';
 const App = () => {
   const [view, setView] = useState("home");
   const [formType, setFormType] = useState("login");
+  const [searchQuery, setSearchQuery] = useState("");
 
   const services = [
     { name: "Packers and Movers", image: "packers_and_movers.jpg" },
@@ -39,6 +40,14 @@ const App = () => {
     setView("home");
   };
 
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
+  const filteredServices = services.filter(service =>
+    service.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
     <div>
       <Navbar onLoginClick={handleLoginClick} onSignupClick={handleSignupClick} />
@@ -50,11 +59,13 @@ const App = () => {
               type="text"
               className="search-bar"
               placeholder="Search for tasks or help..."
+              value={searchQuery}
+              onChange={handleSearchChange}
             />
             <button className="search-button">Search</button>
           </div>
           <div className="services-container">
-            {services.map((service, index) => (
+            {filteredServices.map((service, index) => (
               <ServiceTile key={index} service={service} />
             ))}
           </div>
