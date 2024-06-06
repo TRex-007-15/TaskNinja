@@ -94,3 +94,45 @@
         margin: 0.5rem 0;
     }
 }
+
+/* Additional Styles */
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+ul {
+    list-style-type: none;
+}
+
+:root {
+    --primary: #61988E;
+    --secondary: #61988E;
+    --tertiary: #94778B;
+    --quaternary: #94778B;
+    --white: #F4FAFF;
+}
+
+a {
+    text-decoration: none;
+    color: var(--white); /* Use variable for text color */
+}
+
+body {
+    line-height: 1.5;
+    font-family: "Roboto Slab", serif;
+    background-color: var(--white); /* Set background color */
+}
+
+.primary-color {
+    color: var(--primary);
+}
+
+div {
+    color: #61988E;
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+}
