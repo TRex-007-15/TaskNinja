@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import Navbar from "./components/navbar/navbar";
 import './App.css';
+
 const App = () => {
   const [view, setView] = useState("home");
+  const [formType, setFormType] = useState("login");
 
   const services = [
-    { name: "Packers and Movers", image: "packers and movers.jpg" },
+    { name: "Packers and Movers", image: "packers_and_movers.jpg" },
     { name: "Plumbers", image: "plumbers.jpg" },
     { name: "Electricians", image: "electricians.jpg" },
     { name: "Cleaning Services", image: "cleaning_services.jpg" },
@@ -22,14 +24,15 @@ const App = () => {
     { name: "Computer Repair", image: "computer_repair.jpg" },
     { name: "Interior Design", image: "interior_design.jpg" }
   ];
-  
 
   const handleLoginClick = () => {
-    setView("login");
+    setFormType("login");
+    setView("form");
   };
 
   const handleSignupClick = () => {
-    setView("signup");
+    setFormType("signup");
+    setView("form");
   };
 
   const handleBackToHome = () => {
@@ -57,11 +60,8 @@ const App = () => {
           </div>
         </>
       )}
-      {view === "login" && (
-        <LoginForm onBackClick={handleBackToHome} />
-      )}
-      {view === "signup" && (
-        <SignupForm onBackClick={handleBackToHome} />
+      {view === "form" && (
+        <FormContainer formType={formType} onBackClick={handleBackToHome} />
       )}
     </div>
   );
@@ -74,9 +74,9 @@ const ServiceTile = ({ service }) => (
   </div>
 );
 
-const LoginForm = ({ onBackClick }) => (
+const FormContainer = ({ formType, onBackClick }) => (
   <div className="form-container">
-    <h2>Login</h2>
+    {formType === "login" ? <h2>Login</h2> : <h2>Sign Up</h2>}
     <form>
       <div className="form-group">
         <label>Username:</label>
@@ -86,29 +86,15 @@ const LoginForm = ({ onBackClick }) => (
         <label>Password:</label>
         <input type="password" />
       </div>
-      <button type="submit" className="form-button">Login</button>
-      <button type="button" className="form-button" onClick={onBackClick}>Back</button>
-    </form>
-  </div>
-);
-
-const SignupForm = ({ onBackClick }) => (
-  <div className="form-container">
-    <h2>Sign Up</h2>
-    <form>
-      <div className="form-group">
-        <label>Username:</label>
-        <input type="text" />
-      </div>
-      <div className="form-group">
-        <label>Password:</label>
-        <input type="password" />
-      </div>
-      <div className="form-group">
-        <label>Email:</label>
-        <input type="email" />
-      </div>
-      <button type="submit" className="form-button">Sign Up</button>
+      {formType === "signup" && (
+        <div className="form-group">
+          <label>Email:</label>
+          <input type="email" />
+        </div>
+      )}
+      <button type="submit" className="form-button">
+        {formType === "login" ? "Login" : "Sign Up"}
+      </button>
       <button type="button" className="form-button" onClick={onBackClick}>Back</button>
     </form>
   </div>
