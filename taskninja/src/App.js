@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import Navbar from "./components/navbar/navbar";
 import './App.css';
-
 const App = () => {
   const [view, setView] = useState("home");
 
   const services = [
-    { name: "Packers and Movers", image: "packers_and_movers.jpg" },
+    { name: "Packers and Movers", image: "packers and movers.jpg" },
     { name: "Plumbers", image: "plumbers.jpg" },
     { name: "Electricians", image: "electricians.jpg" },
     { name: "Cleaning Services", image: "cleaning_services.jpg" },
