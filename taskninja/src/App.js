@@ -61,7 +61,7 @@ const App = () => {
         </>
       )}
       {view === "form" && (
-        <FormContainer formType={formType} onBackClick={handleBackToHome} />
+        <FormContainer formType={formType} onFormTypeChange={setFormType} onBackClick={handleBackToHome} />
       )}
     </div>
   );
@@ -74,7 +74,7 @@ const ServiceTile = ({ service }) => (
   </div>
 );
 
-const FormContainer = ({ formType, onBackClick }) => (
+const FormContainer = ({ formType, onFormTypeChange, onBackClick }) => (
   <div className="form-container">
     {formType === "login" ? <h2>Login</h2> : <h2>Sign Up</h2>}
     <form>
@@ -97,6 +97,9 @@ const FormContainer = ({ formType, onBackClick }) => (
       </button>
       <button type="button" className="form-button" onClick={onBackClick}>Back</button>
     </form>
+    <button type="button" className="form-button" onClick={() => onFormTypeChange(formType === "login" ? "signup" : "login")}>
+      {formType === "login" ? "Switch to Sign Up" : "Switch to Login"}
+    </button>
   </div>
 );
 

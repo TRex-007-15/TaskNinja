@@ -1,108 +1,122 @@
 .Header {
-    text-align: center;
-    margin-top: 50px;
-    font-size: 2em; /* Adjust font size */
-  }
-  
-  .search-container {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-  }
-  
-  .search-bar {
-    padding: 10px;
-    width: 300px;
-    border-radius: 20px 0 0 20px;
-    border: 1px solid #ccc;
-    outline: none;
-  }
-  
-  .search-button {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 0 20px 20px 0;
-    cursor: pointer;
-  }
-  
-  .services-container {
-    display: flex;
-    overflow-x: auto; /* Enable horizontal scrolling */
-    margin-top: 50px;
-    padding: 10px; /* Add padding to the container */
-    -webkit-overflow-scrolling: touch; /* Enable smooth scrolling on iOS */
-  }
-  
-  .service-tile {
-    flex: 0 0 auto; /* Ensure tiles don't grow or shrink */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: 10px;
-    padding: 20px;
-    background-color: #ffffff;
-    border-radius: 20px;
-    text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  
-  .service-tile:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-  }
-  
-  .service-tile img {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: cover;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
-  }
-  
-  .service-name {
-    font-size: 1.2em;
-    margin-top: 10px;
-  }
-  
-  .form-container {
-    max-width: 400px;
-    margin: 50px auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-  }
-  
-  .form-group {
-    margin-bottom: 20px;
-  }
-  
-  .form-group label {
-    display: block;
-    margin-bottom: 5px;
-  }
-  
-  .form-group input {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  .form-button {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .form-button + .form-button {
-    margin-left: 10px;
-  }
-  
+  text-align: center;
+  margin-top: 50px;
+  font-size: 2em; /* Adjust font size */
+}
+
+.search-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.search-bar {
+  padding: 10px;
+  width: 300px;
+  border-radius: 20px 0 0 20px;
+  border: 1px solid #ccc;
+  outline: none;
+}
+
+.search-button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 0 20px 20px 0;
+  cursor: pointer;
+}
+
+.services-container {
+  display: flex;
+  overflow-x: auto; /* Enable horizontal scrolling */
+  margin-top: 50px;
+  padding: 10px; /* Add padding to the container */
+  -webkit-overflow-scrolling: touch; /* Enable smooth scrolling on iOS */
+}
+
+.service-tile {
+  flex: 0 0 auto; /* Ensure tiles don't grow or shrink */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 10px;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.service-tile:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.service-tile img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+
+.service-name {
+  font-size: 1.2em;
+  margin-top: 10px;
+}
+
+.form-container {
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.form-group input {
+  width: calc(100% - 22px);
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.form-button {
+  padding: 12px 24px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+  font-size: 1em;
+}
+
+.form-button + .form-button {
+  margin-left: 10px;
+}
+
+/* Ensure form buttons have consistent padding and margin */
+.form-container .form-button {
+  padding: 12px 24px;
+}
+
+.form-container .form-group input {
+  padding: 12px;
+}
