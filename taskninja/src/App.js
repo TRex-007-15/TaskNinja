@@ -1,18 +1,23 @@
-import React from "react";
-import Navbar from "./components/navbar/navbar";
-import './App.css';
-import SearchBarFilter from "./components/SearchBar/SearchBar";
+// src/App.js
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
+import Navbar from './components/navbar/navbar';
+import Home from './pages/Home';
+import Services from './pages/Services';
+import SignupLogin from './pages/SignupLogin';
+import BecomeATasker from './pages/BecomeATasker';
+
 const App = () => {
   return (
-  <div>
-    <div>
-      <Navbar/>
-    </div>
-    <div>
-      <h1 className="Header">Book Trusted Help for home tasks</h1>
-    </div>
-    <div><SearchBarFilter/></div>
-  </div>
+    <>
+      <Navbar />
+      <Routes>
+        <Route path="/Home" element={<Home />} index/>
+        <Route path="/services" element={<Services />} />
+        <Route path="/signup-login" element={<SignupLogin />} />
+        <Route path="/become-a-tasker" element={<BecomeATasker />} />
+      </Routes>
+    </>
   );
 };
 
