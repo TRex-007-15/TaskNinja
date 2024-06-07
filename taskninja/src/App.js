@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Navbar from "./components/navbar/navbar";
 import './App.css';
-
+import Cover from "./components/images/s1.jpg"
 const App = () => {
   const [view, setView] = useState("home");
   const [formType, setFormType] = useState("login");
@@ -36,9 +36,10 @@ const App = () => {
     setView("form");
   };
 
-  const handleBackToHome = () => {
-    setView("home");
-  };
+
+  const handleServices = () => {
+    setView("services")
+  }
 
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
@@ -50,7 +51,7 @@ const App = () => {
 
   return (
     <div>
-      <Navbar onLoginClick={handleLoginClick} onSignupClick={handleSignupClick} />
+      <Navbar onLoginClick={handleLoginClick} onSignupClick={handleSignupClick} onServiceClick={handleServices} />
       {view === "home" && (
         <>
           <h1 className="Header">Book Trusted Help for Home Tasks</h1>
@@ -72,8 +73,13 @@ const App = () => {
         </>
       )}
       {view === "form" && (
-        <FormContainer formType={formType} onFormTypeChange={setFormType} onBackClick={handleBackToHome} />
+        <FormContainer formType={formType} onFormTypeChange={setFormType} />
       )}
+      {
+        view === "services" && (
+          <Services/>
+        )
+      }
     </div>
   );
 };
@@ -85,7 +91,7 @@ const ServiceTile = ({ service }) => (
   </div>
 );
 
-const FormContainer = ({ formType, onFormTypeChange, onBackClick }) => (
+const FormContainer = ({ formType, onFormTypeChange }) => (
   <div className="form-container">
     {formType === "login" ? <h2>Login</h2> : <h2>Sign Up</h2>}
     <form>
@@ -106,12 +112,20 @@ const FormContainer = ({ formType, onFormTypeChange, onBackClick }) => (
       <button type="submit" className="form-button">
         {formType === "login" ? "Login" : "Sign Up"}
       </button>
-      <button type="button" className="form-button" onClick={onBackClick}>Back</button>
     </form>
     <button type="button" className="form-button" onClick={() => onFormTypeChange(formType === "login" ? "signup" : "login")}>
       {formType === "login" ? "Switch to Sign Up" : "Switch to Login"}
     </button>
   </div>
 );
-
+const Services = () => {
+  return (
+      <>
+          <div className="cover">
+              <img id="cover-image" src={Cover} alt="cover-img" className="cover-image" />
+              <p className="cover-text">Your To-do list is on us!</p>
+          </div>
+      </>
+  );
+};
 export default App;

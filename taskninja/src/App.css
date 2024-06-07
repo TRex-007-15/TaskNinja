@@ -120,3 +120,29 @@
 .form-container .form-group input {
   padding: 12px;
 }
+
+.cover {
+  position: relative;
+  width: 100%;
+  height: 30vh; /* Adjusted to cover 30% of the screen height */
+  overflow: hidden;
+}
+
+.cover-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cover-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 2rem;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.5); /* Optional: Add background color for better text visibility */
+  padding: 10px 20px; /* Optional: Add padding around text */
+  border-radius: 5px; /* Optional: Rounded corners */
+}

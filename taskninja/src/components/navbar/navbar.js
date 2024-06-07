@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import Logo from "../images/logo.png";
 import { FaBars, FaTimes } from "react-icons/fa";
 import './navbar.css';
-
-const Navbar = ({ onLoginClick, onSignupClick }) => {
+const Navbar = ({ onLoginClick, onSignupClick,onServiceClick }) => {
   const [click, setClick] = useState(false);
 
   const handleClick = () => setClick(!click);
@@ -15,7 +14,7 @@ const Navbar = ({ onLoginClick, onSignupClick }) => {
       </div>
       <ul className={click ? "nav-menu active" : "nav-menu"}>
         <li className="nav-item"><a href="/" onClick={() => setClick(false)}>Home</a></li>
-        <li className="nav-item"><a href="/" onClick={() => setClick(false)}>Services</a></li>
+        <li className="nav-item"><a href="/" onClick={(e) => { e.preventDefault(); onServiceClick(); setClick(false); }}>Services</a></li>
         <li className="nav-item"><a href="/" onClick={(e) => { e.preventDefault(); onLoginClick(); setClick(false); }}>Sign up/Login</a></li>
         <li className="nav-item"><a href="/" onClick={(e) => { e.preventDefault(); onSignupClick(); setClick(false); }}>Become a tasker</a></li>
       </ul>
