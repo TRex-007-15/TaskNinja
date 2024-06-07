@@ -48,7 +48,21 @@ const App = () => {
   const filteredServices = services.filter(service =>
     service.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
-
+  const Services = () => {
+    return (
+      <>
+        <div className="cover">
+          <img id="cover-image" src={Cover} alt="cover-img" className="cover-image" />
+          <p className="cover-text">Your To-do list is on us!</p>
+        </div>
+        <div className="services-grid">
+          {services.map((service, index) => (
+            <ServiceTile key={index} service={service} />
+          ))}
+        </div>
+      </>
+    );
+  };
   return (
     <div>
       <Navbar onLoginClick={handleLoginClick} onSignupClick={handleSignupClick} onServiceClick={handleServices} />
@@ -63,7 +77,6 @@ const App = () => {
               value={searchQuery}
               onChange={handleSearchChange}
             />
-            <button className="search-button">Search</button>
           </div>
           <div className="services-container">
             {filteredServices.map((service, index) => (
@@ -118,14 +131,4 @@ const FormContainer = ({ formType, onFormTypeChange }) => (
     </button>
   </div>
 );
-const Services = () => {
-  return (
-      <>
-          <div className="cover">
-              <img id="cover-image" src={Cover} alt="cover-img" className="cover-image" />
-              <p className="cover-text">Your To-do list is on us!</p>
-          </div>
-      </>
-  );
-};
 export default App;
