@@ -1,63 +1,79 @@
 import React, { useState } from "react";
-import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/navbar/navbar";
-import Home from "./pages/Home";
-import FormContainer from "./components/FormContainer";
-import Services from "./components/services";
-import Footer from "./components/footer";
-import Logo from "./components/images/logo.jpg"
+import Footer from "./components/Footer";
 import './App.css';
+import Cover from "./components/images/s1.jpg";
+import Home from './pages/Home'; // Import Home component
+
 const App = () => {
+  const [view, setView] = useState("home");
   const [formType, setFormType] = useState("login");
   const [searchQuery, setSearchQuery] = useState("");
 
   const services = [
-    { name: "Packers and Movers", image: Logo },
-    { name: "Plumbers", image: "plumbers.jpg" },
-    { name: "Electricians", image: "electricians.jpg" },
-    { name: "Cleaning Services", image: "cleaning_services.jpg" },
-    { name: "Carpenters", image: "carpenters.jpg" },
-    { name: "Pest Control", image: "pest_control.jpg" },
-    { name: "Painters", image: "painters.jpg" },
-    { name: "AC Services", image: "ac_services.jpg" },
-    { name: "Gardening", image: "gardening.jpg" },
-    { name: "Home Security", image: "home_security.jpg" },
-    { name: "Laundry", image: "laundry.jpg" },
-    { name: "Moving Services", image: "moving_services.jpg" },
-    { name: "Home Cleaning", image: "home_cleaning.jpg" },
-    { name: "Furniture Assembly", image: "furniture_assembly.jpg" },
-    { name: "Computer Repair", image: "computer_repair.jpg" },
-    { name: "Interior Design", image: "interior_design.jpg" }
+    { name: "Packers and Movers", image: "/Users/utsavishnoi/Desktop/TaskNinja/taskninja/src/packers_and_movers.webp" },
+    { name: "Plumbers", image: "/images/plumbers.jpg" },
+    { name: "Electricians", image: "/images/electricians.jpg" },
+    { name: "Cleaning Services", image: "/images/cleaning_services.jpg" },
+    { name: "Carpenters", image: "/images/carpenters.jpg" },
+    { name: "Pest Control", image: "/images/pest_control.jpg" },
+    { name: "Painters", image: "/images/painters.jpg" },
+    { name: "AC Services", image: "/images/ac_services.jpg" },
+    { name: "Gardening", image: "/images/gardening.jpg" },
+    { name: "Home Security", image: "/images/home_security.jpg" },
+    { name: "Laundry", image: "/images/laundry.jpg" },
+    { name: "Moving Services", image: "/images/moving_services.jpg" },
+    { name: "Home Cleaning", image: "/images/home_cleaning.jpg" },
+    { name: "Furniture Assembly", image: "/images/furniture_assembly.jpg" },
+    { name: "Computer Repair", image: "/images/computer_repair.jpg" },
+    { name: "Interior Design", image: "/images/interior_design.jpg" }
   ];
 
   const handleLoginClick = () => {
     setFormType("login");
+    setView("form");
   };
 
+  const handleSignupClick = () => {
+    setFormType("signup");
+    setView("form");
+  };
+
+  const handleServices = () => {
+    setView("services");
+  };
+
+  const handleHomeClick = () => {
+    setView("home");
+  };
+
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
 
   const filteredServices = services.filter(service =>
     service.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return (
-      <div>
-        <Navbar onLoginClick={handleLoginClick}/>
-        <Routes>
-          <Route path="/" element={
-            <Home 
-              searchQuery={searchQuery} 
-              setSearchQuery={setSearchQuery} 
-              filteredServices={filteredServices} 
-            />
-          } />
-          <Route path="/form" element={
-            <FormContainer formType={formType} onFormTypeChange={setFormType} />
-          } />
-          <Route path="/services" element={
-            <Services services={services} />
-          } />
-        </Routes>
-      </div>
+    <div>
+      <Navbar 
+        onHomeClick={handleHomeClick} 
+        onLoginClick={handleLoginClick} 
+        onSignupClick={handleSignupClick} 
+        onServiceClick={handleServices} 
+      />
+      {/* Render Home component when view is "home" */}
+      {view === "home" && (
+        <Home 
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+          filteredServices={filteredServices}
+        />
+      )}
+      {/* Render Footer component */}
+      <Footer />
+    </div>
   );
 };
 
