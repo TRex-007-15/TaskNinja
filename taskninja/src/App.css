@@ -22,7 +22,7 @@
 .services-container {
   display: flex;
   overflow-x: auto; /* Enable horizontal scrolling */
-  margin-top: 50px;
+  margin-top: 100px;
   padding: 10px; /* Add padding to the container */
   -webkit-overflow-scrolling: touch; /* Enable smooth scrolling on iOS */
 }
