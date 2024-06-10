@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Navbar from "./components/navbar/navbar";
 import './App.css';
+// import Footer from "./components/Footer";
 import Cover from "./components/images/s1.jpg"
 const App = () => {
   const [view, setView] = useState("home");
@@ -93,6 +94,7 @@ const App = () => {
           <Services/>
         )
       }
+      {/* <Footer/> */}
     </div>
   );
 };

@@ -16,7 +16,7 @@ const Navbar = ({ onLoginClick, onSignupClick,onServiceClick }) => {
         <li className="nav-item"><a href="/" onClick={() => setClick(false)}>Home</a></li>
         <li className="nav-item"><a href="/" onClick={(e) => { e.preventDefault(); onServiceClick(); setClick(false); }}>Services</a></li>
         <li className="nav-item"><a href="/" onClick={(e) => { e.preventDefault(); onLoginClick(); setClick(false); }}>Sign up/Login</a></li>
-        <li className="nav-item"><a href="/" onClick={(e) => { e.preventDefault(); onSignupClick(); setClick(false); }}>Become a tasker</a></li>
+        <li className="nav-item"><a href="/" onClick={() =>setClick(false)}>Become a tasker</a></li>
       </ul>
       <div className="Hamburger" onClick={handleClick}>
         {click ? (<FaTimes size={30} style={{ color: '#f8f8f8' }} />) : (<FaBars size={30} style={{ color: '#f8f8f8' }} />)}
