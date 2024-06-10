@@ -38,13 +38,42 @@
 }
 
 .nav-item a {
-    color: #FFFFFF;
+    color: var(--white);
     text-decoration: none;
     transition: color 0.3s ease;
 }
 
 .nav-item a:hover {
-    color: #61988E;
+    color: var(--primary);
+}
+
+/* Navigation Button */
+.nav-button {
+    background-color: #0B0A07;
+    color: var(--white);
+    border: 2px solid var(--white);
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.nav-button:hover {
+    background-color: #1A1915;
+    color: #FFD700;
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+}
+
+.nav-button:active {
+    background-color: #0B0A07;
+    color: #FFD700;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transform: translateY(0);
 }
 
 /* Hamburger Icon */
@@ -110,9 +139,7 @@ ul {
 
 :root {
     --primary: #61988E;
-    --secondary: #61988E;
-    --tertiary: #94778B;
-    --quaternary: #94778B;
+    --secondary: #94778B;
     --white: #F4FAFF;
 }
 
@@ -132,7 +159,7 @@ body {
 }
 
 div {
-    color: #61988E;
+    color: var(--primary);
     margin: 0; /* Remove default margin */
     padding: 0; /* Remove default padding */
 }

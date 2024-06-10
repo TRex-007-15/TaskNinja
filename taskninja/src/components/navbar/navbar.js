@@ -19,6 +19,11 @@ const Navbar = ({ onLoginClick}) => {
         <li className="nav-item">
           <Link to="/services">Services</Link>
         </li>
+        <li className="nav-item">
+          <button className="nav-button">
+          <Link to="/BecomeTasker">Become Tasker</Link>
+          </button>
+        </li>
       </ul>
     </div>
   );

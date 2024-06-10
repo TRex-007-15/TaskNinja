@@ -4,7 +4,7 @@ import Navbar from "./components/navbar/navbar";
 import Home from "./pages/Home";
 import FormContainer from "./components/FormContainer";
 import Services from "./components/services";
-import Footer from "./components/footer";
+import BecomeTasker from "./pages/BecomeTasker";
 import Logo from "./components/images/logo.jpg"
 import './App.css';
 const App = () => {
@@ -56,6 +56,9 @@ const App = () => {
           <Route path="/services" element={
             <Services services={services} />
           } />
+          <Route path="/BecomeTasker" element={
+            <BecomeTasker/>
+          }/>
         </Routes>
       </div>
   );
