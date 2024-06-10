@@ -1,7 +1,10 @@
-// src/Footer.js
+// src/components/Footer.js
 import React from 'react';
 import './footer.css';
-
+import FacebookIcon from '@mui/icons-material/Facebook';
+import TwitterIcon from '@mui/icons-material/Twitter';
+import InstagramIcon from '@mui/icons-material/Instagram';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
 
 const Footer = () => {
   return (
@@ -20,6 +23,12 @@ const Footer = () => {
         </div>
         <div className="footer-section social">
           <h2>Follow Us</h2>
+          <div className="social-icons">
+            <a href="#" aria-label="Facebook"><FacebookIcon /></a>
+            <a href="#" aria-label="Twitter"><TwitterIcon /></a>
+            <a href="#" aria-label="Instagram"><InstagramIcon /></a>
+            <a href="#" aria-label="LinkedIn"><LinkedInIcon /></a>
+          </div>
         </div>
       </div>
       <div className="footer-bottom">
