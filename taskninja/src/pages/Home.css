@@ -68,7 +68,7 @@ body {
   }
   
   .section-header {
-    font-size: 3em;
+    font-size: 3.5em;
     text-align: center;
     margin-bottom: 40px;
   }
@@ -178,10 +178,6 @@ body {
   
   .footer-content a:hover {
     text-decoration: underline;
-  }
-  .info-section{
-    padding: 20px;
-    margin-top: 40px;
   }
   .info-content {
     margin-bottom: 20px; /* Add some bottom margin for spacing between paragraphs */
