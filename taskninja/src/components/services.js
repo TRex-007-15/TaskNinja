@@ -1,7 +1,7 @@
 import React from 'react';
 import Cover from './images/s1.jpg';
 import services from '../ServiceData';
-
+import '../App.css';
 const Services = () => (
   <>
     <div className="cover">

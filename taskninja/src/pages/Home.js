@@ -8,6 +8,11 @@ const Home = ({ searchQuery, setSearchQuery, filteredServices }) => {
       <section className="hero">
         <h1 className="hero-header">Book Trusted Help for Home Tasks</h1>
         <p className="hero-subheader">Find and book top-rated professionals for all your home service needs.</p>
+      </section>
+
+      {/* Services Section */}
+      <section className="services">
+        <h2 className="section-header">Our Services</h2>
         <div className="search-container">
           <input
             type="text"
@@ -17,11 +22,6 @@ const Home = ({ searchQuery, setSearchQuery, filteredServices }) => {
             onChange={(e) => setSearchQuery(e.target.value)}
           />
         </div>
-      </section>
-
-      {/* Services Section */}
-      <section className="services">
-        <h2 className="section-header">Our Services</h2>
         <div className="services-container">
           {filteredServices.map((service, index) => (
             <div className="service-tile" key={index}>

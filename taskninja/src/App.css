@@ -7,7 +7,8 @@
 .search-container {
   display: flex;
   justify-content: center;
-  margin-top: 20px;
+  margin-top: 30px;
+  margin-bottom: 10px;
 }
 
 .search-bar {
@@ -22,7 +23,7 @@
 .services-container {
   display: flex;
   overflow-x: auto; /* Enable horizontal scrolling */
-  margin-top: 100px;
+  margin-top: 40px;
   padding: 10px; /* Add padding to the container */
   -webkit-overflow-scrolling: touch; /* Enable smooth scrolling on iOS */
 }
@@ -120,10 +121,20 @@
   overflow: hidden;
 }
 
+.cover .hamburger {
+  position: absolute;
+  top: 20px; /* Adjust top position as needed */
+  left: 20px; /* Adjust left position as needed */
+  z-index: -1; /* Ensure the hamburger menu appears above the cover image */
+  color: white; /* Adjust color as needed */
+  font-size: 2rem; /* Adjust font size as needed */
+}
+
 .cover-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  z-index: 1; /* Ensure the cover image appears below the hamburger menu */
 }
 
 .cover-text {
@@ -134,10 +145,20 @@
   color: white;
   font-size: 2rem;
   text-align: center;
-  background-color: rgba(0, 0, 0, 0.5); /* Optional: Add background color for better text visibility */
-  padding: 10px 20px; /* Optional: Add padding around text */
-  border-radius: 5px; /* Optional: Rounded corners */
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 10px 20px;
+  border-radius: 5px;
 }
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+  .cover .hamburger {
+    top: 10px; /* Adjust top position for smaller screens */
+    left: 10px; /* Adjust left position for smaller screens */
+  }
+}
+
+
 
 .services-grid {
   display: grid;

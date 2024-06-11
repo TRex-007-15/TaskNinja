@@ -7,6 +7,7 @@ import Services from "./components/services";
 import BecomeTasker from "./pages/BecomeTasker";
 import './App.css';
 import services from "./ServiceData";
+
 const App = () => {
   const [formType, setFormType] = useState("login");
   const [searchQuery, setSearchQuery] = useState("");
