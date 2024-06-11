@@ -179,6 +179,10 @@ body {
   .footer-content a:hover {
     text-decoration: underline;
   }
+  .info-section{
+    padding: 20px;
+    margin-top: 40px;
+  }
   .info-content {
     margin-bottom: 20px; /* Add some bottom margin for spacing between paragraphs */
     font-size: 1.1rem; /* Adjust font size as needed */
