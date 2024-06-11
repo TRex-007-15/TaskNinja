@@ -1,0 +1,27 @@
+{
+    "id": 123,
+    "name": "John Doe",
+    "address": "123 Main St, City, Country",
+    "profilePicture": "profile.jpg",
+    "servicesRequested": ["Cleaning", "Plumbing", "Electrician"],
+    "servicesProvided": ["Landscaping", "Painting", "Carpentry"],
+    "pinCode": "12345",
+    "services": [
+      {
+        "name": "Cleaning Service",
+        "description": "Professional cleaning of residential and commercial spaces.",
+        "price": "$50"
+      },
+      {
+        "name": "Plumbing Service",
+        "description": "Installation and repair of plumbing fixtures.",
+        "price": "$80"
+      },
+      {
+        "name": "Electrician Service",
+        "description": "Electrical wiring, installation, and repair services.",
+        "price": "$70"
+      }
+    ]
+  }
+  

@@ -53,8 +53,8 @@
     color: var(--white);
     border: 2px solid var(--white);
     border-radius: 20px;
-    padding: 10px 20px;
-    font-size: 16px;
+    padding: 10px 10px;
+    font-size: 12px;
     font-weight: bold;
     text-transform: uppercase;
     cursor: pointer;
@@ -80,6 +80,15 @@
 .hamburger {
     display: none;
     cursor: pointer;
+}
+.user-icon {
+    font-size: 2rem;
+    vertical-align: middle;
+    margin-right: 5px;
+}
+
+.user-icon  :hover{
+    color: var(--primary);
 }
 
 /* Media Queries for Responsiveness */

@@ -7,6 +7,7 @@ import Services from "./components/services";
 import BecomeTasker from "./pages/BecomeTasker";
 import './App.css';
 import services from "./ServiceData";
+import Profile from "./pages/profile";
 
 const App = () => {
   const [formType, setFormType] = useState("login");
@@ -41,6 +42,9 @@ const App = () => {
           } />
           <Route path="/BecomeTasker" element={
             <BecomeTasker />
+          }/>
+          <Route path="/Profile" element={
+            <Profile/>
           }/>
         </Routes>
     </div>
