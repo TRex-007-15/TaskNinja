@@ -1,7 +1,8 @@
 import React from 'react';
 import Cover from './images/s1.jpg';
+import services from '../ServiceData';
 
-const Services = ({ services }) => (
+const Services = () => (
   <>
     <div className="cover">
       <img id="cover-image" src={Cover} alt="cover-img" className="cover-image" />
@@ -10,7 +11,7 @@ const Services = ({ services }) => (
     <div className="services-grid">
       {services.map((service, index) => (
         <div className="service-tile" key={index}>
-          <img src={service.image} alt={service.name} onError={(e) => e.target.src = 'https://via.placeholder.com/150'} />
+          <img src={service.image} alt={service.name}/>
           <div className="service-name">{service.name}</div>
         </div>
       ))}
