@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import '../App.css'; // Import your global styles
 import './Home.css';
 
@@ -8,6 +9,7 @@ const Home = ({ searchQuery, setSearchQuery, filteredServices }) => {
       <section className="hero">
         <h1 className="hero-header">Book Trusted Help for Home Tasks</h1>
         <p className="hero-subheader">Find and book top-rated professionals for all your home service needs.</p>
+        
       </section>
 
       {/* Services Section */}
