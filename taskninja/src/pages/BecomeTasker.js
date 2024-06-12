@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+// import { useHistory } from 'react-router-dom'; // Import useHistory hook
 import '../App.css';
 import './BecomeTasker.css';
 
@@ -38,6 +39,8 @@ const BecomeTasker = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [about, setAbout] = useState("");
+  const [popupMessage, setPopupMessage] = useState("");
+  // const history = useHistory(); // Initialize useHistory
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -50,63 +53,87 @@ const BecomeTasker = () => {
       about,
       work: selectedService
     };
-
+  
     try {
       const response = await axios.post('http://127.0.0.1:8000/api/v1/taskers/', taskerData);
       console.log("Tasker Registration Successful: ", response.data);
-      // Add any additional logic here, such as redirecting to a success page
+      setPopupMessage("Tasker registered successfully!");
+      setTimeout(() => {
+        setPopupMessage(""); // Hide the popup after 2 seconds
+        window.location.href = 'http://localhost:3000/'; // Redirect to homepage
+      }, 2000);
     } catch (error) {
-      console.error("Error registering tasker: ", error);
-      // Handle error, such as displaying an error message to the user
+      if (error.response && error.response.data && error.response.data.email) {
+        setPopupMessage("Email already exists!");
+      } else {
+        setPopupMessage("Error registering tasker!");
+      }
     }
   };
+  
+  
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setPopupMessage("");
+    }, 2000);
+    return () => clearTimeout(timeout);
+  }, [popupMessage]);
 
   return (
-  <div className="form-container">
-  <h2>Sign Up</h2>
-  <form onSubmit={handleSubmit}>
-    <div className="form-group">
-      <label>Name:</label>
-      <input type="text" value={name} onChange={(e) => setName(e.target.value)} required />
+    <div className="form-container">
+      <h2 className="Header">Sign Up</h2>
+      <form onSubmit={handleSubmit}>
+        <div className="form-group">
+          <label>Name:</label>
+          <input type="text" value={name} onChange={(e) => setName(e.target.value)} required />
+        </div>
+        <div className="form-group">
+          <label>Email:</label>
+          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+        </div>
+        <div className="form-group">
+          <label>Password:</label>
+          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+        </div>
+        <div className="form-group">
+          <label>State/Union Territory:</label>
+          <select value={selectedState} onChange={(e) => setSelectedState(e.target.value)} required>
+            <option value="" disabled>Select State/UT</option>
+            {statesAndUTs.map((state, index) => (
+              <option key={index} value={state}>{state}</option>
+            ))}
+          </select>
+        </div>
+        <div className="form-group">
+          <label>City:</label>
+          <input type="text" value={selectedCity} onChange={(e) => setSelectedCity(e.target.value)} required />
+        </div>
+        <div className="form-group">
+          <label>About:</label>
+          <textarea value={about} onChange={(e) => setAbout(e.target.value)} required></textarea>
+        </div>
+        <div className="form-group">
+          <label>Services:</label>
+          <select value={selectedService} onChange={(e) => setSelectedService(e.target.value)} required>
+            <option value="" disabled>Select Service</option>
+            {services.map((service, index) => (
+              <option key={index} value={service.name}>{service.name}</option>
+            ))}
+          </select>
+        </div>
+        <button type="submit" className="form-button">Sign Up</button>
+      </form>
+      {popupMessage && (
+        <div className="popup">
+          <div className="popup-content">
+            <span className="close-button" onClick={() => setPopupMessage("")}>&times;</span>
+            <p>{popupMessage}</p>
+          </div>
+        </div>
+      )}
     </div>
-    <div className="form-group">
-      <label>Email:</label>
-      <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-    </div>
-    <div className="form-group">
-      <label>Password:</label>
-      <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-    </div>
-    <div className="form-group">
-      <label>State/Union Territory:</label>
-      <select value={selectedState} onChange={(e) => setSelectedState(e.target.value)} required>
-        <option value="" disabled>Select State/UT</option>
-        {statesAndUTs.map((state, index) => (
-          <option key={index} value={state}>{state}</option>
-        ))}
-      </select>
-    </div>
-    <div className="form-group">
-      <label>City:</label>
-      <input type="text" value={selectedCity} onChange={(e) => setSelectedCity(e.target.value)} required />
-    </div>
-    <div className="form-group">
-      <label>About:</label>
-      <textarea value={about} onChange={(e) => setAbout(e.target.value)} required></textarea>
-    </div>
-    <div className="form-group">
-      <label>Services:</label>
-      <select value={selectedService} onChange={(e) => setSelectedService(e.target.value)} required>
-        <option value="" disabled>Select Service</option>
-        {services.map((service, index) => (
-          <option key={index} value={service.name}>{service.name}</option>
-        ))}
-      </select>
-    </div>
-    <button type="submit" className="form-button">Sign Up</button>
-  </form>
-</div>
-);
+  );
 };
 
 export default BecomeTasker;

@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import '../App.css'; // Import your global styles
 import './Home.css';
 
+
+
 const Home = ({ searchQuery, setSearchQuery, filteredServices }) => {
   const navigate = useNavigate(); // Initialize useNavigate
 
