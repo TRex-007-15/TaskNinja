@@ -1,16 +1,20 @@
+/* Import Google Font - Poppins */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+/* Apply Poppins font to the entire document */
+body {
+  font-family: 'Poppins', sans-serif;
+  color: #333; /* Uniform font color throughout the page */
+}
+
+/* Center-align header text */
 .Header {
   text-align: center;
   margin-top: 50px;
-  font-size: 2em; /* Adjust font size */
+  font-size: 2em;
 }
-body {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh; /* Ensure the body stretches to fill the viewport */
-}
-#root {
-  flex: 1; /* Allow the main content to grow and take up remaining space */
-}
+
+/* Make search bar responsive */
 .search-container {
   display: flex;
   justify-content: center;
@@ -19,34 +23,33 @@ body {
 }
 
 .search-bar {
-  padding: 10px;
-  width: 500px;
+  padding: 12px 20px; /* Increase padding for better usability */
+  width: 70%; /* Adjust width for better responsiveness */
+  max-width: 500px; /* Limit maximum width */
   height: 50px;
-  border-radius: 20px;
-  border: 1px solid #ccc;
+  border-radius: 25px; /* Increase border-radius for a rounded shape */
+  border: 2px solid #007bff; /* Apply a blue border */
   outline: none;
+  font-size: 1.1em; /* Adjust font size for better readability */
 }
 
-
-.services-container {
-  display: flex;
-  overflow-x: auto; /* Enable horizontal scrolling */
-  margin-top: 40px;
-  padding: 10px; /* Add padding to the container */
-  -webkit-overflow-scrolling: touch; /* Enable smooth scrolling on iOS */
+/* Improve styling of service tiles */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Make grid responsive */
+  gap: 20px;
+  padding: 20px;
+  margin-top: 20px;
 }
 
 .service-tile {
-  flex: 0 0 auto; /* Ensure tiles don't grow or shrink */
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin: 10px;
   padding: 20px;
-  background-color: #ffffff;
-  border-radius: 20px;
-  text-align: center;
+  background-color: #f8f9fa; /* Light gray background color */
+  border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   cursor: pointer;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -61,20 +64,21 @@ body {
   max-width: 100%;
   max-height: 100%;
   object-fit: cover;
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
+  border-radius: 10px;
 }
 
 .service-name {
-  font-size: 1.2em;
   margin-top: 10px;
+  font-size: 1.1em;
+  font-weight: 500;
 }
 
+/* Improve styling of form container */
 .form-container {
   max-width: 400px;
   margin: 50px auto;
   padding: 20px;
-  border: 1px solid #ccc;
+  border: 2px solid #007bff; /* Apply a blue border */
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   background-color: #fff;
@@ -105,74 +109,28 @@ body {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  margin-top: 10px;
   font-size: 1em;
+  transition: background-color 0.3s ease;
+}
+
+.form-button:hover {
+  background-color: #0056b3; /* Darker shade of blue on hover */
 }
 
 .form-button + .form-button {
   margin-left: 10px;
 }
 
-/* Ensure form buttons have consistent padding and margin */
+/* Make footer sticky to the bottom of the page */
+footer {
+  margin-top: auto;
+}
+
+/* Apply consistent padding and margin to form buttons */
 .form-container .form-button {
   padding: 12px 24px;
 }
 
 .form-container .form-group input {
   padding: 12px;
-}
-
-.cover {
-  position: relative;
-  width: 100%;
-  height: 30vh; /* Adjusted to cover 30% of the screen height */
-  overflow: hidden;
-  z-index: -1;
-}
-
-.cover .hamburger {
-  position: absolute;
-  top: 20px; /* Adjust top position as needed */
-  left: 20px; /* Adjust left position as needed */
-  z-index: -1; /* Ensure the hamburger menu appears above the cover image */
-  color: white; /* Adjust color as needed */
-  font-size: 2rem; /* Adjust font size as needed */
-}
-
-.cover-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: 1; /* Ensure the cover image appears below the hamburger menu */
-}
-
-.cover-text {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: white;
-  font-size: 2rem;
-  text-align: center;
-  background-color: rgba(0, 0, 0, 0.5);
-  padding: 10px 20px;
-  border-radius: 5px;
-}
-
-/* Media Queries for Responsiveness */
-@media (max-width: 768px) {
-  .cover .hamburger {
-    top: 10px; /* Adjust top position for smaller screens */
-    left: 10px; /* Adjust left position for smaller screens */
-  }
-}
-
-
-
-.services-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 20px;
-  padding: 20px;
-  margin-top: 20px;
 }

@@ -68,7 +68,7 @@ body {
   }
   
   .section-header {
-    font-size: 3em;
+    font-size: 3.5em;
     text-align: center;
     margin-bottom: 40px;
   }
@@ -179,16 +179,13 @@ body {
   .footer-content a:hover {
     text-decoration: underline;
   }
-  .info-section{
-    padding: 20px;
-    margin-top: 40px;
-  }
   .info-content {
     margin-bottom: 20px; /* Add some bottom margin for spacing between paragraphs */
     font-size: 1.1rem; /* Adjust font size as needed */
     line-height: 1.6; /* Adjust line height for better readability */
     padding: 20px;
     text-align: center;
+    color: #333;
   }
   
   

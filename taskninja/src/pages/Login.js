@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const Login = () => {
@@ -7,7 +7,7 @@ const Login = () => {
     password: '',
   });
   const [error, setError] = useState(null);
-
+  const [popupMessage, setPopupMessage] = useState("");
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -21,6 +21,7 @@ const Login = () => {
     try {
       const response = await axios.post('http://127.0.0.1:8000/api/token/', formData); // Ensure HTTP is used if backend is running on HTTP
       console.log('User logged in:', response.data);
+      setPopupMessage("Logged in successfully!");
       localStorage.setItem('access_token', response.data.access);
       localStorage.setItem('refresh_token', response.data.refresh);
       axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.access}`;
@@ -30,6 +31,13 @@ const Login = () => {
       console.error('Error logging in:', error.response?.data || error.message);
     }
   };
+  
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setPopupMessage("");
+    }, 2000);
+    return () => clearTimeout(timeout);
+  }, [popupMessage]);
 
   return (
     <div className="form-container">

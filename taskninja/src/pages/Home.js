@@ -1,14 +1,22 @@
+<<<<<<< HEAD
+=======
+import React from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
+>>>>>>> ee177946a2aa5961e4decca1b0cddb736a47b5d3
 import '../App.css'; // Import your global styles
 import './Home.css';
 
+
+
 const Home = ({ searchQuery, setSearchQuery, filteredServices }) => {
+  const navigate = useNavigate(); // Initialize useNavigate
+
   return (
     <div>
       {/* Hero Section */}
       <section className="hero">
         <h1 className="hero-header">Book Trusted Help for Home Tasks</h1>
         <p className="hero-subheader">Find and book top-rated professionals for all your home service needs.</p>
-        
       </section>
 
       {/* Services Section */}
@@ -68,7 +76,7 @@ const Home = ({ searchQuery, setSearchQuery, filteredServices }) => {
         <p className="call-to-action-content">
           Ready to book a professional for your home tasks? Browse our services and find the help you need now.
         </p>
-        <button className="cta-button">Browse Services</button>
+        <button className="cta-button" onClick={() => navigate('/services')}>Browse Services</button> {/* Navigate to services */}
       </section>
 
       {/* Information for Seekers and Providers */}
