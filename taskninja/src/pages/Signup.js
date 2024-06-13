@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from 'react';
+import api from '../api';
+import { useNavigate } from 'react-router-dom';
 
 const Signup = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: '',
     password: '',
@@ -14,6 +16,14 @@ const Signup = () => {
     pincode: '',
     address: ''
   });
+  const [popupMessage, setPopupMessage] = useState("");
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setPopupMessage("");
+    }, 2000);
+    return () => clearTimeout(timeout);
+  }, [popupMessage]);
 
   const handleChange = (e) => {
     setFormData({
@@ -25,9 +35,14 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://127.0.0.1:8000/register/', formData);
+      const response = await api.post('/register/', formData);
       console.log('User registered:', response.data);
+      setPopupMessage("Registered successfully!");
+      setTimeout(() => {
+        navigate('/'); // Redirect after successful registration using react-router-dom
+      }, 2000);
     } catch (error) {
+      setPopupMessage("Unable to Register!");
       console.error('Error registering user:', error.response?.data || error.message);
     }
   };
@@ -137,6 +152,7 @@ const Signup = () => {
         </div>
         <button type="submit" className="form-button">Sign Up</button>
       </form>
+      {popupMessage && <div className="popup-message">{popupMessage}</div>}
     </div>
   );
 };

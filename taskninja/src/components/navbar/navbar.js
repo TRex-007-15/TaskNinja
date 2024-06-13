@@ -1,4 +1,3 @@
-// components/navbar/navbar.js
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './navbar.css';  // Import the CSS file
@@ -7,21 +6,33 @@ import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
-const Navbar = ({ onLoginClick, isLoggedIn }) => {
+const Navbar = ({ onLoginClick }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
+  const accessToken = localStorage.getItem('access_token');
+  const refreshToken = localStorage.getItem('refresh_token');
+  const isLoggedIn = accessToken && refreshToken;
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
   const handleProfileClick = () => {
-    if (isLoggedIn) {
-      navigate('/profile');
-    } else {
-      onLoginClick();
-      navigate('/form');
-    }
+    navigate('/profile');
+    setIsMenuOpen(false);
+  };
+
+  const handleLoginClick = () => {
+    onLoginClick();
+    setIsMenuOpen(false);
+  };
+
+  const handleLogout = () => {
+    // Clear tokens from localStorage
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('refresh_token');
+    // Redirect to home page or login page
+    navigate('/');
   };
 
   return (
@@ -34,19 +45,27 @@ const Navbar = ({ onLoginClick, isLoggedIn }) => {
           <Link to="/" onClick={() => setIsMenuOpen(false)}>Home</Link>
         </li>
         <li className="nav-item">
-          <Link to="/form" onClick={() => { onLoginClick(); setIsMenuOpen(false); }}>Login/Signup</Link>
+              <Link to="/services" onClick={() => setIsMenuOpen(false)}>Services</Link>
         </li>
-        <li className="nav-item">
-          <Link to="/services" onClick={() => setIsMenuOpen(false)}>Services</Link>
-        </li>
-        <li className="nav-item">
-          <button className="nav-button">
-            <Link to="/BecomeTasker" onClick={() => setIsMenuOpen(false)}>Become Tasker</Link>
-          </button>
-        </li>
-        <li className="nav-item" onClick={handleProfileClick}>
-          <AccountCircleIcon className="user-icon" />
-        </li>
+        {isLoggedIn ? (
+          <>
+            <li className="nav-item">
+              <Link to="/services" onClick={() => setIsMenuOpen(false)}>Services</Link>
+            </li>
+            <li className="nav-item">
+              <button className="nav-button" onClick={handleLogout}>Logout</button>
+            </li>
+            <li className="nav-item" onClick={handleProfileClick}>
+              <AccountCircleIcon className="user-icon" />
+            </li>
+          </>
+        ) : (
+          <>
+            <li className="nav-item">
+              <Link to="/form" onClick={handleLoginClick}>Login/Signup</Link>
+            </li>
+          </>
+        )}
       </ul>
       <div className="hamburger" onClick={toggleMenu}>
         {isMenuOpen ? <CloseIcon /> : <MenuIcon />}

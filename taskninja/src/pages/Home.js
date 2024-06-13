@@ -1,8 +1,5 @@
-<<<<<<< HEAD
-=======
 import React from 'react';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
->>>>>>> ee177946a2aa5961e4decca1b0cddb736a47b5d3
 import '../App.css'; // Import your global styles
 import './Home.css';
 
