@@ -7,10 +7,9 @@ const UserProfile = () => {
     <div className="dashboard">
       {userData && (
         <>
-          <div className="profile-picture">
-            {/* Display profile picture here */}
+          {/* <div className="profile-picture">
             <img src={userData.profilePicture} alt="Profile Picture" />
-          </div>
+          </div> */}
           <div className="user-details">
             {/* Display user details here */}
             <h2>Name: {userData.name}</h2>

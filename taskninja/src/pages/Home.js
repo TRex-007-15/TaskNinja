@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import '../App.css'; // Import your global styles
 import './Home.css';
 
