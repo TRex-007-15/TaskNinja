@@ -47,6 +47,11 @@ const Navbar = ({ onLoginClick }) => {
         <li className="nav-item">
               <Link to="/services" onClick={() => setIsMenuOpen(false)}>Services</Link>
         </li>
+        <li className="nav-item">
+          <button className='nav-button'>
+            <Link to="/BecomeTasker" onClick={() => setIsMenuOpen(false)}> Become Tasker</Link>
+          </button>
+        </li>
         {isLoggedIn ? (
           <>
             <li className="nav-item">
@@ -57,6 +62,11 @@ const Navbar = ({ onLoginClick }) => {
             </li>
             <li className="nav-item" onClick={handleProfileClick}>
               <AccountCircleIcon className="user-icon" />
+            </li>
+            <li className="nav-item">
+                <button className='nav-button'>
+                  <Link to="/BecomeTasker" onClick={() => setIsMenuOpen(false)}> Become Tasker</Link>
+                </button>
             </li>
           </>
         ) : (
