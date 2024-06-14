@@ -51,7 +51,7 @@ const BecomeTasker = () => {
       state: selectedState,
       city: selectedCity,
       about,
-      work: selectedService
+      service : selectedService
     };
   
     try {
