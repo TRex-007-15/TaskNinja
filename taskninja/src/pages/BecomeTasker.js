@@ -106,11 +106,14 @@ const BecomeTasker = () => {
           <label>Addresses:</label>
           {!showAddressForm && <button type="button" className="add-address-button" onClick={() => setShowAddressForm(true)}>+</button>}
           <div className='address-cards'>
-            <ul className='address-card'>
-              {addresses.map((address, index) => (
-                <li key={index}>{`${address.name}: ${address.state}, ${address.city}, ${address.full_address}`}</li>
-              ))}
-            </ul>
+            {addresses.map((address, index) => (
+              <div key={index} className='address-card'>
+                <p><strong>Name:</strong> {address.name}</p>
+                <p><strong>State:</strong> {address.state}</p>
+                <p><strong>City:</strong> {address.city}</p>
+                <p><strong>Full Address:</strong> {address.full_address}</p>
+              </div>
+            ))}
           </div>
         </div>
         <button type="submit" className="form-button">Sign Up</button>
@@ -124,7 +127,7 @@ const BecomeTasker = () => {
         </div>
       )}
       {showAddressForm && (
-        <AddressForm Name="Add New Address" onSubmit={handleAddressSubmit} />
+        <AddressForm Name="Add New Address" onSubmit={handleAddressSubmit} existingAddresses={addresses} />
       )}
     </div>
   );

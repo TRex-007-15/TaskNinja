@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
-const AddressForm = ({ onSubmit, Name }) => {
-  const [name, setType] = useState("Home");
+const AddressForm = ({ onSubmit, Name, existingAddresses }) => {
+  const [name, setName] = useState("Home");
   const [state, setState] = useState("");
   const [city, setCity] = useState("");
   const [full_address, setAddress] = useState("");
@@ -16,22 +16,31 @@ const AddressForm = ({ onSubmit, Name }) => {
     "Ladakh", "Jammu and Kashmir"
   ];
 
-const handleSubmit = (e) => {
-  e.preventDefault(); // Prevent form from refreshing the page
-  onSubmit({ name, state, city, full_address });
-  setType("Home");
-  setState("");
-  setCity("");
-  setAddress("");
-};
+  const handleSubmit = (e) => {
+    e.preventDefault(); // Prevent form from refreshing the page
+
+    const isHomeExisting = existingAddresses.some(address => address.name === "Home");
+    const isWorkExisting = existingAddresses.some(address => address.name === "Work");
+
+    if ((name === "Home" && isHomeExisting) || (name === "Work" && isWorkExisting)) {
+      alert(`You can only have one ${name} address.`);
+      return;
+    }
+
+    onSubmit({ name, state, city, full_address });
+    setName("Home");
+    setState("");
+    setCity("");
+    setAddress("");
+  };
 
   return (
     <div className="address-form">
       <h3>{Name}</h3>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label>Type:</label>
-          <select value={name} onChange={(e) => setType(e.target.value)} required>
+          <label>Name:</label>
+          <select value={name} onChange={(e) => setName(e.target.value)} required>
             <option value="Home">Home</option>
             <option value="Work">Work</option>
             <option value="Other">Other</option>

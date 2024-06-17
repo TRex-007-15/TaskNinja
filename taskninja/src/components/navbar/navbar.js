@@ -55,15 +55,7 @@ const Navbar = ({ onLoginClick }) => {
         {isLoggedIn ? (
           <>
             <li className="nav-item">
-              <Link to="/services" onClick={() => setIsMenuOpen(false)}>Services</Link>
-            </li>
-            <li className="nav-item">
               <button className="nav-button" onClick={handleLogout}>Logout</button>
-            </li>
-            <li className="nav-item">
-              <button className='nav-button'>
-              <Link to="/BecomeTasker" onClick={() => setIsMenuOpen(false)}>Become Tasker</Link>
-              </button>
             </li>
             <li className="nav-item" onClick={handleProfileClick}>
               <AccountCircleIcon className="user-icon" />
