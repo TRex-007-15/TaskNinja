@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import api from '../api';
 
 const Login = () => {
@@ -22,7 +23,7 @@ const Login = () => {
     e.preventDefault();
     setError(null);
     try {
-      const response = await api.post('/api/token/', formData);
+      const response = await axios.post('http://127.0.0.1:8000/api/token/', formData); // Make POST request to token API
       console.log('User logged in:', response.data);
       setPopupMessage("Logged in successfully!");
       localStorage.setItem('access_token', response.data.access);
@@ -64,6 +65,7 @@ const Login = () => {
       <h2>Login</h2>
       {error && <div className="error-message">{error}</div>}
       <form onSubmit={handleSubmit}>
+        {/* Form fields */}
         <div className="form-group">
           <label>Username:</label>
           <input
@@ -84,8 +86,10 @@ const Login = () => {
             required
           />
         </div>
+        {/* Submit button */}
         <button type="submit" className="form-button">Login</button>
       </form>
+      {/* Popup message for success */}
       {popupMessage && <p>{popupMessage}</p>}
     </div>
   );

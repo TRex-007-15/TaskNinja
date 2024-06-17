@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import api from '../api';
+import axios from 'axios';  // Import axios for making HTTP requests
 import { useNavigate } from 'react-router-dom';
 
 const Signup = () => {
@@ -11,12 +11,53 @@ const Signup = () => {
     first_name: '',
     last_name: '',
     contact_number: '',
-    state: '',
+    state: '', // State field will use a dropdown/select element
     city: '',
     pincode: '',
     address: ''
   });
   const [popupMessage, setPopupMessage] = useState("");
+  
+  // Define your choices for state dropdown
+  const STATES_AND_UTS_CHOICES = [
+    'Andaman and Nicobar Islands',
+    'Andhra Pradesh',
+    'Arunachal Pradesh',
+    'Assam',
+    'Bihar',
+    'Chandigarh',
+    'Chhattisgarh',
+    'Dadra and Nagar Haveli',
+    'Daman and Diu',
+    'Delhi',
+    'Goa',
+    'Gujarat',
+    'Haryana',
+    'Himachal Pradesh',
+    'Jammu and Kashmir',
+    'Jharkhand',
+    'Karnataka',
+    'Kerala',
+    'Ladakh',
+    'Lakshadweep',
+    'Madhya Pradesh',
+    'Maharashtra',
+    'Manipur',
+    'Meghalaya',
+    'Mizoram',
+    'Nagaland',
+    'Odisha',
+    'Puducherry',
+    'Punjab',
+    'Rajasthan',
+    'Sikkim',
+    'Tamil Nadu',
+    'Telangana',
+    'Tripura',
+    'Uttar Pradesh',
+    'Uttarakhand',
+    'West Bengal'
+  ];
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -35,7 +76,7 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await api.post('/register/', formData);
+      const response = await axios.post('http://127.0.0.1:8000/register/', formData); // Make POST request to registration API
       console.log('User registered:', response.data);
       setPopupMessage("Registered successfully!");
       setTimeout(() => {
@@ -51,6 +92,7 @@ const Signup = () => {
     <div className="form-container">
       <h2>Sign Up</h2>
       <form onSubmit={handleSubmit}>
+        {/* Form fields */}
         <div className="form-group">
           <label>Username:</label>
           <input
@@ -113,13 +155,19 @@ const Signup = () => {
         </div>
         <div className="form-group">
           <label>State:</label>
-          <input
-            type="text"
+          <select
             name="state"
             value={formData.state}
             onChange={handleChange}
             required
-          />
+          >
+            <option value="">Select State</option>
+            {STATES_AND_UTS_CHOICES.map((state) => (
+              <option key={state} value={state}>
+                {state}
+              </option>
+            ))}
+          </select>
         </div>
         <div className="form-group">
           <label>City:</label>
@@ -150,8 +198,10 @@ const Signup = () => {
             required
           />
         </div>
+        {/* Submit button */}
         <button type="submit" className="form-button">Sign Up</button>
       </form>
+      {/* Popup message for success/error */}
       {popupMessage && <div className="popup-message">{popupMessage}</div>}
     </div>
   );

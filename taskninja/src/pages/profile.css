@@ -1,56 +1,59 @@
-.dashboard {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-  }
-  
-  .profile-picture {
-    margin-bottom: 20px;
-  }
-  
-  .profile-picture img {
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid #ccc;
-  }
-  
-  .user-details {
-    margin-bottom: 20px;
-  }
-  
-  .services-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 20px;
-  }
-  
-  .service-card {
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    background-color: #f9f9f9;
-  }
-  
-  .service-card h3 {
-    margin-bottom: 10px;
-  }
-  
-  .service-card p {
-    margin-bottom: 5px;
-  }
-  
-  /* Media query for responsiveness */
-  @media (max-width: 768px) {
-    .services-grid {
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    }
-  
-    .profile-picture img {
-      width: 150px;
-      height: 150px;
-    }
-  }
-  
+/* Profile.css */
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Ensure full height of viewport */
+  margin: 0; /* Remove default margin */
+}
+
+.dashboard-container {
+  flex: 1; /* Take remaining vertical space */
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.user-profile {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+  flex: 1; /* Grow to take remaining space */
+}
+
+.user-profile h2 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.profile-info {
+  font-size: 18px;
+}
+
+.profile-item {
+  margin-bottom: 10px;
+}
+
+.profile-item strong {
+  display: inline-block;
+  width: 150px;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.profile-address {
+  margin-top: 5px;
+  font-size: 16px;
+}
+
+.footer {
+  background-color: #222;
+  color: #fff;
+  padding: 20px 0;
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
