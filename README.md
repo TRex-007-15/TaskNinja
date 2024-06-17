@@ -7,7 +7,6 @@ TaskNinja is a platform that connects service providers with service seekers, el
 - **Service Listings**: Service providers can list their services.
 - **Service Requests**: Service seekers can post requests for specific services.
 - **Direct Communication**: Facilitates direct communication between providers and seekers.
-- **Rating System**: Users can rate and review service providers.
 
 ## Installation
 
