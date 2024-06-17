@@ -43,6 +43,7 @@ const App = () => {
         <Route path="/services" element={<Services />} />
         <Route path="/BecomeTasker" element={<BecomeTasker />} />
         <Route path="/Profile" element={<Profile />} />
+        <Route path="/BecomeTasker" element={<BecomeTasker/>}/>
       </Routes>
       <Footer /> {/* Add Footer component here */}
     </div>

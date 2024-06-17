@@ -134,3 +134,19 @@ footer {
 .form-container .form-group input {
   padding: 12px;
 }
+
+
+.address-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.address-card {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 10px;
+  width: 200px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}

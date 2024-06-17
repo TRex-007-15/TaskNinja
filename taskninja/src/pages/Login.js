@@ -20,25 +20,35 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(null); 
+    setError(null);
     try {
-      const response = await api.post('/api/token/', formData); 
+      const response = await api.post('/api/token/', formData);
       console.log('User logged in:', response.data);
       setPopupMessage("Logged in successfully!");
       localStorage.setItem('access_token', response.data.access);
       localStorage.setItem('refresh_token', response.data.refresh);
       api.defaults.headers.common['Authorization'] = `Bearer ${response.data.access}`;
-      
+
       // Redirect after 2 seconds
       setTimeout(() => {
         navigate('/Profile');
       }, 2000);
     } catch (error) {
-      setError(error.response?.data || 'An error occurred. Please try again.');
-      console.error('Error logging in:', error.response?.data || error.message);
+      let errorMessage = 'An error occurred. Please try again.';
+      if (error.response?.data) {
+        if (typeof error.response.data === 'string') {
+          errorMessage = error.response.data;
+        } else if (error.response.data.detail) {
+          errorMessage = error.response.data.detail;
+        } else {
+          errorMessage = JSON.stringify(error.response.data);
+        }
+      }
+      setError(errorMessage);
+      console.error('Error logging in:', errorMessage);
     }
   };
-  
+
   // Clear popup message after 2 seconds
   useEffect(() => {
     if (popupMessage) {

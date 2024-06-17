@@ -1,16 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-// import { useHistory } from 'react-router-dom'; // Import useHistory hook
+import api from '../api';
+import AddressForm from '../components/AdressForm'; // Correct import for AddressForm component
 import '../App.css';
 import './BecomeTasker.css';
-
-const statesAndUTs = [
-  "Andaman and Nicobar Islands", "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chandigarh",
-  "Chhattisgarh", "Dadra and Nagar Haveli", "Daman and Diu", "Delhi", "Goa", "Gujarat", "Haryana",
-  "Himachal Pradesh", "Jammu and Kashmir", "Jharkhand", "Karnataka", "Kerala", "Ladakh", "Lakshadweep",
-  "Madhya Pradesh", "Maharashtra", "Manipur", "Meghalaya", "Mizoram", "Nagaland", "Odisha", "Puducherry",
-  "Punjab", "Rajasthan", "Sikkim", "Tamil Nadu", "Telangana", "Tripura", "Uttar Pradesh", "Uttarakhand", "West Bengal"
-];
 
 const services = [
   { name: "Packers and Movers", image: "packers_and_movers.jpg" },
@@ -32,15 +24,19 @@ const services = [
 ];
 
 const BecomeTasker = () => {
-  const [selectedState, setSelectedState] = useState("");
-  const [selectedCity, setSelectedCity] = useState("");
   const [selectedService, setSelectedService] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [about, setAbout] = useState("");
   const [popupMessage, setPopupMessage] = useState("");
-  // const history = useHistory(); // Initialize useHistory
+  const [addresses, setAddresses] = useState([]);
+  const [showAddressForm, setShowAddressForm] = useState(false);
+
+  const handleAddressSubmit = (addressData) => {
+    setAddresses([...addresses, addressData]);
+    setShowAddressForm(false);
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -48,19 +44,18 @@ const BecomeTasker = () => {
       name,
       email,
       password,
-      state: selectedState,
-      city: selectedCity,
       about,
-      service : selectedService
+      service: selectedService,
+      addresses
     };
-  
+
     try {
-      const response = await axios.post('http://127.0.0.1:8000/api/v1/taskers/', taskerData);
+      const response = await api.post('/api/v1/taskers/', taskerData);
       console.log("Tasker Registration Successful: ", response.data);
       setPopupMessage("Tasker registered successfully!");
       setTimeout(() => {
         setPopupMessage(""); // Hide the popup after 2 seconds
-        window.location.href = 'http://localhost:3000/'; // Redirect to homepage
+        window.location.href = '/'; // Redirect to homepage
       }, 2000);
     } catch (error) {
       if (error.response && error.response.data && error.response.data.email) {
@@ -70,8 +65,6 @@ const BecomeTasker = () => {
       }
     }
   };
-  
-  
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -82,7 +75,7 @@ const BecomeTasker = () => {
 
   return (
     <div className="form-container">
-      <h2 className="Header">Sign Up</h2>
+      <h2 className="Header">Become a Tasker</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label>Name:</label>
@@ -97,19 +90,6 @@ const BecomeTasker = () => {
           <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
         </div>
         <div className="form-group">
-          <label>State/Union Territory:</label>
-          <select value={selectedState} onChange={(e) => setSelectedState(e.target.value)} required>
-            <option value="" disabled>Select State/UT</option>
-            {statesAndUTs.map((state, index) => (
-              <option key={index} value={state}>{state}</option>
-            ))}
-          </select>
-        </div>
-        <div className="form-group">
-          <label>City:</label>
-          <input type="text" value={selectedCity} onChange={(e) => setSelectedCity(e.target.value)} required />
-        </div>
-        <div className="form-group">
           <label>About:</label>
           <textarea value={about} onChange={(e) => setAbout(e.target.value)} required></textarea>
         </div>
@@ -122,6 +102,17 @@ const BecomeTasker = () => {
             ))}
           </select>
         </div>
+        <div className="form-group">
+          <label>Addresses:</label>
+          {!showAddressForm && <button type="button" className="add-address-button" onClick={() => setShowAddressForm(true)}>+</button>}
+          <div className='address-cards'>
+            <ul className='address-card'>
+              {addresses.map((address, index) => (
+                <li key={index}>{`${address.name}: ${address.state}, ${address.city}, ${address.full_address}`}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
         <button type="submit" className="form-button">Sign Up</button>
       </form>
       {popupMessage && (
@@ -131,6 +122,9 @@ const BecomeTasker = () => {
             <p>{popupMessage}</p>
           </div>
         </div>
+      )}
+      {showAddressForm && (
+        <AddressForm Name="Add New Address" onSubmit={handleAddressSubmit} />
       )}
     </div>
   );
