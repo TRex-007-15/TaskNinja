@@ -3,12 +3,16 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import api from '../api';
 
+
 const Login = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: '',
     password: '',
   });
+
+  
+
   const [error, setError] = useState(null);
   const [popupMessage, setPopupMessage] = useState('');
 
@@ -28,7 +32,9 @@ const Login = () => {
       setPopupMessage("Logged in successfully!");
       localStorage.setItem('access_token', response.data.access);
       localStorage.setItem('refresh_token', response.data.refresh);
+
       api.defaults.headers.common['Authorization'] = `Bearer ${response.data.access}`;
+
 
       // Redirect after 2 seconds
       setTimeout(() => {
@@ -86,12 +92,14 @@ const Login = () => {
             required
           />
         </div>
+        
         {/* Submit button */}
         <button type="submit" className="form-button">Login</button>
       </form>
       {/* Popup message for success */}
       {popupMessage && <p>{popupMessage}</p>}
     </div>
+    
   );
 };
 

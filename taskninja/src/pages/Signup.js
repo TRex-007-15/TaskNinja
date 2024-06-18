@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';  // Import axios for making HTTP requests
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import AddressForm from '../components/AdressForm';
 
 const Signup = () => {
   const navigate = useNavigate();
+  const [addresses, setAddresses] = useState([]);
   const [formData, setFormData] = useState({
     username: '',
     password: '',
@@ -11,53 +13,19 @@ const Signup = () => {
     first_name: '',
     last_name: '',
     contact_number: '',
-    state: '', // State field will use a dropdown/select element
-    city: '',
-    pincode: '',
-    address: ''
+    addresses: [] // Initialize addresses
   });
   const [popupMessage, setPopupMessage] = useState("");
-  
-  // Define your choices for state dropdown
-  const STATES_AND_UTS_CHOICES = [
-    'Andaman and Nicobar Islands',
-    'Andhra Pradesh',
-    'Arunachal Pradesh',
-    'Assam',
-    'Bihar',
-    'Chandigarh',
-    'Chhattisgarh',
-    'Dadra and Nagar Haveli',
-    'Daman and Diu',
-    'Delhi',
-    'Goa',
-    'Gujarat',
-    'Haryana',
-    'Himachal Pradesh',
-    'Jammu and Kashmir',
-    'Jharkhand',
-    'Karnataka',
-    'Kerala',
-    'Ladakh',
-    'Lakshadweep',
-    'Madhya Pradesh',
-    'Maharashtra',
-    'Manipur',
-    'Meghalaya',
-    'Mizoram',
-    'Nagaland',
-    'Odisha',
-    'Puducherry',
-    'Punjab',
-    'Rajasthan',
-    'Sikkim',
-    'Tamil Nadu',
-    'Telangana',
-    'Tripura',
-    'Uttar Pradesh',
-    'Uttarakhand',
-    'West Bengal'
-  ];
+  const [showAddressForm, setShowAddressForm] = useState(false);
+
+  const handleAddressSubmit = (addressData) => {
+    setAddresses([...addresses, addressData]);
+    setFormData(prevFormData => ({
+      ...prevFormData,
+      addresses: [...prevFormData.addresses, addressData]
+    }));
+    setShowAddressForm(false);
+  };
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -76,11 +44,11 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://127.0.0.1:8000/register/', formData); // Make POST request to registration API
+      const response = await axios.post('http://127.0.0.1:8000/register/', formData);
       console.log('User registered:', response.data);
       setPopupMessage("Registered successfully!");
       setTimeout(() => {
-        navigate('/'); // Redirect after successful registration using react-router-dom
+        navigate('/');
       }, 2000);
     } catch (error) {
       setPopupMessage("Unable to Register!");
@@ -153,56 +121,30 @@ const Signup = () => {
             required
           />
         </div>
+        
         <div className="form-group">
-          <label>State:</label>
-          <select
-            name="state"
-            value={formData.state}
-            onChange={handleChange}
-            required
-          >
-            <option value="">Select State</option>
-            {STATES_AND_UTS_CHOICES.map((state) => (
-              <option key={state} value={state}>
-                {state}
-              </option>
+          <label>Addresses:</label>
+          {!showAddressForm && <button type="button" className="add-address-button" onClick={() => setShowAddressForm(true)}>+</button>}
+          <div className='address-cards'>
+            {addresses.map((address, index) => (
+              <div key={index} className='address-card'>
+                <p><strong>Name:</strong> {address.name}</p>
+                <p><strong>State:</strong> {address.state}</p>
+                <p><strong>City:</strong> {address.city}</p>
+                <p><strong>Pincode:</strong> {address.pincode}</p>
+                <p><strong>Full Address:</strong> {address.full_address}</p>
+              </div>
             ))}
-          </select>
-        </div>
-        <div className="form-group">
-          <label>City:</label>
-          <input
-            type="text"
-            name="city"
-            value={formData.city}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label>Pincode:</label>
-          <input
-            type="text"
-            name="pincode"
-            value={formData.pincode}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label>Address:</label>
-          <textarea
-            name="address"
-            value={formData.address}
-            onChange={handleChange}
-            required
-          />
+          </div>
         </div>
         {/* Submit button */}
         <button type="submit" className="form-button">Sign Up</button>
       </form>
       {/* Popup message for success/error */}
       {popupMessage && <div className="popup-message">{popupMessage}</div>}
+      {showAddressForm && (
+      <AddressForm Name="Add New Address" onSubmit={handleAddressSubmit} existingAddresses={addresses} />
+    )}
     </div>
   );
 };

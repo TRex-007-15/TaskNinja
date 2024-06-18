@@ -1,59 +1,29 @@
-/* Profile.css */
-
-body {
+.profile-page {
   display: flex;
   flex-direction: column;
-  min-height: 100vh; /* Ensure full height of viewport */
-  margin: 0; /* Remove default margin */
+  min-height: 100vh;
 }
 
-.dashboard-container {
-  flex: 1; /* Take remaining vertical space */
-  display: flex;
-  flex-direction: column;
+.profile-content {
+  flex: 1;
   padding: 20px;
 }
 
 .user-profile {
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background: #fff;
   padding: 20px;
-  margin-bottom: 20px;
-  flex: 1; /* Grow to take remaining space */
-}
-
-.user-profile h2 {
-  font-size: 24px;
-  color: #333;
-  margin-bottom: 15px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .profile-info {
-  font-size: 18px;
+  margin-top: 20px;
 }
 
 .profile-item {
   margin-bottom: 10px;
 }
 
-.profile-item strong {
-  display: inline-block;
-  width: 150px;
-  font-weight: bold;
-  margin-right: 10px;
-}
-
 .profile-address {
-  margin-top: 5px;
-  font-size: 16px;
-}
-
-.footer {
-  background-color: #222;
-  color: #fff;
-  padding: 20px 0;
-  text-align: center;
-  font-family: Arial, sans-serif;
+  margin-top: 10px;
 }

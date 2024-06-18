@@ -4,7 +4,8 @@ const AddressForm = ({ onSubmit, Name, existingAddresses }) => {
   const [name, setName] = useState("Home");
   const [state, setState] = useState("");
   const [city, setCity] = useState("");
-  const [full_address, setAddress] = useState("");
+  const [pincode, setPincode] = useState("");
+  const [fullAddress, setFullAddress] = useState("");
 
   const indianStates = [
     "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chhattisgarh",
@@ -17,7 +18,7 @@ const AddressForm = ({ onSubmit, Name, existingAddresses }) => {
   ];
 
   const handleSubmit = (e) => {
-    e.preventDefault(); // Prevent form from refreshing the page
+    e.preventDefault();
 
     const isHomeExisting = existingAddresses.some(address => address.name === "Home");
     const isWorkExisting = existingAddresses.some(address => address.name === "Work");
@@ -27,11 +28,12 @@ const AddressForm = ({ onSubmit, Name, existingAddresses }) => {
       return;
     }
 
-    onSubmit({ name, state, city, full_address });
+    onSubmit({ name, state, city, pincode, full_address: fullAddress });
     setName("Home");
     setState("");
     setCity("");
-    setAddress("");
+    setPincode("");
+    setFullAddress("");
   };
 
   return (
@@ -60,8 +62,12 @@ const AddressForm = ({ onSubmit, Name, existingAddresses }) => {
           <input type="text" value={city} onChange={(e) => setCity(e.target.value)} required />
         </div>
         <div className="form-group">
+          <label>Pincode:</label>
+          <input type="text" value={pincode} onChange={(e) => setPincode(e.target.value)} required />
+        </div>
+        <div className="form-group">
           <label>Address:</label>
-          <textarea value={full_address} onChange={(e) => setAddress(e.target.value)} required></textarea>
+          <textarea value={fullAddress} onChange={(e) => setFullAddress(e.target.value)} required></textarea>
         </div>
         <button type="submit" className="form-button">Submit</button>
       </form>
