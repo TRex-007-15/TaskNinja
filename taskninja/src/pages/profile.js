@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import api from '../api';
 import './profile.css'; // Import the CSS file for styling
-import '../components/Footer'
+import '../components/Footer';
 
 const Profile = () => {
   const [userData, setUserData] = useState(null);
@@ -17,6 +17,14 @@ const Profile = () => {
         return;
       }
 
+      // Check if user data is already stored in local storage
+      const cachedUserData = localStorage.getItem('user_data');
+      if (cachedUserData) {
+        setUserData(JSON.parse(cachedUserData));
+        setLoading(false);
+        return;
+      }
+
       try {
         const response = await api.get('/api/userdata/', {
           headers: {
@@ -25,6 +33,7 @@ const Profile = () => {
         });
         console.log('User data:', response.data);
         setUserData(response.data);
+        localStorage.setItem('user_data', JSON.stringify(response.data)); // Store user data in local storage
         setLoading(false);
       } catch (error) {
         console.error('Error fetching user data:', error);
@@ -63,11 +72,19 @@ const Profile = () => {
               <strong>Name:</strong> <span>{userData.first_name} {userData.last_name}</span>
             </div>
             <div className="profile-item">
-              <strong>Address:</strong>
-              <div className="profile-address">
-                <span>{userData.address}</span>
-                <span>{userData.city}, {userData.state} - {userData.pincode}</span>
-              </div>
+              <strong>Addresses:</strong>
+              {userData.addresses && userData.addresses.length > 0 ? (
+                userData.addresses.map((address, index) => (
+                  <div key={index} className="profile-address">
+                    <span><strong>{address.name} : </strong></span>
+                    <span>{address.full_address}</span>
+                    <br></br>
+                    <span>{address.city}, {address.state} - {address.pincode}</span>
+                  </div>
+                ))
+              ) : (
+                <span>No addresses available</span>
+              )}
             </div>
           </div>
         </div>

@@ -10,7 +10,7 @@ const api = axios.create({
 const refreshAuthLogic = async (failedRequest) => {
   try {
     const refreshToken = localStorage.getItem('refreshToken');
-    const response = await axios.post('http://localhost:8000/api/refresh', { token: refreshToken });
+    const response = await api.post('/api/token/refresh', { token: refreshToken });
     
     const { accessToken } = response.data;
     
