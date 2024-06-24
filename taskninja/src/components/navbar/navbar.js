@@ -31,6 +31,7 @@ const Navbar = ({ onLoginClick }) => {
     // Clear tokens from localStorage
     localStorage.removeItem('access_token');
     localStorage.removeItem('refresh_token');
+    localStorage.removeItem('user_data');
     // Redirect to home page or login page
     navigate('/');
   };

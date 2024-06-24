@@ -9,12 +9,12 @@ const api = axios.create({
 
 const refreshAuthLogic = async (failedRequest) => {
   try {
-    const refreshToken = localStorage.getItem('refreshToken');
-    const response = await api.post('/api/token/refresh', { token: refreshToken });
+    const refreshToken = localStorage.getItem('refresh_token');
+    const response = await api.post('/api/token/refresh/', { 'refresh' : refreshToken });
     
     const { accessToken } = response.data;
     
-    localStorage.setItem('accessToken', accessToken);
+    localStorage.setItem('access_token', accessToken);
     
     failedRequest.response.config.headers['Authorization'] = 'Bearer ' + accessToken;
     
@@ -29,7 +29,7 @@ createAuthRefreshInterceptor(api, refreshAuthLogic);
 
 
 api.interceptors.request.use((config) => {
-  const accessToken = localStorage.getItem('accessToken');
+  const accessToken = localStorage.getItem('access_token');
   if (accessToken) {
     config.headers['Authorization'] = 'Bearer ' + accessToken;
   }

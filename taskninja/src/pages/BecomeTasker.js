@@ -25,10 +25,14 @@ const services = [
 
 const BecomeTasker = () => {
   const [selectedService, setSelectedService] = useState("");
-  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [about, setAbout] = useState("");
+  const [username, setUsername] = useState(""); // New state for username
+  const [firstName, setFirstName] = useState(""); // New state for first name
+  const [lastName, setLastName] = useState(""); // New state for last name
+  const [price, setPrice] = useState(0); // New state for price
+  const [contactNumber, setContactNumber] = useState(""); // New state for contact number
   const [popupMessage, setPopupMessage] = useState("");
   const [addresses, setAddresses] = useState([]);
   const [showAddressForm, setShowAddressForm] = useState(false);
@@ -41,16 +45,20 @@ const BecomeTasker = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const taskerData = {
-      name,
+      username,
+      first_name: firstName,
+      last_name: lastName,
       email,
       password,
       about,
       service: selectedService,
+      price,
+      contact_number: contactNumber,
       addresses
     };
 
     try {
-      const response = await api.post('/api/v1/taskers/', taskerData);
+      const response = await api.post('/tasker/register/', taskerData);
       console.log("Tasker Registration Successful: ", response.data);
       setPopupMessage("Tasker registered successfully!");
       setTimeout(() => {
@@ -78,8 +86,16 @@ const BecomeTasker = () => {
       <h2 className="Header">Become a Tasker</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label>Name:</label>
-          <input type="text" value={name} onChange={(e) => setName(e.target.value)} required />
+          <label>Username:</label>
+          <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} required />
+        </div>
+        <div className="form-group">
+          <label>First Name:</label>
+          <input type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} required />
+        </div>
+        <div className="form-group">
+          <label>Last Name:</label>
+          <input type="text" value={lastName} onChange={(e) => setLastName(e.target.value)} required />
         </div>
         <div className="form-group">
           <label>Email:</label>
@@ -94,13 +110,21 @@ const BecomeTasker = () => {
           <textarea value={about} onChange={(e) => setAbout(e.target.value)} required></textarea>
         </div>
         <div className="form-group">
-          <label>Services:</label>
+          <label>Service:</label>
           <select value={selectedService} onChange={(e) => setSelectedService(e.target.value)} required>
             <option value="" disabled>Select Service</option>
             {services.map((service, index) => (
               <option key={index} value={service.name}>{service.name}</option>
             ))}
           </select>
+        </div>
+        <div className="form-group">
+          <label>Price:</label>
+          <input type="number" value={price} onChange={(e) => setPrice(parseFloat(e.target.value))} required />
+        </div>
+        <div className="form-group">
+          <label>Contact Number:</label>
+          <input type="text" value={contactNumber} onChange={(e) => setContactNumber(e.target.value)} required />
         </div>
         <div className="form-group">
           <label>Addresses:</label>

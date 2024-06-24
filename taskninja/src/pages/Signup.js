@@ -44,7 +44,7 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await api.post('/register/', formData);
+      const response = await api.post('/user/register/', formData);
       console.log('User registered:', response.data);
       setPopupMessage("Registered successfully!");
       setTimeout(() => {

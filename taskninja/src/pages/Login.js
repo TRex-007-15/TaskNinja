@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import api from '../api';
 
 
@@ -15,7 +14,6 @@ const Login = () => {
 
   const [error, setError] = useState(null);
   const [popupMessage, setPopupMessage] = useState('');
-
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -27,13 +25,14 @@ const Login = () => {
     e.preventDefault();
     setError(null);
     try {
-      const response = await axios.post('http://127.0.0.1:8000/api/token/', formData); // Make POST request to token API
+      const response = await api.post('/api/token/', formData); // Make POST request to token API
       console.log('User logged in:', response.data);
       setPopupMessage("Logged in successfully!");
       localStorage.setItem('access_token', response.data.access);
       localStorage.setItem('refresh_token', response.data.refresh);
 
-      api.defaults.headers.common['Authorization'] = `Bearer ${response.data.access}`;
+      api.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
+
 
 
       // Redirect after 2 seconds
