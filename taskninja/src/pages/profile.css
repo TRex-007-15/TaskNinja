@@ -1,23 +1,38 @@
+/* General styles */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+  margin: 0;
+  padding: 0;
+}
+
 .profile-page {
   display: flex;
-  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   min-height: 100vh;
+  background-color: #f0f0f0;
 }
 
 .profile-content {
-  flex: 1;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 20px;
+  width: 100%;
+  max-width: 800px;
 }
 
-.user-profile {
-  background: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+.user-profile h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
 }
 
 .profile-info {
-  margin-top: 20px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-bottom: 20px;
 }
 
 .profile-item {
@@ -25,5 +40,80 @@
 }
 
 .profile-address {
+  margin-top: 20px;
+}
+
+.address-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
+.address-text {
+  flex-grow: 1;
+}
+
+.edit-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.edit-button:focus {
+  outline: none;
+}
+
+.edit-icon {
+  color: #007bff;
+  font-size: 18px;
+}
+
+.add-address-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
   margin-top: 10px;
+}
+
+.add-address-button:hover {
+  background-color: #0056b3;
+}
+
+/* Popup message styles */
+.popup-message {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  animation: slide-in-out 2s ease-out forwards;
+}
+
+.popup-message.error {
+  background-color: #f44336;
+}
+
+@keyframes slide-in-out {
+  0% {
+    transform: translateX(100%);
+  }
+  10% {
+    transform: translateX(0);
+  }
+  90% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(100%);
+  }
 }

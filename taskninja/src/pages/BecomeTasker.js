@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import api from '../api';
-import AddressForm from '../components/AdressForm'; // Correct import for AddressForm component
+import AddressForm from '../components/AddressForm'; // Correct import for AddressForm component
 import '../App.css';
 import './BecomeTasker.css';
 

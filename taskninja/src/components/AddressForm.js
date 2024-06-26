@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import './AddressForm.css';
 
-const AddressForm = ({ onSubmit, Name, existingAddresses }) => {
+const AddressForm = ({ onSubmit, onCancel, Name, existingAddresses }) => {
   const [name, setName] = useState("Home");
+  const [customName, setCustomName] = useState("");
   const [state, setState] = useState("");
   const [city, setCity] = useState("");
   const [pincode, setPincode] = useState("");
@@ -20,16 +22,19 @@ const AddressForm = ({ onSubmit, Name, existingAddresses }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const isHomeExisting = existingAddresses.some(address => address.name === "Home");
-    const isWorkExisting = existingAddresses.some(address => address.name === "Work");
+    const isHomeExisting = existingAddresses && existingAddresses.some(address => address.name === "Home");
+    const isWorkExisting = existingAddresses && existingAddresses.some(address => address.name === "Work");
 
     if ((name === "Home" && isHomeExisting) || (name === "Work" && isWorkExisting)) {
       alert(`You can only have one ${name} address.`);
       return;
     }
 
-    onSubmit({ name, state, city, pincode, full_address: fullAddress });
+    const addressName = name === "Other" ? customName : name;
+
+    onSubmit({ name: addressName, state, city, pincode, full_address: fullAddress });
     setName("Home");
+    setCustomName("");
     setState("");
     setCity("");
     setPincode("");
@@ -48,6 +53,17 @@ const AddressForm = ({ onSubmit, Name, existingAddresses }) => {
             <option value="Other">Other</option>
           </select>
         </div>
+        {name === "Other" && (
+          <div className="form-group">
+            <label>Address Type:</label>
+            <input
+              type="text"
+              value={customName}
+              onChange={(e) => setCustomName(e.target.value)}
+              required
+            />
+          </div>
+        )}
         <div className="form-group">
           <label>State:</label>
           <select value={state} onChange={(e) => setState(e.target.value)} required>
@@ -69,7 +85,10 @@ const AddressForm = ({ onSubmit, Name, existingAddresses }) => {
           <label>Address:</label>
           <textarea value={fullAddress} onChange={(e) => setFullAddress(e.target.value)} required></textarea>
         </div>
-        <button type="submit" className="form-button">Submit</button>
+        <div className="form-buttons">
+          <button type="submit" className="form-button">Submit</button>
+          <button type="button" className="form-button" onClick={onCancel}>Cancel</button>
+        </div>
       </form>
     </div>
   );
