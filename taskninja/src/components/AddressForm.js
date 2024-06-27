@@ -33,6 +33,10 @@ const AddressForm = ({ onSubmit, onCancel, Name, existingAddresses }) => {
     const addressName = name === "Other" ? customName : name;
 
     onSubmit({ name: addressName, state, city, pincode, full_address: fullAddress });
+    resetForm();
+  };
+
+  const resetForm = () => {
     setName("Home");
     setCustomName("");
     setState("");

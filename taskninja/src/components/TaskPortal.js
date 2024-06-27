@@ -11,9 +11,19 @@ const TaskPortal = ({ service }) => {
             try {
                 setLoading(true);
                 setError(null);
-
                 
-                const response = await axios.get(`/taskers/service/${service}/`);
+                const accessToken = localStorage.getItem('access_token');
+                if (!accessToken) {
+                    setError('Access token not found.');
+                    setLoading(false);
+                    return;
+                }
+
+                const response = await axios.get(`/taskers/${service}/`, {
+                    headers: {
+                        Authorization: `Bearer ${accessToken}`
+                    }
+                });
                 setTaskers(response.data);
             } catch (err) {
                 setError('Failed to fetch taskers');
@@ -39,11 +49,11 @@ const TaskPortal = ({ service }) => {
             {taskers.length > 0 ? (
                 <ul>
                     {taskers.map(tasker => (
-                        <li key={tasker.id}>{tasker.name}</li>
+                        <li key={tasker.id}>{tasker.username}</li>
                     ))}
                 </ul>
             ) : (
-                <p>No taskers available for this service.</p>
+                <p>No taskers available for this service in your area.</p>
             )}
         </>
     );

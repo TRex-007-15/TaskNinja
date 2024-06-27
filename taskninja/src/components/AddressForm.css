@@ -1,16 +1,14 @@
 .address-form {
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
     padding: 20px;
-    width: 100%;
-    max-width: 400px;
-    margin: 20px auto;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-bottom: 20px;
   }
   
   .address-form h3 {
-    font-size: 20px;
-    margin-bottom: 20px;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
   }
   
   .form-group {
@@ -19,7 +17,7 @@
   
   .form-group label {
     display: block;
-    margin-bottom: 5px;
+    font-weight: bold;
   }
   
   .form-group select,
@@ -27,31 +25,43 @@
   .form-group textarea {
     width: 100%;
     padding: 8px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  
+  .form-group select {
+    height: 35px; /* Adjust height for select inputs */
+  }
+  
+  .form-group textarea {
+    height: 100px;
+  }
+  
+  .form-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
   
   .form-button {
-    background-color: #007bff;
-    color: #fff;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
     border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
+    border-radius: 4px;
     cursor: pointer;
   }
   
   .form-button:hover {
-    background-color: #0056b3;
+    background-color: #45a049;
   }
   
-  /* Responsive design */
-  @media screen and (max-width: 600px) {
-    .profile-content {
-      padding: 10px;
-    }
-    
-    .address-form {
-      padding: 10px;
-    }
+  .form-button:last-child {
+    background-color: #45a049;
+  }
+  
+  .form-button:last-child:hover {
+    background-color: #37a252;
   }
   

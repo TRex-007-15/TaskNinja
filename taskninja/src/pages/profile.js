@@ -30,7 +30,7 @@ const Profile = () => {
       }
 
       try {
-        const response = await api.get('/api/userdata/', {
+        const response = await api.get('/user/data/', {
           headers: {
             Authorization: `Bearer ${accessToken}`
           }
@@ -114,10 +114,16 @@ const Profile = () => {
     setLoading(true); // Set loading to true when adding new address
     const accessToken = localStorage.getItem('access_token');
     const url = `/users/${userData.username}/addresses/`;
-
-    console.log('Submitting to:', url);
-    console.log('New Address Data:', newAddress);
-
+  
+    // Check if the address type already exists
+    const existingAddress = userData.addresses.find(addr => addr.name === newAddress.name);
+  
+    if (existingAddress) {
+      alert(`Address type '${newAddress.name}' already exists.`);
+      setLoading(false); // Reset loading state
+      return;
+    }
+  
     try {
       const response = await api.post(url, newAddress, {
         headers: {
@@ -125,7 +131,7 @@ const Profile = () => {
         }
       });
       console.log('Address added:', response.data);
-
+  
       const updatedUserData = { ...userData, addresses: [...userData.addresses, response.data] };
       setUserData(updatedUserData);
       setShowAddressForm(false);
@@ -136,31 +142,39 @@ const Profile = () => {
       setLoading(false); // Set loading to false after the address addition attempt
     }
   };
+  
 
   const handleDeleteAddress = async (id) => {
     setLoading(true);
-
+  
     try {
       const accessToken = localStorage.getItem('access_token');
       const url = `/api/addresses/delete/${id}/`;
-
+  
       const response = await api.delete(url, {
         headers: {
           Authorization: `Bearer ${accessToken}`
         }
       });
-
+  
       console.log('Address deleted:', response.data);
-
+  
       const updatedAddresses = userData.addresses.filter(addr => addr.id !== id);
       setUserData({ ...userData, addresses: updatedAddresses });
+  
+      // Optional: Show a success message to the user
+      alert('Address deleted successfully.');
     } catch (error) {
       console.error('Error deleting address:', error);
-      setError('Error deleting address. Please try again.');
+      // Show an error message to the user without altering the user data or dashboard
+      alert('Error deleting address. Please try again.');
     } finally {
-      setLoading(false);
+      setLoading(false); // Ensure loading state is set to false
     }
   };
+  
+  
+  
 
   if (loading) {
     return <p>Loading user data...</p>;

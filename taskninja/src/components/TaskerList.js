@@ -18,7 +18,7 @@ const TaskersList = ({ service, onClose }) => {
         }
         const serviceName = service.name;
         console.log(`Fetching taskers for service: ${serviceName}`); // Log the service name or ID
-        const response = await api.get(`/taskers/${serviceName}/`,{
+        const response = await api.get(`/taskers/${serviceName}/`, {
           headers: {
             Authorization: `Bearer ${accessToken}`
           }
@@ -67,15 +67,8 @@ const TaskersList = ({ service, onClose }) => {
                 <ul>
                   <li>{tasker.first_name} {tasker.last_name}</li>
                   <li>{tasker.contact_number}</li>
-                  <li>Price Per Hour: {tasker.price}</li>
-                  <li>
-                    Addresses:
-                    <ul>
-                      {tasker.addresses.map((address, idx) => (
-                        <li key={idx}>{address.full_address}</li>
-                      ))}
-                    </ul>
-                  </li>
+                  <li>Price Per Hour : ₹ {tasker.price}</li>
+                  <li>Experience: {tasker.experience}</li> {/* Display experience */}
                 </ul>
               </li>
             ))}
