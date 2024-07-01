@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './TaskerList.css';
 import api from '../api';
+import moment from 'moment';
 
 const TaskersList = ({ service, onClose }) => {
   const [taskers, setTaskers] = useState([]);
@@ -9,9 +10,10 @@ const TaskersList = ({ service, onClose }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [serviceDesc, setServiceDesc] = useState("");
+  const [appointmentDate, setAppointmentDate] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedTaskerId, setSelectedTaskerId] = useState(null);
-  const navigate = useNavigate(); // Hook for navigation
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchTaskers = async () => {
@@ -22,19 +24,20 @@ const TaskersList = ({ service, onClose }) => {
           setLoading(false);
           return;
         }
+        if (!service || !service.name) {
+          setError('Service not specified.');
+          setLoading(false);
+          return;
+        }
         const serviceName = service.name;
-        console.log(`Fetching taskers for service: ${serviceName}`);
         const response = await api.get(`/taskers/${serviceName}/`, {
           headers: {
             Authorization: `Bearer ${accessToken}`
           }
         });
-        console.log('Response status:', response.status);
         const data = await response.data;
-        console.log('Fetched taskers:', data);
         setTaskers(data);
       } catch (error) {
-        console.error('Error fetching taskers:', error);
         if (error.response && error.response.status === 404) {
           setTaskers([]);
         } else {
@@ -59,10 +62,8 @@ const TaskersList = ({ service, onClose }) => {
             Authorization: `Bearer ${accessToken}`
           }
         });
-        console.log('User data:', response.data);
         setUserData(response.data);
       } catch (error) {
-        console.error('Error fetching user data:', error);
         setError('Error fetching user data. Please try again.');
       }
     };
@@ -89,10 +90,18 @@ const TaskersList = ({ service, onClose }) => {
         return;
       }
 
+      if (!appointmentDate) {
+        setError('Appointment date is required.');
+        return;
+      }
+
+      const formattedDate = moment(appointmentDate).format('YYYY-MM-DD');
+
       const requestBody = {
         user: userData.id,
         tasker: selectedTaskerId,
         service_desc: serviceDesc,
+        service_date: formattedDate,
         status: 1
       };
 
@@ -103,15 +112,14 @@ const TaskersList = ({ service, onClose }) => {
         }
       });
 
-      console.log('Booking response:', response);
       alert('Tasker booked successfully!');
       setIsModalOpen(false); // Close the modal
       setServiceDesc(""); // Clear the service description
+      setAppointmentDate(""); // Clear the appointment date
 
       // Redirect to /Profile after successful booking
       navigate('/Profile');
     } catch (error) {
-      console.error('Error booking tasker:', error);
       setError(error.message);
     }
   };
@@ -124,11 +132,8 @@ const TaskersList = ({ service, onClose }) => {
   const closeModal = () => {
     setIsModalOpen(false);
     setServiceDesc("");
+    setAppointmentDate("");
   };
-
-  console.log('Loading:', loading);
-  console.log('Error:', error);
-  console.log('Taskers:', taskers);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -141,7 +146,7 @@ const TaskersList = ({ service, onClose }) => {
   return (
     <div className="taskers-list-overlay">
       <div className="taskers-list">
-        <h2>Taskers for {typeof service === 'object' ? service.name : service}</h2>
+        <h2>Taskers for {service && service.name ? service.name : 'the selected service'}</h2>
         {taskers.length === 0 ? (
           <div>No taskers for this service</div>
         ) : (
@@ -151,7 +156,7 @@ const TaskersList = ({ service, onClose }) => {
                 <ul>
                   <li>{tasker.first_name} {tasker.last_name}</li>
                   <li>{tasker.contact_number}</li>
-                  <li>Price Per Hour : ₹ {tasker.price}</li>
+                  <li>Price Per Hour: ₹ {tasker.price}</li>
                   <li>Experience: {tasker.experience}</li>
                   <li>
                     <button
@@ -179,6 +184,14 @@ const TaskersList = ({ service, onClose }) => {
                 type="text"
                 value={serviceDesc}
                 onChange={(e) => setServiceDesc(e.target.value)}
+              />
+            </label>
+            <label>
+              Appointment Date:
+              <input
+                type="date"
+                value={appointmentDate}
+                onChange={(e) => setAppointmentDate(e.target.value)}
               />
             </label>
             <button onClick={handleBooking}>Submit</button>
