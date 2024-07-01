@@ -46,7 +46,7 @@ const BecomeTasker = () => {
   const [addresses, setAddresses] = useState([]);
   const [showAddressForm, setShowAddressForm] = useState(false);
   const [skillProofPdf, setSkillProofPdf] = useState(null); // State to store uploaded PDF file
-
+  const [pricePerDay,setPricePerDay] = useState(null)
   // Handle address form submission
   const handleAddressSubmit = (addressData) => {
     setAddresses([...addresses, addressData]);
@@ -69,7 +69,8 @@ const BecomeTasker = () => {
       price,
       contact_number: contactNumber,
       addresses,
-      skill_proof_pdf: skillProofPdf.name // Assuming backend expects the file name here
+      skill_proof_pdf: skillProofPdf.name, // Assuming backend expects the file name here
+      price_per_day : pricePerDay
     };
 
     try {
@@ -175,6 +176,10 @@ const BecomeTasker = () => {
           <div className="form-group">
             <label>Price:</label>
             <input type="number" value={price} onChange={(e) => setPrice(parseFloat(e.target.value))} required />
+          </div>
+          <div className="form-group">
+            <label>Price Per Day:</label>
+            <input type="number" value={pricePerDay} onChange={(e) => setPricePerDay(parseFloat(e.target.value))} required />
           </div>
         </div>
 
