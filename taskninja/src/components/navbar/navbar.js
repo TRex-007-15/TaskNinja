@@ -28,12 +28,11 @@ const Navbar = ({ onLoginClick }) => {
   };
 
   const handleLogout = () => {
-    // Clear tokens from localStorage
+    // Perform logout action (e.g., clear local storage, redirect to login page)
     localStorage.removeItem('access_token');
     localStorage.removeItem('refresh_token');
-    localStorage.removeItem('user_data');
-    // Redirect to home page or login page
     navigate('/');
+    setIsMenuOpen(false);
   };
 
   return (
@@ -46,7 +45,7 @@ const Navbar = ({ onLoginClick }) => {
           <Link to="/" onClick={() => setIsMenuOpen(false)}>Home</Link>
         </li>
         <li className="nav-item">
-              <Link to="/services" onClick={() => setIsMenuOpen(false)}>Services</Link>
+          <Link to="/services" onClick={() => setIsMenuOpen(false)}>Services</Link>
         </li>
         {isLoggedIn ? (
           <>
@@ -59,10 +58,8 @@ const Navbar = ({ onLoginClick }) => {
           </>
         ) : (
           <>
-             <li className="nav-item">
-              <button className='nav-button'>
-              <Link to="/BecomeTasker" onClick={() => setIsMenuOpen(false)}> Become Tasker</Link>
-              </button>
+            <li className="nav-item">
+              <Link to="/BecomeTasker" className="nav-button" onClick={() => setIsMenuOpen(false)}>Become Tasker</Link>
             </li>
             <li className="nav-item">
               <Link to="/form" onClick={handleLoginClick}>Login/Signup</Link>

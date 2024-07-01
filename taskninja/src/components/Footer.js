@@ -1,5 +1,3 @@
-// Footer.js
-
 import React from 'react';
 import './footer.css';
 import FacebookIcon from '@mui/icons-material/Facebook';

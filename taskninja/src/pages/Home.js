@@ -112,6 +112,7 @@ const Home = ({ searchQuery, setSearchQuery, filteredServices }) => {
       </section>
       {selectedService && <TaskersList service={selectedService} onClose={handleCloseTaskersList} />}
     </div>
+    
   );
 };
 

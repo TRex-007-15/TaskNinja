@@ -4,6 +4,8 @@
   padding: 20px 0;
   text-align: center;
   font-family: Arial, sans-serif;
+  position: relative;
+  clear: both;
 }
 
 .footer-bottom {
@@ -68,3 +70,6 @@
 .footer-section .social-icons a:hover {
   color: #f1c40f;
 }
+/* footer.css */
+
+

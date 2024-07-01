@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import api from '../api';
 import { useNavigate } from 'react-router-dom';
 import AddressForm from '../components/AddressForm';
+import "./BecomeTasker.css"
 
 const Signup = () => {
   const navigate = useNavigate();

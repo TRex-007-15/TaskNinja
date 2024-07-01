@@ -114,16 +114,16 @@ const Profile = () => {
     setLoading(true); // Set loading to true when adding new address
     const accessToken = localStorage.getItem('access_token');
     const url = `/users/${userData.username}/addresses/`;
-  
+
     // Check if the address type already exists
     const existingAddress = userData.addresses.find(addr => addr.name === newAddress.name);
-  
+
     if (existingAddress) {
       alert(`Address type '${newAddress.name}' already exists.`);
       setLoading(false); // Reset loading state
       return;
     }
-  
+
     try {
       const response = await api.post(url, newAddress, {
         headers: {
@@ -131,7 +131,7 @@ const Profile = () => {
         }
       });
       console.log('Address added:', response.data);
-  
+
       const updatedUserData = { ...userData, addresses: [...userData.addresses, response.data] };
       setUserData(updatedUserData);
       setShowAddressForm(false);
@@ -142,26 +142,25 @@ const Profile = () => {
       setLoading(false); // Set loading to false after the address addition attempt
     }
   };
-  
 
   const handleDeleteAddress = async (id) => {
     setLoading(true);
-  
+
     try {
       const accessToken = localStorage.getItem('access_token');
       const url = `/api/addresses/delete/${id}/`;
-  
+
       const response = await api.delete(url, {
         headers: {
           Authorization: `Bearer ${accessToken}`
         }
       });
-  
+
       console.log('Address deleted:', response.data);
-  
+
       const updatedAddresses = userData.addresses.filter(addr => addr.id !== id);
       setUserData({ ...userData, addresses: updatedAddresses });
-  
+
       // Optional: Show a success message to the user
       alert('Address deleted successfully.');
     } catch (error) {
@@ -172,9 +171,6 @@ const Profile = () => {
       setLoading(false); // Ensure loading state is set to false
     }
   };
-  
-  
-  
 
   if (loading) {
     return <p>Loading user data...</p>;
@@ -187,52 +183,64 @@ const Profile = () => {
   return (
     <div className="profile-page">
       <div className="profile-content">
-        <div className="user-profile">
-          <h2>User Profile</h2>
-          <div className="profile-info">
-            <div className="profile-item">
-              <strong>Username:</strong> <span>{userData.username}</span>
-            </div>
-            <div className="profile-item">
-              <strong>Contact Number:</strong> <span>{userData.contact_number}</span>
-            </div>
-            <div className="profile-item">
-              <strong>Email:</strong> <span>{userData.email}</span>
-            </div>
-            <div className="profile-item">
-              <strong>Name:</strong> <span>{userData.first_name} {userData.last_name}</span>
-            </div>
-            <div className="profile-item">
-              <strong>Addresses:</strong>
-              <div className="profile-address">
-                {userData.addresses && userData.addresses.map((addr) => (
-                  <div key={addr.id} className="address-item">
-                    <div>
-                      <span className="address-type">{addr.name}:</span>
-                      <span>{addr.full_address}, </span>
-                      <span>{addr.city}, {addr.state} - {addr.pincode}</span>
+        <div className="booking-history-pane profile-section">
+          {/* Placeholder for Booking History Pane */}
+          <h3>Booking History</h3>
+          <p>Display booking history here...</p>
+        </div>
+        <div className="user-details-address profile-section">
+          <div className="user-profile">
+            <h2>User Profile</h2>
+            <div className="profile-info">
+              <div className="profile-item">
+                <strong>Username:</strong> <span>{userData.username}</span>
+              </div>
+              <div className="profile-item">
+                <strong>Contact Number:</strong> <span>{userData.contact_number}</span>
+              </div>
+              <div className="profile-item">
+                <strong>Email:</strong> <span>{userData.email}</span>
+              </div>
+              <div className="profile-item">
+                <strong>Name:</strong> <span>{userData.first_name} {userData.last_name}</span>
+              </div>
+              <div className="profile-item">
+                <strong>Addresses:</strong>
+                <div className="profile-address">
+                  {userData.addresses && userData.addresses.map((addr) => (
+                    <div key={addr.id} className="address-item">
+                      <div>
+                        <span className="address-type">{addr.name}:</span>
+                        <span>{addr.full_address}, </span>
+                        <span>{addr.city}, {addr.state} - {addr.pincode}</span>
+                      </div>
+                      <div>
+                        <button onClick={() => handleEditAddress(addr)}>
+                          <FontAwesomeIcon icon={faPencilAlt} />
+                        </button>
+                        <button onClick={() => handleDeleteAddress(addr.id)}>
+                          <FontAwesomeIcon icon={faTrashAlt} />
+                        </button>
+                      </div>
                     </div>
-                    <div>
-                      <button onClick={() => handleEditAddress(addr)}>
-                        <FontAwesomeIcon icon={faPencilAlt} />
-                      </button>
-                      <button onClick={() => handleDeleteAddress(addr.id)}>
-                        <FontAwesomeIcon icon={faTrashAlt} />
-                      </button>
-                    </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
             </div>
           </div>
+          <button className="add-address-button" onClick={handleAddAddress}>
+            <FontAwesomeIcon icon={faPlus} /> Add Address
+          </button>
         </div>
-        <button className="add-address-button" onClick={handleAddAddress}>
-          <FontAwesomeIcon icon={faPlus} /> Add Address
-        </button>
+        <div className="booking-status-pane profile-section">
+          {/* Placeholder for Booking Status Pane */}
+          <h3>Booking Status</h3>
+          <p>Display booking status here...</p>
+        </div>
       </div>
 
       {showAddressForm && (
-        <div className="address-form">
+        <div className="address-form overlay">
           {isEditing ? (
             <div>
               <h3>Update Address</h3>
@@ -299,16 +307,15 @@ const Profile = () => {
                     value={address.full_address}
                     onChange={handleAddressChange}
                     required
-                  ></textarea>
+                  />
                 </div>
-                <button type="submit">Submit</button>
-                <button type="button" onClick={() => setShowAddressForm(false)}>Cancel</button>
+                <button type="submit">Update Address</button>
               </form>
             </div>
           ) : (
-            <AddressForm 
-              onSubmit={handleSaveNewAddress}
-              onCancel={() => setShowAddressForm(false)} 
+            <AddressForm
+              onSaveAddress={handleSaveNewAddress}
+              onCancel={() => setShowAddressForm(false)}
             />
           )}
         </div>
