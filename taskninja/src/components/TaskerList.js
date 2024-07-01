@@ -1,11 +1,17 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './TaskerList.css';
 import api from '../api';
 
 const TaskersList = ({ service, onClose }) => {
   const [taskers, setTaskers] = useState([]);
+  const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [serviceDesc, setServiceDesc] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedTaskerId, setSelectedTaskerId] = useState(null);
+  const navigate = useNavigate(); // Hook for navigation
 
   useEffect(() => {
     const fetchTaskers = async () => {
@@ -17,20 +23,20 @@ const TaskersList = ({ service, onClose }) => {
           return;
         }
         const serviceName = service.name;
-        console.log(`Fetching taskers for service: ${serviceName}`); // Log the service name or ID
+        console.log(`Fetching taskers for service: ${serviceName}`);
         const response = await api.get(`/taskers/${serviceName}/`, {
           headers: {
             Authorization: `Bearer ${accessToken}`
           }
         });
-        console.log('Response status:', response.status); // Log the response status
+        console.log('Response status:', response.status);
         const data = await response.data;
-        console.log('Fetched taskers:', data); // Log the fetched data
+        console.log('Fetched taskers:', data);
         setTaskers(data);
       } catch (error) {
-        console.error('Error fetching taskers:', error); // Log the error
+        console.error('Error fetching taskers:', error);
         if (error.response && error.response.status === 404) {
-          setTaskers([]); // Set to empty array if 404
+          setTaskers([]);
         } else {
           setError(error.message);
         }
@@ -39,12 +45,90 @@ const TaskersList = ({ service, onClose }) => {
       }
     };
 
+    const fetchUserData = async () => {
+      const accessToken = localStorage.getItem('access_token');
+      if (!accessToken) {
+        setError('Access token not found.');
+        setLoading(false);
+        return;
+      }
+
+      try {
+        const response = await api.get('/user/data/', {
+          headers: {
+            Authorization: `Bearer ${accessToken}`
+          }
+        });
+        console.log('User data:', response.data);
+        setUserData(response.data);
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+        setError('Error fetching user data. Please try again.');
+      }
+    };
+
     fetchTaskers();
+    fetchUserData();
   }, [service]);
 
-  console.log('Loading:', loading); // Log loading state
-  console.log('Error:', error); // Log error state
-  console.log('Taskers:', taskers); // Log taskers state
+  const handleBooking = async () => {
+    try {
+      const accessToken = localStorage.getItem('access_token');
+      if (!accessToken) {
+        setError('Access token not found.');
+        return;
+      }
+
+      if (!userData) {
+        setError('User data not available.');
+        return;
+      }
+
+      if (!serviceDesc) {
+        setError('Service description is required.');
+        return;
+      }
+
+      const requestBody = {
+        user: userData.id,
+        tasker: selectedTaskerId,
+        service_desc: serviceDesc,
+        status: 1
+      };
+
+      const response = await api.post('/user/request/', requestBody, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      console.log('Booking response:', response);
+      alert('Tasker booked successfully!');
+      setIsModalOpen(false); // Close the modal
+      setServiceDesc(""); // Clear the service description
+
+      // Redirect to /Profile after successful booking
+      navigate('/Profile');
+    } catch (error) {
+      console.error('Error booking tasker:', error);
+      setError(error.message);
+    }
+  };
+
+  const openModal = (taskerId) => {
+    setSelectedTaskerId(taskerId);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setServiceDesc("");
+  };
+
+  console.log('Loading:', loading);
+  console.log('Error:', error);
+  console.log('Taskers:', taskers);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -68,7 +152,15 @@ const TaskersList = ({ service, onClose }) => {
                   <li>{tasker.first_name} {tasker.last_name}</li>
                   <li>{tasker.contact_number}</li>
                   <li>Price Per Hour : ₹ {tasker.price}</li>
-                  <li>Experience: {tasker.experience}</li> {/* Display experience */}
+                  <li>Experience: {tasker.experience}</li>
+                  <li>
+                    <button
+                      className='tasker-submit'
+                      onClick={() => openModal(tasker.id)}
+                    >
+                      Book
+                    </button>
+                  </li>
                 </ul>
               </li>
             ))}
@@ -76,6 +168,24 @@ const TaskersList = ({ service, onClose }) => {
         )}
         <button type="button" onClick={onClose}>Close</button>
       </div>
+
+      {isModalOpen && (
+        <div className="modal">
+          <div className="modal-content">
+            <h2>Service Description</h2>
+            <label>
+              Description:
+              <input
+                type="text"
+                value={serviceDesc}
+                onChange={(e) => setServiceDesc(e.target.value)}
+              />
+            </label>
+            <button onClick={handleBooking}>Submit</button>
+            <button onClick={closeModal}>Close</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

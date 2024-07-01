@@ -1,12 +1,29 @@
-import React from 'react';
+import {React,useState} from 'react';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import '../App.css'; // Import your global styles
 import './Home.css';
-
-
+import TaskersList from '../components/TaskerList';
 
 const Home = ({ searchQuery, setSearchQuery, filteredServices }) => {
+  const [selectedService, setSelectedService] = useState(null);
   const navigate = useNavigate(); // Initialize useNavigate
+
+  const isLoggedIn = () => {
+    return !!localStorage.getItem('access_token');
+  };
+
+  const handleServiceClick = (service) => {
+    if (isLoggedIn()) {
+      setSelectedService(service);
+    } else {
+      navigate('/form'); // Redirect to login page
+    }
+  };
+
+  const handleCloseTaskersList = () => {
+    setSelectedService(null);
+  };
+
 
   return (
     <div>
@@ -30,7 +47,7 @@ const Home = ({ searchQuery, setSearchQuery, filteredServices }) => {
         </div>
         <div className="services-container">
           {filteredServices.map((service, index) => (
-            <div className="service-tile" key={index}>
+            <div className="service-tile" key={index} onClick={() => handleServiceClick(service)}>
               <img src={service.image} alt={service.name} className="service-image" />
               <p className="service-name">{service.name}</p>
             </div>
@@ -93,6 +110,7 @@ const Home = ({ searchQuery, setSearchQuery, filteredServices }) => {
           Join TaskNinja today and start experiencing the benefits of a well-connected service marketplace.
         </p>
       </section>
+      {selectedService && <TaskersList service={selectedService} onClose={handleCloseTaskersList} />}
     </div>
   );
 };
