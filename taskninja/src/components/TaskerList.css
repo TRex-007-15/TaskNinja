@@ -16,6 +16,8 @@
   padding: 30px;
   border-radius: 12px;
   width: 350px;
+  max-height: 80%; /* Set maximum height */
+  overflow-y: auto; /* Enable vertical scrolling */
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* More pronounced shadow */
   animation: fadeIn 0.3s ease-out; /* Subtle fade-in effect */
 }

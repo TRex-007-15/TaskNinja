@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import api from '../api';
 import AddressForm from '../components/AddressForm';
-import '../App.css';
 import './BecomeTasker.css';
 
 // Service options
@@ -70,20 +69,20 @@ const BecomeTasker = () => {
       price,
       contact_number: contactNumber,
       addresses,
-      skill_proof_pdf: skillProofPdf
+      skill_proof_pdf: skillProofPdf.name // Assuming backend expects the file name here
     };
 
-    const formData = new FormData();
-    Object.keys(taskerData).forEach(key => {
-      formData.append(key, taskerData[key]);
-    });
-
     try {
-      const response = await api.post('/tasker/register/', formData, {
+      const formData = new FormData();
+      formData.append('skill_proof_pdf', skillProofPdf);
+
+      const response = await api.post('/tasker/register/', taskerData, {
         headers: {
-          'Content-Type': 'multipart/form-data'
-        }
+          'Content-Type': 'application/json', // Ensure proper content type
+        },
+        params: formData // Send form data as params
       });
+
       console.log("Tasker Registration Successful: ", response.data);
       setPopupMessage("Tasker registered successfully!");
       setTimeout(() => {
@@ -96,6 +95,7 @@ const BecomeTasker = () => {
       } else {
         setPopupMessage("Error registering tasker!");
       }
+      console.error("Registration Error: ", error);
     }
   };
 
@@ -109,14 +109,8 @@ const BecomeTasker = () => {
 
   // Function to handle file input change (PDF upload)
   const handleFileChange = (event) => {
-    const file = event.target.files[0];
-    setSkillProofPdf(file); // Update state with the selected file object
+    setSkillProofPdf(event.target.files[0]);
   };
-  
-
-
-
-
   return (
     <div className="form-container">
       <h2 className="Header">Become a Tasker</h2>
@@ -188,7 +182,7 @@ const BecomeTasker = () => {
           {/* Addresses section */}
           <div className="form-group">
             <label>Addresses:</label>
-            {!showAddressForm && <button type="button" className="add-address-button" onClick={() => setShowAddressForm(true)}>+</button>}
+            {!showAddressForm && <button type="button" className="add-address-button" onClick={() => setShowAddressForm(true)}>Add Address</button>}
             <div className='address-cards'>
               {addresses.map((address, index) => (
                 <div key={index} className='address-card'>
@@ -218,19 +212,18 @@ const BecomeTasker = () => {
       {popupMessage && (
         <div className="popup">
           <div className="popup-content">
-            <span className="close-button"
-              onClick={() => setPopupMessage("")}>&times;</span>
-              {popupMessage}
-            </div>
+            <span className="close-button" onClick={() => setPopupMessage("")}>&times;</span>
+            <p>{popupMessage}</p>
           </div>
-        )}
-  
-        {/* Address Form modal */}
-        {showAddressForm && <AddressForm handleAddressSubmit={handleAddressSubmit} />}
-  
-      </div>
-    );
-  };
-  
-  export default BecomeTasker;
-  
+        </div>
+      )}
+
+      {/* AddressForm component if showAddressForm is true */}
+      {showAddressForm && (
+        <AddressForm Name="Add New Address" onSubmit={handleAddressSubmit} existingAddresses={addresses} />
+      )}
+    </div>
+  );
+};
+
+export default BecomeTasker;
