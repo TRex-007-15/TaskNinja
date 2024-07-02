@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import BookingPopup from './BookingPopup';
-import './BookingStatusPane.css'; // Import the CSS file for styling
+import './BookingStatusPane.css'; // Use the same CSS file for styling
 
-const BookingStatusPane = ({ bookingRequests }) => {
+const BookingHistory = ({ bookingHistory }) => {
   const [selectedBooking, setSelectedBooking] = useState(null);
 
   const handleCardClick = (req) => {
@@ -26,19 +26,19 @@ const BookingStatusPane = ({ bookingRequests }) => {
 
   return (
     <div className="booking-status-pane profile-section">
-      <h3>Requested Bookings</h3>
-      {bookingRequests.length > 0 ? (
-        bookingRequests.map((req) => (
+      <h3>Booking History</h3>
+      {bookingHistory && bookingHistory.length > 0 ? (
+        bookingHistory.map((req) => (
           <div
             key={req.req_id}
-            className='booking-card'
+            className="booking-card"
             onClick={() => handleCardClick(req)}
           >
             <div
-              className='status-indicator'
+              className="status-indicator"
               style={{ backgroundColor: getStatusColor(req.status) }}
             ></div>
-            <div className='booking-details'>
+            <div className="booking-details">
               <div>
                 <strong>Request ID:</strong> <span>{req.req_id}</span>
               </div>
@@ -49,7 +49,7 @@ const BookingStatusPane = ({ bookingRequests }) => {
           </div>
         ))
       ) : (
-        <p>No booking requests found.</p>
+        <p>No booking history found.</p>
       )}
 
       {selectedBooking && (
@@ -59,4 +59,4 @@ const BookingStatusPane = ({ bookingRequests }) => {
   );
 };
 
-export default BookingStatusPane;
+export default BookingHistory;
