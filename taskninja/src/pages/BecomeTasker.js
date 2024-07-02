@@ -52,6 +52,10 @@ const BecomeTasker = () => {
     setAddresses([...addresses, addressData]);
     setShowAddressForm(false);
   };
+  const handleCancelAddressForm = () => {
+    setShowAddressForm(false);
+  };
+
 
   // Handle main form submission
   const handleSubmit = async (event) => {
@@ -72,7 +76,6 @@ const BecomeTasker = () => {
       skill_proof_pdf: skillProofPdf.name, // Assuming backend expects the file name here
       price_per_day : pricePerDay
     };
-
     try {
       const formData = new FormData();
       formData.append('skill_proof_pdf', skillProofPdf);
@@ -225,7 +228,7 @@ const BecomeTasker = () => {
 
       {/* AddressForm component if showAddressForm is true */}
       {showAddressForm && (
-        <AddressForm Name="Add New Address" onSubmit={handleAddressSubmit} existingAddresses={addresses} />
+        <AddressForm Name="Add New Address" onSubmit={handleAddressSubmit} onCancel = {handleCancelAddressForm} existingAddresses={addresses} />
       )}
     </div>
   );
