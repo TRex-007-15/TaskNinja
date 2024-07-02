@@ -76,27 +76,23 @@ const TaskersList = ({ service, onClose }) => {
     try {
       const accessToken = localStorage.getItem('access_token');
       if (!accessToken) {
-        setError('Access token not found.');
-        return;
+        throw new Error('Access token not found.');
       }
-
+  
       if (!userData) {
-        setError('User data not available.');
-        return;
+        throw new Error('User data not available.');
       }
-
+  
       if (!serviceDesc) {
-        setError('Service description is required.');
-        return;
+        throw new Error('Service description is required.');
       }
-
+  
       if (!appointmentDate) {
-        setError('Appointment date is required.');
-        return;
+        throw new Error('Appointment date is required.');
       }
-
+  
       const formattedDate = moment(appointmentDate).format('YYYY-MM-DD');
-
+  
       const requestBody = {
         user: userData.id,
         tasker: selectedTaskerId,
@@ -104,25 +100,40 @@ const TaskersList = ({ service, onClose }) => {
         service_date: formattedDate,
         status: 1
       };
-
+  
       const response = await api.post('/user/request/', requestBody, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
           'Content-Type': 'application/json'
         }
       });
-
+  
       alert('Tasker booked successfully!');
       setIsModalOpen(false); // Close the modal
       setServiceDesc(""); // Clear the service description
       setAppointmentDate(""); // Clear the appointment date
-
+  
       // Redirect to /Profile after successful booking
       navigate('/Profile');
     } catch (error) {
-      setError(error.message);
+      let errorMessage = 'An error occurred. Please try again.';
+  
+      if (error.response && error.response.data && typeof error.response.data === 'object') {
+        const { errors } = error.response.data;
+        if (errors && typeof errors === 'object') {
+          errorMessage = Object.keys(errors).map(key => `${key}: ${errors[key]}`).join('\n');
+        }
+      } else if (error.message) {
+        errorMessage = error.message;
+      }
+  
+      alert(errorMessage);
     }
   };
+  
+  
+  
+  
 
   const openModal = (taskerId) => {
     setSelectedTaskerId(taskerId);
