@@ -36,6 +36,11 @@ const AddressForm = ({ onSubmit, onCancel, Name, existingAddresses }) => {
     resetForm();
   };
 
+  const handleCancel = () => {
+    onCancel(); // Invoke the onCancel function passed from props
+    resetForm(); // Reset form fields when cancelling
+  };
+
   const resetForm = () => {
     setName("Home");
     setCustomName("");
@@ -46,54 +51,56 @@ const AddressForm = ({ onSubmit, onCancel, Name, existingAddresses }) => {
   };
 
   return (
-    <div className="address-form">
-      <h3>{Name}</h3>
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label>Name:</label>
-          <select value={name} onChange={(e) => setName(e.target.value)} required>
-            <option value="Home">Home</option>
-            <option value="Work">Work</option>
-            <option value="Other">Other</option>
-          </select>
-        </div>
-        {name === "Other" && (
+    <div className="overlay">
+      <div className="address-form">
+        <h3>{Name}</h3>
+        <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label>Address Type:</label>
-            <input
-              type="text"
-              value={customName}
-              onChange={(e) => setCustomName(e.target.value)}
-              required
-            />
+            <label>Name:</label>
+            <select value={name} onChange={(e) => setName(e.target.value)} required>
+              <option value="Home">Home</option>
+              <option value="Work">Work</option>
+              <option value="Other">Other</option>
+            </select>
           </div>
-        )}
-        <div className="form-group">
-          <label>State:</label>
-          <select value={state} onChange={(e) => setState(e.target.value)} required>
-            <option value="" disabled>Select your state</option>
-            {indianStates.map((stateName, index) => (
-              <option key={index} value={stateName}>{stateName}</option>
-            ))}
-          </select>
-        </div>
-        <div className="form-group">
-          <label>City:</label>
-          <input type="text" value={city} onChange={(e) => setCity(e.target.value)} required />
-        </div>
-        <div className="form-group">
-          <label>Pincode:</label>
-          <input type="text" value={pincode} onChange={(e) => setPincode(e.target.value)} required />
-        </div>
-        <div className="form-group">
-          <label>Address:</label>
-          <textarea value={fullAddress} onChange={(e) => setFullAddress(e.target.value)} required></textarea>
-        </div>
-        <div className="form-buttons">
-          <button type="submit" className="form-button">Submit</button>
-          <button type="button" className="form-button" onClick={onCancel}>Cancel</button>
-        </div>
-      </form>
+          {name === "Other" && (
+            <div className="form-group">
+              <label>Address Type:</label>
+              <input
+                type="text"
+                value={customName}
+                onChange={(e) => setCustomName(e.target.value)}
+                required
+              />
+            </div>
+          )}
+          <div className="form-group">
+            <label>State:</label>
+            <select value={state} onChange={(e) => setState(e.target.value)} required>
+              <option value="" disabled>Select your state</option>
+              {indianStates.map((stateName, index) => (
+                <option key={index} value={stateName}>{stateName}</option>
+              ))}
+            </select>
+          </div>
+          <div className="form-group">
+            <label>City:</label>
+            <input type="text" value={city} onChange={(e) => setCity(e.target.value)} required />
+          </div>
+          <div className="form-group">
+            <label>Pincode:</label>
+            <input type="text" value={pincode} onChange={(e) => setPincode(e.target.value)} required />
+          </div>
+          <div className="form-group">
+            <label>Address:</label>
+            <textarea value={fullAddress} onChange={(e) => setFullAddress(e.target.value)} required></textarea>
+          </div>
+          <div className="form-buttons">
+            <button type="submit" className="form-button">Submit</button>
+            <button type="button" className="form-button" onClick={handleCancel}>Cancel</button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };

@@ -57,6 +57,10 @@ const Signup = () => {
     }
   };
 
+  const handleCancelAddressForm = () => {
+    setShowAddressForm(false);
+  };
+
   return (
     <div className="form-container">
       <h2>Sign Up</h2>
@@ -144,8 +148,8 @@ const Signup = () => {
       {/* Popup message for success/error */}
       {popupMessage && <div className="popup-message">{popupMessage}</div>}
       {showAddressForm && (
-      <AddressForm Name="Add New Address" onSubmit={handleAddressSubmit} existingAddresses={addresses} />
-    )}
+        <AddressForm Name="Add New Address" onSubmit={handleAddressSubmit} onCancel={handleCancelAddressForm} existingAddresses={addresses} />
+      )}
     </div>
   );
 };
