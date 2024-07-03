@@ -10,7 +10,7 @@
 .booking-card {
   display: flex;
   flex-direction: column; /* Display cards as columns */
-  align-items: center; /* Center content horizontally */
+  align-items: flex-start; /* Align content to the start */
   padding: 15px;
   margin-bottom: 10px;
   border: 1px solid #ddd;
@@ -39,7 +39,6 @@
 .booking-actions {
   display: flex;
   justify-content: flex-end; /* Align buttons to the end of the card */
-  align-items: center; /* Center vertically */
   width: 100%; /* Ensure buttons take full width */
 }
 
