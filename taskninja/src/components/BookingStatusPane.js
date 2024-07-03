@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
+import api from '../api'; // Ensure you have configured axios instance
 import BookingPopup from './BookingPopup';
 import './BookingStatusPane.css'; // Import the CSS file for styling
-import api from '../api';
 const BookingStatusPane = ({ bookingRequests, setBookingRequests }) => {
   const [selectedBooking, setSelectedBooking] = useState(null);
   const [error, setError] = useState(null);

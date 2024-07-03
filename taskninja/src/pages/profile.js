@@ -22,8 +22,7 @@ const Profile = () => {
     full_address: ''
   });
   const [bookingRequests, setBookingRequests] = useState([]);
-  const [bookingHistory,setBookingHistory] = useState([])
-
+  const [bookingHistory, setBookingHistory] = useState([]);
   useEffect(() => {
     const fetchUserData = async () => {
       const accessToken = localStorage.getItem('access_token');
@@ -71,40 +70,45 @@ const Profile = () => {
       }
     };
 
-    const fetchHistory = async () => {
+    const fetchBookingHistory = async () =>
+    {
       const accessToken = localStorage.getItem('access_token');
-      if(!accessToken){
-        setError('Access token not found!');
+      if (!accessToken) {
+        setError('Access token not found.');
         setLoading(false);
         return;
       }
 
       try {
-        const response = await api.get('/requests/history/', {
-          headers: {
-            Authorization: `Bearer ${accessToken}`
+        const response = await api.get('requests/history/', {
+          headers : {
+            Authorization : `Bearer ${accessToken}`
           }
         });
         console.log('Booking History:', response.data);
         setBookingHistory(response.data);
-      } catch (error) {
+      }
+      catch(error)
+      {
         console.error('Error fetching booking history:', error);
         setError('Error fetching booking history. Please try again.');
       }
-    };
+
+    }
 
     fetchUserData();
     fetchBookingRequests();
-    fetchHistory();
+    fetchBookingHistory();
   }, []);
 
   const handleAddressChange = (e) => {
     const { name, value } = e.target;
-    setAddress({
-      ...address,
+    setAddress(prevAddress => ({
+      ...prevAddress,
       [name]: value
-    });
+    }));
   };
+  
 
   const updateAddress = async (id, updatedData) => {
     setLoading(true); // Set loading to true when updating address
@@ -225,7 +229,9 @@ const Profile = () => {
   return (
     <div className="profile-page">
       <div className="profile-content">
-        <BookingHistory bookingHistory = {bookingHistory}/>
+        <div className="booking-history-pane profile-section">
+          <BookingHistory bookingHistory={bookingHistory}/>
+        </div>
         <div className="user-details-address profile-section">
           <h3>User Details</h3>
           <div className="user-details">

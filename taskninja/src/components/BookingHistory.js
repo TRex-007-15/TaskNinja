@@ -27,7 +27,7 @@ const BookingHistory = ({ bookingHistory }) => {
   };
 
   return (
-    <div className="booking-status-pane profile-section">
+    <div>
       <h3>Booking History</h3>
       {bookingHistory && bookingHistory.length > 0 ? (
         bookingHistory.map((req) => (
