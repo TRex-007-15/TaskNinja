@@ -229,7 +229,7 @@ const Profile = () => {
   return (
     <div className="profile-page">
       <div className="profile-content">
-        <div className="booking-history-pane profile-section">
+        <div className="booking-status-pane profile-section">
           <BookingHistory bookingHistory={bookingHistory}/>
         </div>
         <div className="user-details-address profile-section">

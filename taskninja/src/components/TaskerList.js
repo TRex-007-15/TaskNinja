@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import './TaskerList.css';
 import api from '../api';
 import moment from 'moment';
+import { verifyAndRefreshToken } from '../middleware/authmiddleware';
 
 const TaskersList = ({ service, onClose }) => {
   const [taskers, setTaskers] = useState([]);
@@ -20,12 +21,8 @@ const TaskersList = ({ service, onClose }) => {
   useEffect(() => {
     const fetchTaskers = async () => {
       try {
-        const accessToken = localStorage.getItem('access_token');
-        if (!accessToken) {
-          setError('Access token not found.');
-          setLoading(false);
-          return;
-        }
+        const accessToken = await verifyAndRefreshToken();
+        
         if (!service || !service.name) {
           setError('Service not specified.');
           setLoading(false);
@@ -51,14 +48,8 @@ const TaskersList = ({ service, onClose }) => {
     };
 
     const fetchUserData = async () => {
-      const accessToken = localStorage.getItem('access_token');
-      if (!accessToken) {
-        setError('Access token not found.');
-        setLoading(false);
-        return;
-      }
-
       try {
+        const accessToken = await verifyAndRefreshToken();
         const response = await api.get('/user/data/', {
           headers: {
             Authorization: `Bearer ${accessToken}`
@@ -81,10 +72,7 @@ const TaskersList = ({ service, onClose }) => {
 
   const handleBooking = async () => {
     try {
-      const accessToken = localStorage.getItem('access_token');
-      if (!accessToken) {
-        throw new Error('Access token not found.');
-      }
+      const accessToken = await verifyAndRefreshToken();
 
       if (!userData) {
         throw new Error('User data not available.');
