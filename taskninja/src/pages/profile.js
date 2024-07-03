@@ -6,6 +6,7 @@ import './profile.css'; // Import the CSS file for styling
 import AddressForm from '../components/AddressForm'; // Corrected typo in component import
 import BookingStatusPane from '../components/BookingStatusPane'; // Import the new component
 
+
 const Profile = () => {
   const [userData, setUserData] = useState(null);
   const [error, setError] = useState(null);
@@ -248,7 +249,7 @@ const Profile = () => {
             )}
           </div>
         </div>
-        <BookingStatusPane bookingRequests={bookingRequests} />
+        <BookingStatusPane bookingRequests={bookingRequests} setBookingRequests={setBookingRequests} />
       </div>
 
       {showAddressForm && (
