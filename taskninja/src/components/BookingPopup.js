@@ -2,6 +2,21 @@ import React from 'react';
 import './BookingPopup.css'; // Import the CSS file for styling
 
 const BookingPopup = ({ booking, onClose }) => {
+
+  const getStatus = (status) => {
+    switch (status) {
+      case 1:
+        return 'Requested';
+      case 5:
+        return 'Completed';
+      case 2:
+        return 'Booked';
+      case 3:
+        return 'Cancelled';
+      default:
+        return 'Rejected'
+    }
+  };
   return (
     <div className="booking-popup">
       <div className="booking-popup-content">
@@ -19,7 +34,7 @@ const BookingPopup = ({ booking, onClose }) => {
             </div>
           )}
           <div>
-            <strong>Status:</strong> <span>{booking.status}</span>
+            <strong>Status:</strong> <span>{getStatus(booking.status)}</span>
           </div>
         </div>
       </div>
