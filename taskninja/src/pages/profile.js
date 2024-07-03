@@ -268,7 +268,7 @@ const Profile = () => {
             )}
           </div>
         </div>
-        <BookingStatusPane bookingRequests={bookingRequests} />
+        <BookingStatusPane bookingRequests={bookingRequests} setBookingRequests={setBookingRequests} />
       </div>
 
       {showAddressForm && (
