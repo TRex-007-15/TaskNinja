@@ -84,25 +84,42 @@ const BookingStatusPane = ({ bookingRequests, setBookingRequests }) => {
         bookingRequests.map((req) => (
           <div
             key={req.req_id}
-            className='booking-card'
+            className="booking-card"
             onClick={() => handleCardClick(req)}
           >
             <div
-              className='status-indicator'
+              className="status-indicator"
               style={{ backgroundColor: getStatusColor(req.status) }}
             ></div>
-            <div className='booking-details'>
+            <div className="booking-details">
               <div>
                 <strong>Request ID:</strong> <span>{req.req_id}</span>
               </div>
               <div>
-                <strong>Service Description:</strong> <span>{req.service_desc}</span>
+                <strong>Service Description:</strong>{" "}
+                <span>{req.service_desc}</span>
               </div>
             </div>
             {req.status === 1 && (
               <div className="booking-actions">
-                <button onClick={(e) => { e.stopPropagation(); handleAccept(req.req_id); }}>Accept</button>
-                <button onClick={(e) => { e.stopPropagation(); handleReject(req.req_id); }}>Reject</button>
+                <button
+                  className="accept-button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleAccept(req.req_id);
+                  }}
+                >
+                  Accept
+                </button>
+                <button
+                  className="reject-button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleReject(req.req_id);
+                  }}
+                >
+                  Reject
+                </button>
               </div>
             )}
           </div>

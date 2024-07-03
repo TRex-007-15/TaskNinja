@@ -6,18 +6,20 @@ const BookingPopup = ({ booking, onClose }) => {
     <div className="booking-popup">
       <div className="booking-popup-content">
         <button className="close-button" onClick={onClose}>Close</button>
-        <div className='popup-details'>
+        <div className="popup-details">
           <div>
             <strong>Request ID:</strong> <span>{booking.req_id}</span>
           </div>
           <div>
             <strong>Service Description:</strong> <span>{booking.service_desc}</span>
           </div>
+          {booking.address && booking.address.full_address && (
+            <div>
+              <strong>Address:</strong> <span>{booking.address.full_address}</span>
+            </div>
+          )}
           <div>
-            <strong>Address:</strong> <span>{booking.address}</span>
-          </div>
-          <div>
-            <strong>Status: <span>{booking.status}</span></strong>
+            <strong>Status:</strong> <span>{booking.status}</span>
           </div>
         </div>
       </div>

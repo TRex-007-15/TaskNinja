@@ -13,7 +13,7 @@ const TaskersList = ({ service, onClose }) => {
   const [appointmentDate, setAppointmentDate] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedTaskerId, setSelectedTaskerId] = useState(null);
-  const [selectedAddressId, setSelectedAddressId] = useState(null); 
+  const [selectedAddress, setSelectedAddress] = useState({}); 
 
   const navigate = useNavigate();
 
@@ -75,8 +75,8 @@ const TaskersList = ({ service, onClose }) => {
   }, [service]);
 
   const handleAddressChange = (e) => {
-    const selectedAddressId = parseInt(e.target.value, 10);
-    setSelectedAddressId(selectedAddressId);
+    const selectedAddress = userData.addresses.find(address => address.id === parseInt(e.target.value));
+    setSelectedAddress(selectedAddress);
   };
 
   const handleBooking = async () => {
@@ -106,7 +106,12 @@ const TaskersList = ({ service, onClose }) => {
         service_desc: serviceDesc,
         service_date: formattedDate,
         status: 1,
-        address: selectedAddressId // Pass the selectedAddressId
+        address: {
+          state: selectedAddress.state,
+          city: selectedAddress.city,
+          pincode: selectedAddress.pincode,
+          full_address: selectedAddress.full_address,
+        }
       };
 
       const response = await api.post('/user/request/', requestBody, {
@@ -211,7 +216,7 @@ const TaskersList = ({ service, onClose }) => {
             </label>
             <label>
               Address:
-              <select onChange={handleAddressChange} value={selectedAddressId}>
+              <select onChange={handleAddressChange} value={selectedAddress.id || ""}>
                 <option value="">Select an address</option>
                 {userData.addresses.map((address) => (
                   <option key={address.id} value={address.id}>
