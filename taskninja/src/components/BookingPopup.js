@@ -16,6 +16,9 @@ const BookingPopup = ({ booking, onClose }) => {
           <div>
             <strong>Address:</strong> <span>{booking.address}</span>
           </div>
+          <div>
+            <strong>Status: <span>{booking.status}</span></strong>
+          </div>
         </div>
       </div>
     </div>

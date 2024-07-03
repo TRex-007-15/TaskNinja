@@ -17,7 +17,9 @@ const BookingStatusPane = ({ bookingRequests }) => {
     switch (status) {
       case 1:
         return 'yellow';
-      case 3:
+      case 5:
+        return 'grey';
+      case 2:
         return 'green';
       default:
         return 'red';

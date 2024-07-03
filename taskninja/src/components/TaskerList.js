@@ -13,6 +13,8 @@ const TaskersList = ({ service, onClose }) => {
   const [appointmentDate, setAppointmentDate] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedTaskerId, setSelectedTaskerId] = useState(null);
+  const [selectedAddressId, setSelectedAddressId] = useState(null); 
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -72,52 +74,58 @@ const TaskersList = ({ service, onClose }) => {
     fetchUserData();
   }, [service]);
 
+  const handleAddressChange = (e) => {
+    const selectedAddressId = parseInt(e.target.value, 10);
+    setSelectedAddressId(selectedAddressId);
+  };
+
   const handleBooking = async () => {
     try {
       const accessToken = localStorage.getItem('access_token');
       if (!accessToken) {
         throw new Error('Access token not found.');
       }
-  
+
       if (!userData) {
         throw new Error('User data not available.');
       }
-  
+
       if (!serviceDesc) {
         throw new Error('Service description is required.');
       }
-  
+
       if (!appointmentDate) {
         throw new Error('Appointment date is required.');
       }
-  
+
       const formattedDate = moment(appointmentDate).format('YYYY-MM-DD');
-  
+
       const requestBody = {
         user: userData.id,
         tasker: selectedTaskerId,
         service_desc: serviceDesc,
         service_date: formattedDate,
-        status: 1
+        status: 1,
+        address: selectedAddressId // Pass the selectedAddressId
       };
-  
+
       const response = await api.post('/user/request/', requestBody, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
           'Content-Type': 'application/json'
         }
       });
-  
+
       alert('Tasker booked successfully!');
       setIsModalOpen(false); // Close the modal
       setServiceDesc(""); // Clear the service description
       setAppointmentDate(""); // Clear the appointment date
-  
+
       // Redirect to /Profile after successful booking
       navigate('/Profile');
     } catch (error) {
       let errorMessage = 'An error occurred. Please try again.';
-  
+
       if (error.response && error.response.data && typeof error.response.data === 'object') {
         const { errors } = error.response.data;
         if (errors && typeof errors === 'object') {
@@ -126,14 +134,10 @@ const TaskersList = ({ service, onClose }) => {
       } else if (error.message) {
         errorMessage = error.message;
       }
-  
+
       alert(errorMessage);
     }
   };
-  
-  
-  
-  
 
   const openModal = (taskerId) => {
     setSelectedTaskerId(taskerId);
@@ -204,6 +208,17 @@ const TaskersList = ({ service, onClose }) => {
                 value={appointmentDate}
                 onChange={(e) => setAppointmentDate(e.target.value)}
               />
+            </label>
+            <label>
+              Address:
+              <select onChange={handleAddressChange} value={selectedAddressId}>
+                <option value="">Select an address</option>
+                {userData.addresses.map((address) => (
+                  <option key={address.id} value={address.id}>
+                    {address.full_address}
+                  </option>
+                ))}
+              </select>
             </label>
             <button onClick={handleBooking}>Submit</button>
             <button onClick={closeModal}>Close</button>
