@@ -68,7 +68,7 @@ const Services = () => {
         <img id="cover-image" src={Cover} alt="cover-img" className="cover-image" />
         <p className="cover-text">Your To-do list is on us!</p>
       </div>
-      <div className="address-dropdown">
+{   isLoggedIn() &&   <div className="address-dropdown">
         <div className="dropdown-container">
           <FontAwesomeIcon icon={faMapMarkerAlt} className="pin-icon" />
           <select value={selectedAddress ? JSON.stringify(selectedAddress) : ''} onChange={handleAddressSelect}>
@@ -79,7 +79,7 @@ const Services = () => {
             ))}
           </select>
         </div>
-      </div>
+      </div> }
       <div className="services-grid">
         {services.map((service, index) => (
           <div className="service-tile" key={index} onClick={() => handleServiceClick(service)}>
