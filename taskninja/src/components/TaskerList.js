@@ -5,7 +5,7 @@ import api from '../api';
 import moment from 'moment';
 import { verifyAndRefreshToken } from '../middleware/authmiddleware';
 
-const TaskersList = ({ service, onClose }) => {
+const TaskersList = ({ service, selectedAddress, onClose }) => {
   const [taskers, setTaskers] = useState([]);
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -14,7 +14,6 @@ const TaskersList = ({ service, onClose }) => {
   const [appointmentDate, setAppointmentDate] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedTaskerId, setSelectedTaskerId] = useState(null);
-  const [selectedAddress, setSelectedAddress] = useState({}); 
 
   const navigate = useNavigate();
 
@@ -29,7 +28,8 @@ const TaskersList = ({ service, onClose }) => {
           return;
         }
         const serviceName = service.name;
-        const response = await api.get(`/taskers/${serviceName}/`, {
+        const AddressID = selectedAddress.id;
+        const response = await api.get(`/taskers/${serviceName}/${AddressID}`, {
           headers: {
             Authorization: `Bearer ${accessToken}`
           }
@@ -64,11 +64,6 @@ const TaskersList = ({ service, onClose }) => {
     fetchTaskers();
     fetchUserData();
   }, [service]);
-
-  const handleAddressChange = (e) => {
-    const selectedAddress = userData.addresses.find(address => address.id === parseInt(e.target.value));
-    setSelectedAddress(selectedAddress);
-  };
 
   const handleBooking = async () => {
     try {
@@ -201,17 +196,6 @@ const TaskersList = ({ service, onClose }) => {
                 value={appointmentDate}
                 onChange={(e) => setAppointmentDate(e.target.value)}
               />
-            </label>
-            <label>
-              Address:
-              <select onChange={handleAddressChange} value={selectedAddress.id || ""}>
-                <option value="">Select an address</option>
-                {userData.addresses.map((address) => (
-                  <option key={address.id} value={address.id}>
-                    {address.full_address}
-                  </option>
-                ))}
-              </select>
             </label>
             <button onClick={handleBooking}>Submit</button>
             <button onClick={closeModal}>Close</button>
