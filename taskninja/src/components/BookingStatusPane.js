@@ -2,9 +2,12 @@ import React, { useState } from 'react';
 import api from '../api'; // Ensure you have configured axios instance
 import BookingPopup from './BookingPopup';
 import './BookingStatusPane.css'; // Import the CSS file for styling
+import { verifyAndRefreshToken } from '../middleware/authmiddleware';
+
 const BookingStatusPane = ({ bookingRequests, setBookingRequests }) => {
   const [selectedBooking, setSelectedBooking] = useState(null);
   const [error, setError] = useState(null);
+
   const handleCardClick = (req) => {
     setSelectedBooking(req);
   };
@@ -25,8 +28,9 @@ const BookingStatusPane = ({ bookingRequests, setBookingRequests }) => {
         return 'red';
     }
   };
+
   const handleAccept = async (req_id) => {
-    const accessToken = localStorage.getItem('access_token');
+    const accessToken = await verifyAndRefreshToken();
     if (!accessToken) {
       setError('Access token not found.');
       return;
@@ -35,24 +39,23 @@ const BookingStatusPane = ({ bookingRequests, setBookingRequests }) => {
     try {
       const response = await api.put(`/tasker/accept/${req_id}`, null, {
         headers: {
-          Authorization: `Bearer ${accessToken}`
-        }
+          Authorization: `Bearer ${accessToken}`,
+        },
       });
       console.log('Request accepted:', response.data);
-      // Update the booking status locally
-      setBookingRequests(prevRequests => 
-        prevRequests.map(req => 
+      setBookingRequests((prevRequests) =>
+        prevRequests.map((req) =>
           req.req_id === req_id ? { ...req, status: 2 } : req
         )
       );
     } catch (error) {
       console.error('Error accepting request:', error);
-      setError('Error accepting request. Please try again.');
+      setError(error.response?.data?.error || 'Error accepting request. Please try again.');
     }
   };
 
   const handleReject = async (req_id) => {
-    const accessToken = localStorage.getItem('access_token');
+    const accessToken = await verifyAndRefreshToken();
     if (!accessToken) {
       setError('Access token not found.');
       return;
@@ -61,21 +64,46 @@ const BookingStatusPane = ({ bookingRequests, setBookingRequests }) => {
     try {
       const response = await api.put(`/tasker/reject/${req_id}`, null, {
         headers: {
-          Authorization: `Bearer ${accessToken}`
-        }
+          Authorization: `Bearer ${accessToken}`,
+        },
       });
       console.log('Request rejected:', response.data);
-      // Update the booking status locally
-      setBookingRequests(prevRequests => 
-        prevRequests.map(req => 
+      setBookingRequests((prevRequests) =>
+        prevRequests.map((req) =>
           req.req_id === req_id ? { ...req, status: 4 } : req
         )
       );
     } catch (error) {
       console.error('Error rejecting request:', error);
-      setError('Error rejecting request. Please try again.');
+      setError(error.response?.data?.error || 'Error rejecting request. Please try again.');
     }
   };
+
+  const handleCancel = async (req_id) => {
+    const accessToken = await verifyAndRefreshToken();
+    if (!accessToken) {
+      setError('Access token not found.');
+      return;
+    }
+
+    try {
+      const response = await api.put(`/cancel/${req_id}`, null, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      console.log('Request cancelled:', response.data);
+      setBookingRequests((prevRequests) =>
+        prevRequests.map((req) =>
+          req.req_id === req_id ? { ...req, status: 4 } : req
+        )
+      );
+    } catch (error) {
+      console.error('Error cancelling request:', error);
+      setError(error.response?.data?.error || 'Error cancelling request. Please try again.');
+    }
+  };
+
   return (
     <div className="booking-status-pane profile-section">
       <h3>Requested Bookings</h3>
@@ -119,6 +147,15 @@ const BookingStatusPane = ({ bookingRequests, setBookingRequests }) => {
                   }}
                 >
                   Reject
+                </button>
+                <button
+                  className="cancel-button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleCancel(req.req_id);
+                  }}
+                >
+                  Cancel
                 </button>
               </div>
             )}

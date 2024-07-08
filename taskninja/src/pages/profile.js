@@ -6,6 +6,7 @@ import './profile.css'; // Import the CSS file for styling
 import AddressForm from '../components/AddressForm'; // Corrected typo in component import
 import BookingStatusPane from '../components/BookingStatusPane'; // Import the new component
 import BookingHistory from '../components/BookingHistory';
+import { verifyAndRefreshToken } from '../middleware/authmiddleware';
 
 const Profile = () => {
   const [userData, setUserData] = useState(null);
@@ -25,7 +26,7 @@ const Profile = () => {
   const [bookingHistory, setBookingHistory] = useState([]);
   useEffect(() => {
     const fetchUserData = async () => {
-      const accessToken = localStorage.getItem('access_token');
+      const accessToken = await verifyAndRefreshToken();
       if (!accessToken) {
         setError('Access token not found.');
         setLoading(false);
@@ -49,7 +50,7 @@ const Profile = () => {
     };
 
     const fetchBookingRequests = async () => {
-      const accessToken = localStorage.getItem('access_token');
+      const accessToken = await verifyAndRefreshToken();
       if (!accessToken) {
         setError('Access token not found.');
         setLoading(false);
@@ -72,7 +73,7 @@ const Profile = () => {
 
     const fetchBookingHistory = async () =>
     {
-      const accessToken = localStorage.getItem('access_token');
+      const accessToken = await verifyAndRefreshToken();
       if (!accessToken) {
         setError('Access token not found.');
         setLoading(false);
@@ -112,7 +113,7 @@ const Profile = () => {
 
   const updateAddress = async (id, updatedData) => {
     setLoading(true); // Set loading to true when updating address
-    const accessToken = localStorage.getItem('access_token');
+    const accessToken = await verifyAndRefreshToken();
     const url = `/api/addresses/update/${id}/`;
 
     try {
@@ -166,7 +167,7 @@ const Profile = () => {
 
   const handleSaveNewAddress = async (newAddress) => {
     setLoading(true); // Set loading to true when adding new address
-    const accessToken = localStorage.getItem('access_token');
+    const accessToken = await verifyAndRefreshToken();
     const url = `/users/${userData.username}/addresses/`;
 
     // Check if the address type already exists
@@ -201,7 +202,7 @@ const Profile = () => {
     setLoading(true);
 
     try {
-      const accessToken = localStorage.getItem('access_token');
+      const accessToken = await verifyAndRefreshToken();
       const url = `/api/addresses/delete/${id}/`;
 
       const response = await api.delete(url, {

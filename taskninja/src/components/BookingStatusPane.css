@@ -70,6 +70,11 @@
   color: white;
 }
 
+.booking-actions .cancel-button {
+  background-color: #f44336;
+  color: white;
+}
+
 .error {
   color: red;
   margin-bottom: 10px;
