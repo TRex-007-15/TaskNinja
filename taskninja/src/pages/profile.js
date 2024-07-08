@@ -24,6 +24,7 @@ const Profile = () => {
   });
   const [bookingRequests, setBookingRequests] = useState([]);
   const [bookingHistory, setBookingHistory] = useState([]);
+
   useEffect(() => {
     const fetchUserData = async () => {
       const accessToken = await verifyAndRefreshToken();
@@ -71,8 +72,7 @@ const Profile = () => {
       }
     };
 
-    const fetchBookingHistory = async () =>
-    {
+    const fetchBookingHistory = async () => {
       const accessToken = await verifyAndRefreshToken();
       if (!accessToken) {
         setError('Access token not found.');
@@ -82,20 +82,17 @@ const Profile = () => {
 
       try {
         const response = await api.get('requests/history/', {
-          headers : {
-            Authorization : `Bearer ${accessToken}`
+          headers: {
+            Authorization: `Bearer ${accessToken}`
           }
         });
         console.log('Booking History:', response.data);
         setBookingHistory(response.data);
-      }
-      catch(error)
-      {
+      } catch (error) {
         console.error('Error fetching booking history:', error);
         setError('Error fetching booking history. Please try again.');
       }
-
-    }
+    };
 
     fetchUserData();
     fetchBookingRequests();
@@ -104,12 +101,11 @@ const Profile = () => {
 
   const handleAddressChange = (e) => {
     const { name, value } = e.target;
-    setAddress(prevAddress => ({
+    setAddress((prevAddress) => ({
       ...prevAddress,
       [name]: value
     }));
   };
-  
 
   const updateAddress = async (id, updatedData) => {
     setLoading(true); // Set loading to true when updating address
@@ -124,7 +120,7 @@ const Profile = () => {
       });
       console.log('Address updated:', response.data);
 
-      const updatedAddresses = userData.addresses.map(addr =>
+      const updatedAddresses = userData.addresses.map((addr) =>
         addr.id === id ? response.data : addr
       );
 
@@ -170,8 +166,7 @@ const Profile = () => {
     const accessToken = await verifyAndRefreshToken();
     const url = `/users/${userData.username}/addresses/`;
 
-    // Check if the address type already exists
-    const existingAddress = userData.addresses.find(addr => addr.name === newAddress.name);
+    const existingAddress = userData.addresses.find((addr) => addr.name === newAddress.name);
 
     if (existingAddress) {
       alert(`Address type '${newAddress.name}' already exists.`);
@@ -213,14 +208,12 @@ const Profile = () => {
 
       console.log('Address deleted:', response.data);
 
-      const updatedAddresses = userData.addresses.filter(addr => addr.id !== id);
+      const updatedAddresses = userData.addresses.filter((addr) => addr.id !== id);
       setUserData({ ...userData, addresses: updatedAddresses });
 
-      // Optional: Show a success message to the user
       alert('Address deleted successfully.');
     } catch (error) {
       console.error('Error deleting address:', error);
-      // Show an error message to the user without altering the user data or dashboard
       alert('Error deleting address. Please try again.');
     } finally {
       setLoading(false); // Ensure loading is set to false after attempting deletion
@@ -231,7 +224,7 @@ const Profile = () => {
     <div className="profile-page">
       <div className="profile-content">
         <div className="booking-status-pane profile-section">
-          <BookingHistory bookingHistory={bookingHistory}/>
+          <BookingHistory bookingHistory={bookingHistory} />
         </div>
         <div className="user-details-address profile-section">
           <h3>User Details</h3>
@@ -279,9 +272,9 @@ const Profile = () => {
       </div>
 
       {showAddressForm && (
-        <div className="address-form overlay">
+        <div className="overlay">
           {isEditing ? (
-            <div>
+            <div className="address-form">
               <h3>Update Address</h3>
               <form onSubmit={handleUpdateAddress}>
                 <div className="form-group">
@@ -328,15 +321,19 @@ const Profile = () => {
                     onChange={handleAddressChange}
                   />
                 </div>
-                <button type="submit">Update Address</button>
-                <button type="button" onClick={() => setShowAddressForm(false)}>Cancel</button>
+                <div className="form-buttons">
+                  <button type="submit" className="form-button">Update Address</button>
+                  <button type="button" className="form-button" onClick={() => setShowAddressForm(false)}>Cancel</button>
+                </div>
               </form>
             </div>
           ) : (
-            <AddressForm
-              onSubmit={handleSaveNewAddress}
-              onCancel={() => setShowAddressForm(false)}
-            />
+            <div className="address-form">
+              <AddressForm
+                onSubmit={handleSaveNewAddress}
+                onCancel={() => setShowAddressForm(false)}
+              />
+            </div>
           )}
         </div>
       )}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import api from '../api'; // Ensure you have configured axios instance
 import BookingPopup from './BookingPopup';
 import './BookingStatusPane.css'; // Import the CSS file for styling
@@ -104,6 +104,15 @@ const BookingStatusPane = ({ bookingRequests, setBookingRequests }) => {
     }
   };
 
+  useEffect(() => {
+    if (error) {
+      const timer = setTimeout(() => {
+        setError(null);
+      }, 2000);
+      return () => clearTimeout(timer);
+    }
+  }, [error]);
+
   return (
     <div className="booking-status-pane profile-section">
       <h3>Requested Bookings</h3>
@@ -128,26 +137,30 @@ const BookingStatusPane = ({ bookingRequests, setBookingRequests }) => {
                 <span>{req.service_desc}</span>
               </div>
             </div>
-            {req.status === 1 && (
-              <div className="booking-actions">
-                <button
-                  className="accept-button"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleAccept(req.req_id);
-                  }}
-                >
-                  Accept
-                </button>
-                <button
-                  className="reject-button"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleReject(req.req_id);
-                  }}
-                >
-                  Reject
-                </button>
+            <div className="booking-actions">
+              {req.status === 1 && (
+                <>
+                  <button
+                    className="accept-button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleAccept(req.req_id);
+                    }}
+                  >
+                    Accept
+                  </button>
+                  <button
+                    className="reject-button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleReject(req.req_id);
+                    }}
+                  >
+                    Reject
+                  </button>
+                </>
+              )}
+              {(req.status === 1 || req.status === 2) && (
                 <button
                   className="cancel-button"
                   onClick={(e) => {
@@ -157,8 +170,8 @@ const BookingStatusPane = ({ bookingRequests, setBookingRequests }) => {
                 >
                   Cancel
                 </button>
-              </div>
-            )}
+              )}
+            </div>
           </div>
         ))
       ) : (

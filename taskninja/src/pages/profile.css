@@ -77,57 +77,103 @@
   background-color: #0056b3;
 }
 
+/* Ensure the profile page styles remain the same */
+
 .overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.7); /* Darker background */
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1100; /* Ensure overlay is above the footer */
+  z-index: 1100; /* Ensure overlay is above other content */
 }
 
-.overlay > div {
+.overlay .address-form {
   background-color: #ffffff;
-  padding: 30px; /* Increased padding */
+  padding: 20px; /* Reduced padding */
   border-radius: 12px; /* Increased border radius */
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); /* Increased box shadow */
+  max-height: 80vh; /* Limit the height of the form */
+  overflow-y: auto; /* Enable scrolling */
+  width: 90%; /* Limit the width of the form */
+  max-width: 500px; /* Maximum width of the form */
 }
 
-.overlay form {
-  display: grid;
-  gap: 15px; /* Increased gap */
+/* Address Form Styles */
+.address-form h3 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
 }
 
-.overlay form label {
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
   font-weight: bold;
-  font-size: 1.2rem; /* Increased font size */
 }
 
-.overlay form input,
-.overlay form textarea,
-.overlay form select {
-  width: 100%;
-  padding: 10px; /* Increased padding */
-  border: 2px solid #ccc; /* Increased border thickness */
-  border-radius: 8px; /* Increased border radius */
-  box-sizing: border-box;
-  font-size: 1.2rem; /* Increased font size */
+.form-group select,
+.form-group input,
+.form-group textarea {
+  width: 100%; /* Take up full width */
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box; /* Include padding and border in width */
 }
 
-.overlay form button {
-  background-color: #007bff;
-  color: #ffffff;
+.form-group select {
+  width: 100%; /* Take up full width */
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box; /* Include padding and border in width */
+  min-width: 200px; /* Adjust based on your design */
+}
+
+.form-group select option {
+  min-width: 150px; /* Set a minimum width for options */
+  padding: 8px;
+}
+
+.form-group.large-select select {
+  min-width: 300px; /* Larger width for specific selects */
+}
+
+.form-group textarea {
+  height: 100px; /* Adjust height for textarea */
+  resize: vertical; /* Allow vertical resizing */
+}
+
+.form-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.form-button {
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
   border: none;
-  padding: 15px 25px; /* Increased padding */
-  border-radius: 8px; /* Increased border radius */
+  border-radius: 4px;
   cursor: pointer;
-  font-size: 1.2rem; /* Increased font size */
 }
 
-.overlay form button:hover {
-  background-color: #0056b3;
+.form-button:hover {
+  background-color: #45a049;
+}
+
+.form-button:last-child {
+  background-color: #45a049;
+}
+
+.form-button:last-child:hover {
+  background-color: #37a252;
 }

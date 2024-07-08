@@ -34,6 +34,10 @@ const BookingPopup = ({ booking, onClose }) => {
             </div>
           )}
           <div>
+          <strong>Date of Service :</strong> <span> {booking.service_date} </span>
+
+          </div>
+          <div>
             <strong>Status:</strong> <span>{getStatus(booking.status)}</span>
           </div>
         </div>
