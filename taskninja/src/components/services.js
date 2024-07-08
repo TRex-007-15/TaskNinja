@@ -10,7 +10,7 @@ import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
 
 const Services = () => {
   const [selectedService, setSelectedService] = useState(null);
-  const [selectedAddress, setSelectedAddress] = useState('');
+  const [selectedAddress, setSelectedAddress] = useState(null); // Initialize as null
   const [addresses, setAddresses] = useState([]);
 
   const isLoggedIn = () => {
@@ -28,7 +28,13 @@ const Services = () => {
                 Authorization: `Bearer ${accessToken}`
               }
             });
-            setAddresses(response.data.addresses);
+            const fetchedAddresses = response.data.addresses;
+            setAddresses(fetchedAddresses);
+            
+            // Set the first address as selected by default
+            if (fetchedAddresses.length > 0) {
+              setSelectedAddress(fetchedAddresses[0]);
+            }
           } catch (error) {
             console.error('Error fetching addresses:', error);
           }
@@ -37,6 +43,12 @@ const Services = () => {
     };
     fetchAddresses();
   }, []);
+
+  // Update selected address
+  const handleAddressSelect = (event) => {
+    const address = JSON.parse(event.target.value);
+    setSelectedAddress(address);
+  };
 
   const handleServiceClick = (service) => {
     if (isLoggedIn()) {
@@ -50,15 +62,6 @@ const Services = () => {
     setSelectedService(null);
   };
 
-  const handleAddressSelect = (event) => {
-    const address = JSON.parse(event.target.value);
-    if (isLoggedIn()) {
-      setSelectedAddress(address);
-    } else {
-      window.location.href = '/form';
-    }
-  };
-
   return (
     <>
       <div className="cover">
@@ -69,7 +72,6 @@ const Services = () => {
         <div className="dropdown-container">
           <FontAwesomeIcon icon={faMapMarkerAlt} className="pin-icon" />
           <select value={selectedAddress ? JSON.stringify(selectedAddress) : ''} onChange={handleAddressSelect}>
-            <option value="">Select Address</option>
             {addresses.map((address) => (
               <option key={address.id} value={JSON.stringify(address)}>
                 {address.full_address}, {address.city}, {address.state}, {address.pincode}

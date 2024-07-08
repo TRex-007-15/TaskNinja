@@ -153,7 +153,7 @@ footer {
 .address-dropdown {
   display: flex;
   justify-content: flex-end;
-  margin: 5% 5%; /* Adjust margin to position it below the cover image */
+  margin: 2% 5%; /* Adjust margin to position it below the cover image */
   width: auto;
 }
 
