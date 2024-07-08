@@ -24,7 +24,7 @@ const Profile = () => {
   });
   const [bookingRequests, setBookingRequests] = useState([]);
   const [bookingHistory, setBookingHistory] = useState([]);
-
+  const [userType,setUsertype] = useState(null);
   useEffect(() => {
     const fetchUserData = async () => {
       const accessToken = await verifyAndRefreshToken();
@@ -42,6 +42,7 @@ const Profile = () => {
         });
         console.log('User data:', response.data);
         setUserData(response.data);
+        setUsertype(response.data.user_type)
         setLoading(false); // Set loading to false after data is fetched
       } catch (error) {
         console.error('Error fetching user data:', error);
@@ -268,7 +269,7 @@ const Profile = () => {
             )}
           </div>
         </div>
-        <BookingStatusPane bookingRequests={bookingRequests} setBookingRequests={setBookingRequests} />
+        <BookingStatusPane bookingRequests={bookingRequests} setBookingRequests={setBookingRequests} userType={userType} />
       </div>
 
       {showAddressForm && (

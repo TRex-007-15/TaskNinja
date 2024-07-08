@@ -4,7 +4,7 @@ import BookingPopup from './BookingPopup';
 import './BookingStatusPane.css'; // Import the CSS file for styling
 import { verifyAndRefreshToken } from '../middleware/authmiddleware';
 
-const BookingStatusPane = ({ bookingRequests, setBookingRequests }) => {
+const BookingStatusPane = ({ bookingRequests, setBookingRequests , userType}) => {
   const [selectedBooking, setSelectedBooking] = useState(null);
   const [error, setError] = useState(null);
 
@@ -140,7 +140,7 @@ const BookingStatusPane = ({ bookingRequests, setBookingRequests }) => {
             <div className="booking-actions">
               {req.status === 1 && (
                 <>
-                  <button
+               { userType === "tasker" && <button
                     className="accept-button"
                     onClick={(e) => {
                       e.stopPropagation();
@@ -148,8 +148,8 @@ const BookingStatusPane = ({ bookingRequests, setBookingRequests }) => {
                     }}
                   >
                     Accept
-                  </button>
-                  <button
+                  </button>}
+                  {userType === "tasker" && <button
                     className="reject-button"
                     onClick={(e) => {
                       e.stopPropagation();
@@ -157,7 +157,7 @@ const BookingStatusPane = ({ bookingRequests, setBookingRequests }) => {
                     }}
                   >
                     Reject
-                  </button>
+                  </button>}
                 </>
               )}
               {(req.status === 1 || req.status === 2) && (

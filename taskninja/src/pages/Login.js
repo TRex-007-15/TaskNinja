@@ -24,7 +24,7 @@ const Login = () => {
       const response = await api.post('/api/token/', formData);
       localStorage.setItem('access_token', response.data.access);
       localStorage.setItem('refresh_token', response.data.refresh);
-      navigate('/'); // Redirect to home page after successful login
+      navigate('/Profile'); // Redirect to home page after successful login
     } catch (error) {
       setError('Invalid credentials. Please try again.');
     }
