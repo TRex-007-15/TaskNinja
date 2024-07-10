@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../api';
+import { Link } from 'react-router-dom';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -69,6 +70,7 @@ const Login = () => {
         
         {/* Submit button */}
         <button type="submit" className="form-button">Login</button>
+        <Link to="/forgot-password">Forgot Password?</Link>
       </form>
       {/* Popup message for success */}
       {popupMessage && <p>{popupMessage}</p>}
