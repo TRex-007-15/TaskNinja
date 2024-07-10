@@ -1,5 +1,5 @@
 import React from 'react';
-import Login from '../pages/Login.js';
+import Login from './Login.js';
 import Signup from '../pages/Signup.js';
 import '../App.css';
 const FormContainer = ({ formType, onFormTypeChange }) => (

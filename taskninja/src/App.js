@@ -9,6 +9,9 @@ import Footer from "./components/Footer"; // Import Footer component
 import "./App.css";
 import services from "./ServiceData";
 import Profile from "./pages/profile";
+import Login from './components/Login';
+import ForgotPassword from './components/ForgotPassword';
+import ResetPassword from './components/ResetPassword';
 
 const App = () => {
   const [formType, setFormType] = useState("login");
@@ -26,6 +29,10 @@ const App = () => {
     <div>
       <Navbar onLoginClick={handleLoginClick} />
       <Routes>
+        {/* ... existing routes ... */}
+        <Route path="/login" element={<Login />} /> {/* Ensure this route is defined */}
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/password_reset_confirm/:uidb64/:token" element={<ResetPassword />} />
         <Route
           path="/"
           element={
