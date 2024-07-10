@@ -18,15 +18,8 @@ const Signup = () => {
   });
   const [popupMessage, setPopupMessage] = useState("");
   const [showAddressForm, setShowAddressForm] = useState(false);
-
-  const handleAddressSubmit = (addressData) => {
-    setAddresses([...addresses, addressData]);
-    setFormData(prevFormData => ({
-      ...prevFormData,
-      addresses: [...prevFormData.addresses, addressData]
-    }));
-    setShowAddressForm(false);
-  };
+  const [otpSent, setOtpSent] = useState(false); // Track OTP sent state
+  const [otp, setOtp] = useState(""); // State to store OTP input
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -45,7 +38,18 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await api.post('/user/register/', formData);
+      // Check if OTP has been sent and entered
+      if (!otpSent || !otp) {
+        setPopupMessage("Please send and enter OTP first!");
+        return;
+      }
+
+      const data = {
+        ...formData,
+        otp: otp,
+      };
+
+      const response = await api.post('/user/register/', data);
       console.log('User registered:', response.data);
       setPopupMessage("Registered successfully!");
       setTimeout(() => {
@@ -57,7 +61,27 @@ const Signup = () => {
     }
   };
 
+  const handleSendOTP = async () => {
+    try {
+      await api.post('/otp/', { contact_number: formData.contact_number });
+      setOtpSent(true);
+      setPopupMessage("OTP Sent!");
+    } catch (error) {
+      setPopupMessage("Error sending OTP!");
+      console.error('Error sending OTP:', error.response?.data || error.message);
+    }
+  };
+
   const handleCancelAddressForm = () => {
+    setShowAddressForm(false);
+  };
+
+  const handleAddressSubmit = (addressData) => {
+    setAddresses([...addresses, addressData]);
+    setFormData(prevFormData => ({
+      ...prevFormData,
+      addresses: [...prevFormData.addresses, addressData]
+    }));
     setShowAddressForm(false);
   };
 
@@ -125,8 +149,25 @@ const Signup = () => {
             onChange={handleChange}
             required
           />
+          {/* Button to send OTP */}
+          <button type="button" className="form-button" onClick={handleSendOTP} disabled={otpSent}>
+            {otpSent ? "OTP Sent" : "Send OTP"}
+          </button>
         </div>
-        
+        {/* OTP input field */}
+        {otpSent && (
+          <div className="form-group">
+            <label>Enter OTP:</label>
+            <input
+              type="text"
+              name="otp"
+              value={otp}
+              onChange={(e) => setOtp(e.target.value)}
+              required
+            />
+          </div>
+        )}
+
         <div className="form-group">
           <label>Addresses:</label>
           {!showAddressForm && <button type="button" className="add-address-button" onClick={() => setShowAddressForm(true)}>+</button>}
