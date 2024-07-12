@@ -13,6 +13,8 @@ import Login from './components/Login';
 import ForgotPassword from './components/ForgotPassword';
 import ResetPassword from './components/ResetPassword';
 
+
+
 const App = () => {
   const [formType, setFormType] = useState("login");
   const [searchQuery, setSearchQuery] = useState("");
@@ -31,8 +33,8 @@ const App = () => {
       <Routes>
         {/* ... existing routes ... */}
         <Route path="/login" element={<Login />} /> {/* Ensure this route is defined */}
-        <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/password_reset_confirm/:uidb64/:token" element={<ResetPassword />} />
+        <Route path="/forgot-password" element={<ForgotPassword/>} />
+        <Route path="/reset-password" element={<ResetPassword/>} />
         <Route
           path="/"
           element={

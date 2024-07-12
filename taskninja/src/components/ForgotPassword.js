@@ -1,36 +1,29 @@
-// ForgotPassword.js
 import React, { useState } from 'react';
-import axios from 'axios';
+import api from '../api';
 
 const ForgotPassword = () => {
   const [contactNumber, setContactNumber] = useState('');
   const [message, setMessage] = useState('');
 
-  const handleForgotPassword = async (e) => {
-    e.preventDefault();
+  const handleSendOTP = async () => {
     try {
-      const response = await axios.post('/api/forgot-password/', {
-        contact_number: contactNumber,
-      });
+      const response = await api.post('/send_password_reset_otp/', { contact_number: contactNumber });
       setMessage(response.data.message);
     } catch (error) {
-      setMessage(error.response.data.error);
+      setMessage(error.response?.data?.error || 'Error sending OTP');
     }
   };
 
   return (
     <div>
       <h2>Forgot Password</h2>
-      <form onSubmit={handleForgotPassword}>
-        <input
-          type="text"
-          value={contactNumber}
-          onChange={(e) => setContactNumber(e.target.value)}
-          placeholder="Enter your contact number"
-          required
-        />
-        <button type="submit">Send OTP</button>
-      </form>
+      <input
+        type="text"
+        value={contactNumber}
+        onChange={(e) => setContactNumber(e.target.value)}
+        placeholder="Enter your contact number"
+      />
+      <button onClick={handleSendOTP}>Send OTP</button>
       {message && <p>{message}</p>}
     </div>
   );

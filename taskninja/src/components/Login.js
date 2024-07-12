@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import api from '../api';
-import { Link } from 'react-router-dom';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -25,7 +24,7 @@ const Login = () => {
       const response = await api.post('/api/token/', formData);
       localStorage.setItem('access_token', response.data.access);
       localStorage.setItem('refresh_token', response.data.refresh);
-      navigate('/Profile'); // Redirect to home page after successful login
+      navigate('/Profile'); // Redirect to profile page after successful login
     } catch (error) {
       setError('Invalid credentials. Please try again.');
     }
@@ -70,10 +69,14 @@ const Login = () => {
         
         {/* Submit button */}
         <button type="submit" className="form-button">Login</button>
-        <Link to="/forgot-password">Forgot Password?</Link>
       </form>
       {/* Popup message for success */}
       {popupMessage && <p>{popupMessage}</p>}
+      
+      {/* Forgot Password link */}
+      <div className="forgot-password-link">
+        <Link to="/forgot-password">Forgot Password?</Link>
+      </div>
     </div>
   );
 };

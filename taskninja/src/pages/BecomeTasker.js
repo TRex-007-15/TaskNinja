@@ -58,57 +58,64 @@ const BecomeTasker = () => {
     setShowAddressForm(false);
   };
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+const handleSubmit = async (event) => {
+  event.preventDefault();
 
-    const taskerData = {
-      username,
-      first_name: firstName,
-      last_name: lastName,
-      email,
-      password,
-      about,
-      service: selectedService,
-      experience: selectedExperience,
-      price,
-      contact_number: contactNumber,
-      addresses,
-      skill_proof_pdf: skillProofPdf ? skillProofPdf.name : "",
-      price_per_day: pricePerDay,
-      otp: OTP
-    };
-
-    try {
-      const formData = new FormData();
-      Object.keys(taskerData).forEach(key => {
-        formData.append(key, taskerData[key]);
-      });
-
-      if (skillProofPdf) {
-        formData.append('skill_proof_pdf', skillProofPdf);
-      }
-
-      const response = await api.post('/tasker/register/', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-
-      console.log("Tasker Registration Successful: ", response.data);
-      setPopupMessage("Tasker registered successfully!");
-      setTimeout(() => {
-        setPopupMessage("");
-        window.location.href = '/';
-      }, 2000);
-    } catch (error) {
-      if (error.response && error.response.data && error.response.data.email) {
-        setPopupMessage("Email already exists!");
-      } else {
-        setPopupMessage("Error registering tasker!");
-      }
-      console.error("Registration Error: ", error);
-    }
+  const taskerData = {
+    username,
+    first_name: firstName,
+    last_name: lastName,
+    email,
+    password,
+    about,
+    service: selectedService,
+    experience: selectedExperience,
+    price,
+    contact_number: contactNumber,
+    price_per_day: pricePerDay,
+    otp: OTP
   };
+
+  try {
+    const formData = new FormData();
+    Object.keys(taskerData).forEach(key => {
+      formData.append(key, taskerData[key]);
+    });
+
+    if (skillProofPdf) {
+      formData.append('skill_proof_pdf', skillProofPdf);
+    }
+
+    addresses.forEach((address, index) => {
+      formData.append(`addresses[${index}][name]`, address.name);
+      formData.append(`addresses[${index}][state]`, address.state);
+      formData.append(`addresses[${index}][city]`, address.city);
+      formData.append(`addresses[${index}][full_address]`, address.full_address);
+    });
+
+    const response = await api.post('/tasker/register/', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+
+    console.log("Tasker Registration Successful: ", response.data);
+    setPopupMessage("Tasker registered successfully!");
+    setTimeout(() => {
+      setPopupMessage("");
+      window.location.href = '/';
+    }, 2000);
+  } catch (error) {
+    if (error.response && error.response.data && error.response.data.email) {
+      setPopupMessage("Email already exists!");
+    } else {
+      setPopupMessage("Error registering tasker!");
+    }
+    console.error("Registration Error: ", error);
+  }
+};
+
+
 
   const sendOTP = async () => {
     const contact_number = contactNumber;

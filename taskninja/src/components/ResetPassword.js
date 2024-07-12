@@ -1,6 +1,5 @@
-// ResetPassword.js
 import React, { useState } from 'react';
-import axios from 'axios';
+import api from '../api';
 
 const ResetPassword = () => {
   const [contactNumber, setContactNumber] = useState('');
@@ -8,47 +7,41 @@ const ResetPassword = () => {
   const [newPassword, setNewPassword] = useState('');
   const [message, setMessage] = useState('');
 
-  const handleResetPassword = async (e) => {
-    e.preventDefault();
+  const handleResetPassword = async () => {
     try {
-      const response = await axios.post('/api/reset-password/', {
+      const response = await api.post('/reset_password_with_otp/', {
         contact_number: contactNumber,
         otp: otp,
         new_password: newPassword,
       });
       setMessage(response.data.message);
     } catch (error) {
-      setMessage(error.response.data.error);
+      setMessage(error.response?.data?.error || 'Error resetting password');
     }
   };
 
   return (
     <div>
       <h2>Reset Password</h2>
-      <form onSubmit={handleResetPassword}>
-        <input
-          type="text"
-          value={contactNumber}
-          onChange={(e) => setContactNumber(e.target.value)}
-          placeholder="Enter your contact number"
-          required
-        />
-        <input
-          type="text"
-          value={otp}
-          onChange={(e) => setOtp(e.target.value)}
-          placeholder="Enter OTP"
-          required
-        />
-        <input
-          type="password"
-          value={newPassword}
-          onChange={(e) => setNewPassword(e.target.value)}
-          placeholder="Enter new password"
-          required
-        />
-        <button type="submit">Reset Password</button>
-      </form>
+      <input
+        type="text"
+        value={contactNumber}
+        onChange={(e) => setContactNumber(e.target.value)}
+        placeholder="Enter your contact number"
+      />
+      <input
+        type="text"
+        value={otp}
+        onChange={(e) => setOtp(e.target.value)}
+        placeholder="Enter the OTP"
+      />
+      <input
+        type="password"
+        value={newPassword}
+        onChange={(e) => setNewPassword(e.target.value)}
+        placeholder="Enter new password"
+      />
+      <button onClick={handleResetPassword}>Reset Password</button>
       {message && <p>{message}</p>}
     </div>
   );

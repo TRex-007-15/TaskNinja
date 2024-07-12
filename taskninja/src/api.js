@@ -2,8 +2,9 @@ import axios from 'axios';
 import createAuthRefreshInterceptor from 'axios-auth-refresh';
 
 
+
 const api = axios.create({
-  baseURL: 'http://localhost:8000',
+  baseURL: 'http://localhost:8000', // Ensure this is your backend URL
 });
 
 
