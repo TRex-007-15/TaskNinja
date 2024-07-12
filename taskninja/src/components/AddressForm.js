@@ -31,7 +31,7 @@ const AddressForm = ({ onSubmit, onCancel, Name, existingAddresses }) => {
     }
 
     const addressName = name === "Other" ? customName : name;
-
+    
     onSubmit({ name: addressName, state, city, pincode, full_address: fullAddress });
     resetForm();
   };
@@ -96,7 +96,7 @@ const AddressForm = ({ onSubmit, onCancel, Name, existingAddresses }) => {
             <textarea value={fullAddress} onChange={(e) => setFullAddress(e.target.value)} required></textarea>
           </div>
           <div className="form-buttons">
-            <button type="submit" className="form-button">Submit</button>
+            <button type="submit" className="form-button" onClick={handleSubmit}>Submit</button>
             <button type="button" className="form-button" onClick={handleCancel}>Cancel</button>
           </div>
         </form>
