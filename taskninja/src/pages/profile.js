@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import api from '../api';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencilAlt, faPlus, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
-import './profile.css'; // Import the CSS file for styling
-import AddressForm from '../components/AddressForm'; // Corrected typo in component import
-import BookingStatusPane from '../components/BookingStatusPane'; // Import the new component
+import './profile.css';
+import AddressForm from '../components/AddressForm';
+import BookingStatusPane from '../components/BookingStatusPane';
 import BookingHistory from '../components/BookingHistory';
 import { verifyAndRefreshToken } from '../middleware/authmiddleware';
 
@@ -24,7 +24,8 @@ const Profile = () => {
   });
   const [bookingRequests, setBookingRequests] = useState([]);
   const [bookingHistory, setBookingHistory] = useState([]);
-  const [userType,setUsertype] = useState(null);
+  const [userType, setUsertype] = useState(null);
+
   useEffect(() => {
     const fetchUserData = async () => {
       const accessToken = await verifyAndRefreshToken();
@@ -42,12 +43,12 @@ const Profile = () => {
         });
         console.log('User data:', response.data);
         setUserData(response.data);
-        setUsertype(response.data.user_type)
-        setLoading(false); // Set loading to false after data is fetched
+        setUsertype(response.data.user_type);
+        setLoading(false);
       } catch (error) {
         console.error('Error fetching user data:', error);
         setError('Error fetching user data. Please try again.');
-        setLoading(false); // Set loading to false in case of error
+        setLoading(false);
       }
     };
 
@@ -82,7 +83,7 @@ const Profile = () => {
       }
 
       try {
-        const response = await api.get('requests/history/', {
+        const response = await api.get('/requests/history/', {
           headers: {
             Authorization: `Bearer ${accessToken}`
           }
@@ -100,16 +101,16 @@ const Profile = () => {
     fetchBookingHistory();
   }, []);
 
-  const handleAddressChange = (e) => {
-    const { name, value } = e.target;
-    setAddress((prevAddress) => ({
-      ...prevAddress,
-      [name]: value
-    }));
-  };
+  // const handleAddressChange = (e) => {
+  //   const { name, value } = e.target;
+  //   setAddress((prevAddress) => ({
+  //     ...prevAddress,
+  //     [name]: value
+  //   }));
+  // };
 
   const updateAddress = async (id, updatedData) => {
-    setLoading(true); // Set loading to true when updating address
+    setLoading(true);
     const accessToken = await verifyAndRefreshToken();
     const url = `/api/addresses/update/${id}/`;
 
@@ -133,7 +134,7 @@ const Profile = () => {
       console.error('Error updating address:', error);
       setError('Error updating address. Please try again.');
     } finally {
-      setLoading(false); // Set loading to false after update attempt
+      setLoading(false);
     }
   };
 
@@ -163,7 +164,7 @@ const Profile = () => {
   };
 
   const handleSaveNewAddress = async (newAddress) => {
-    setLoading(true); // Set loading to true when adding new address
+    setLoading(true);
     const accessToken = await verifyAndRefreshToken();
     const url = `/users/${userData.username}/addresses/`;
 
@@ -171,7 +172,7 @@ const Profile = () => {
 
     if (existingAddress) {
       alert(`Address type '${newAddress.name}' already exists.`);
-      setLoading(false); // Reset loading state
+      setLoading(false);
       return;
     }
 
@@ -190,7 +191,7 @@ const Profile = () => {
       console.error('Error adding address:', error);
       setError('Error adding address. Please try again.');
     } finally {
-      setLoading(false); // Set loading to false after the address addition attempt
+      setLoading(false);
     }
   };
 
@@ -217,7 +218,7 @@ const Profile = () => {
       console.error('Error deleting address:', error);
       alert('Error deleting address. Please try again.');
     } finally {
-      setLoading(false); // Ensure loading is set to false after attempting deletion
+      setLoading(false);
     }
   };
 
@@ -271,75 +272,17 @@ const Profile = () => {
         </div>
         <BookingStatusPane bookingRequests={bookingRequests} setBookingRequests={setBookingRequests} userType={userType} />
       </div>
-
       {showAddressForm && (
         <div className="overlay">
-          {isEditing ? (
-            <div className="address-form">
-              <h3>Update Address</h3>
-              <form onSubmit={handleUpdateAddress}>
-                <div className="form-group">
-                  <label>Name</label>
-                  <input
-                    type="text"
-                    name="name"
-                    value={address.name}
-                    onChange={handleAddressChange}
-                  />
-                </div>
-                <div className="form-group">
-                  <label>State</label>
-                  <input
-                    type="text"
-                    name="state"
-                    value={address.state}
-                    onChange={handleAddressChange}
-                  />
-                </div>
-                <div className="form-group">
-                  <label>City</label>
-                  <input
-                    type="text"
-                    name="city"
-                    value={address.city}
-                    onChange={handleAddressChange}
-                  />
-                </div>
-                <div className="form-group">
-                  <label>Pincode</label>
-                  <input
-                    type="text"
-                    name="pincode"
-                    value={address.pincode}
-                    onChange={handleAddressChange}
-                  />
-                </div>
-                <div className="form-group">
-                  <label>Full Address</label>
-                  <textarea
-                    name="full_address"
-                    value={address.full_address}
-                    onChange={handleAddressChange}
-                  />
-                </div>
-                <div className="form-buttons">
-                  <button type="submit" className="form-button">Update Address</button>
-                  <button type="button" className="form-button" onClick={() => setShowAddressForm(false)}>Cancel</button>
-                </div>
-              </form>
-            </div>
-          ) : (
-            <div className="address-form">
-              <AddressForm
-                onSubmit={handleSaveNewAddress}
-                onCancel={() => setShowAddressForm(false)}
-              />
-            </div>
-          )}
+          <AddressForm
+            onSubmit={isEditing ? handleUpdateAddress : handleSaveNewAddress}
+            onCancel={() => setShowAddressForm(false)}
+            existingAddresses={userData.addresses}
+          />
         </div>
       )}
     </div>
   );
-};
+};  
 
 export default Profile;

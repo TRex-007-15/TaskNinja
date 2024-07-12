@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import api from '../api';
+import { useNavigate } from 'react-router-dom';
 import AddressForm from '../components/AddressForm';
 import './BecomeTasker.css';
 
@@ -32,102 +33,28 @@ const experienceOptions = [
 ];
 
 const BecomeTasker = () => {
-  const [selectedService, setSelectedService] = useState("");
-  const [selectedExperience, setSelectedExperience] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [about, setAbout] = useState("");
-  const [username, setUsername] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [price, setPrice] = useState(0);
-  const [contactNumber, setContactNumber] = useState("");
-  const [popupMessage, setPopupMessage] = useState("");
+  const navigate = useNavigate();
   const [addresses, setAddresses] = useState([]);
+  const [formData, setFormData] = useState({
+    username: '',
+    password: '',
+    email: '',
+    first_name: '',
+    last_name: '',
+    contact_number: '',
+    about: '',
+    service: '',
+    experience: '',
+    price: 0,
+    price_per_day: 0,
+    addresses: [],
+    skill_proof_pdf: '',
+    otp: ''
+  });
+  const [popupMessage, setPopupMessage] = useState("");
   const [showAddressForm, setShowAddressForm] = useState(false);
+  const [otpSent, setOtpSent] = useState(false); // Track OTP sent state
   const [skillProofPdf, setSkillProofPdf] = useState(null);
-  const [pricePerDay, setPricePerDay] = useState(0);
-  const [OTP, setOTP] = useState("");
-
-  const handleAddressSubmit = (addressData) => {
-    setAddresses([...addresses, addressData]);
-    setShowAddressForm(false);
-  };
-
-  const handleCancelAddressForm = () => {
-    setShowAddressForm(false);
-  };
-
-const handleSubmit = async (event) => {
-  event.preventDefault();
-
-  const taskerData = {
-    username,
-    first_name: firstName,
-    last_name: lastName,
-    email,
-    password,
-    about,
-    service: selectedService,
-    experience: selectedExperience,
-    price,
-    contact_number: contactNumber,
-    price_per_day: pricePerDay,
-    otp: OTP
-  };
-
-  try {
-    const formData = new FormData();
-    Object.keys(taskerData).forEach(key => {
-      formData.append(key, taskerData[key]);
-    });
-
-    if (skillProofPdf) {
-      formData.append('skill_proof_pdf', skillProofPdf);
-    }
-
-    addresses.forEach((address, index) => {
-      formData.append(`addresses[${index}][name]`, address.name);
-      formData.append(`addresses[${index}][state]`, address.state);
-      formData.append(`addresses[${index}][city]`, address.city);
-      formData.append(`addresses[${index}][full_address]`, address.full_address);
-    });
-
-    const response = await api.post('/tasker/register/', formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    });
-
-    console.log("Tasker Registration Successful: ", response.data);
-    setPopupMessage("Tasker registered successfully!");
-    setTimeout(() => {
-      setPopupMessage("");
-      window.location.href = '/';
-    }, 2000);
-  } catch (error) {
-    if (error.response && error.response.data && error.response.data.email) {
-      setPopupMessage("Email already exists!");
-    } else {
-      setPopupMessage("Error registering tasker!");
-    }
-    console.error("Registration Error: ", error);
-  }
-};
-
-
-
-  const sendOTP = async () => {
-    const contact_number = contactNumber;
-    try {
-      const response = await api.post('/otp/', { contact_number });
-      console.log("OTP sent");
-      setPopupMessage("OTP Sent");
-    } catch (error) {
-      setPopupMessage("Error sending OTP!");
-      console.log(error);
-    }
-  };
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -136,8 +63,69 @@ const handleSubmit = async (event) => {
     return () => clearTimeout(timeout);
   }, [popupMessage]);
 
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
   const handleFileChange = (event) => {
     setSkillProofPdf(event.target.files[0]);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      // Check if OTP has been sent and entered
+      if (!otpSent || !formData.otp) {
+        setPopupMessage("Please send and enter OTP first!");
+        return;
+      }
+
+      const data = {
+        ...formData,
+        skill_proof_pdf: skillProofPdf ? skillProofPdf.name : '',
+      };
+
+      const response = await api.post('/tasker/register/', data);
+      console.log("Tasker Registration Successful: ", response.data);
+      setPopupMessage("Tasker registered successfully!");
+      setTimeout(() => {
+        navigate('/');
+      }, 2000);
+    } catch (error) {
+      if (error.response && error.response.data && error.response.data.email) {
+        setPopupMessage("Email already exists!");
+      } else {
+        setPopupMessage("Error registering tasker!");
+      }
+      console.error("Registration Error: ", error);
+    }
+  };
+
+  const handleSendOTP = async () => {
+    try {
+      await api.post('/otp/', { contact_number: formData.contact_number });
+      setOtpSent(true);
+      setPopupMessage("OTP Sent!");
+    } catch (error) {
+      setPopupMessage("Error sending OTP!");
+      console.error('Error sending OTP:', error.response?.data || error.message);
+    }
+  };
+
+  const handleCancelAddressForm = () => {
+    setShowAddressForm(false);
+  };
+
+  const handleAddressSubmit = (addressData) => {
+    setAddresses([...addresses, addressData]);
+    setFormData(prevFormData => ({
+      ...prevFormData,
+      addresses: [...prevFormData.addresses, addressData]
+    }));
+    setShowAddressForm(false);
   };
 
   return (
@@ -147,43 +135,97 @@ const handleSubmit = async (event) => {
         <div className="form-column">
           <div className="form-group">
             <label>Username:</label>
-            <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} required />
+            <input
+              type="text"
+              name="username"
+              value={formData.username}
+              onChange={handleChange}
+              required
+            />
           </div>
           <div className="form-group">
             <label>Email:</label>
-            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
           </div>
           <div className="form-group">
             <label>Password:</label>
-            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+            <input
+              type="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              required
+            />
           </div>
           <div className="form-group">
             <label>First Name:</label>
-            <input type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} required />
+            <input
+              type="text"
+              name="first_name"
+              value={formData.first_name}
+              onChange={handleChange}
+              required
+            />
           </div>
           <div className="form-group">
             <label>Last Name:</label>
-            <input type="text" value={lastName} onChange={(e) => setLastName(e.target.value)} required />
+            <input
+              type="text"
+              name="last_name"
+              value={formData.last_name}
+              onChange={handleChange}
+              required
+            />
           </div>
         </div>
 
         <div className="form-column">
           <div className="form-group">
             <label>About:</label>
-            <textarea value={about} onChange={(e) => setAbout(e.target.value)} required></textarea>
+            <textarea
+              name="about"
+              value={formData.about}
+              onChange={handleChange}
+              required
+            ></textarea>
           </div>
           <div className="form-group">
             <label>Contact Number:</label>
-            <input type="text" value={contactNumber} onChange={(e) => setContactNumber(e.target.value)} required />
-            <button type="button" className="form-button" onClick={sendOTP}>Send OTP</button>
+            <input
+              type="text"
+              name="contact_number"
+              value={formData.contact_number}
+              onChange={handleChange}
+              required
+            />
+            <button type="button" className="form-button" onClick={handleSendOTP} disabled={otpSent}>
+              {otpSent ? "OTP Sent" : "Send OTP"}
+            </button>
           </div>
           <div className="form-group">
             <label>OTP:</label>
-            <input type="text" value={OTP} onChange={(e) => setOTP(e.target.value)} required />
+            <input
+              type="text"
+              name="otp"
+              value={formData.otp}
+              onChange={handleChange}
+              required
+            />
           </div>
           <div className="form-group">
             <label>Service:</label>
-            <select value={selectedService} onChange={(e) => setSelectedService(e.target.value)} required>
+            <select
+              name="service"
+              value={formData.service}
+              onChange={handleChange}
+              required
+            >
               <option value="" disabled>Select Service</option>
               {services.map((service, index) => (
                 <option key={index} value={service.name}>{service.name}</option>
@@ -192,7 +234,12 @@ const handleSubmit = async (event) => {
           </div>
           <div className="form-group">
             <label>Experience:</label>
-            <select value={selectedExperience} onChange={(e) => setSelectedExperience(e.target.value)} required>
+            <select
+              name="experience"
+              value={formData.experience}
+              onChange={handleChange}
+              required
+            >
               <option value="" disabled>Select Experience</option>
               {experienceOptions.map((option, index) => (
                 <option key={index} value={option.value}>{option.label}</option>
@@ -201,11 +248,23 @@ const handleSubmit = async (event) => {
           </div>
           <div className="form-group">
             <label>Price:</label>
-            <input type="number" value={price} onChange={(e) => setPrice(parseFloat(e.target.value))} required />
+            <input
+              type="number"
+              name="price"
+              value={formData.price}
+              onChange={handleChange}
+              required
+            />
           </div>
           <div className="form-group">
             <label>Price Per Day:</label>
-            <input type="number" value={pricePerDay} onChange={(e) => setPricePerDay(parseFloat(e.target.value))} required />
+            <input
+              type="number"
+              name="price_per_day"
+              value={formData.price_per_day}
+              onChange={handleChange}
+              required
+            />
           </div>
         </div>
 
@@ -216,38 +275,37 @@ const handleSubmit = async (event) => {
             <div className="address-cards">
               {addresses.map((address, index) => (
                 <div key={index} className="address-card">
-                  <p><strong>Name:</strong> {address.name}</p>
-                  <p><strong>State:</strong> {address.state}</p>
+                  <p><strong>Street:</strong> {address.street}</p>
                   <p><strong>City:</strong> {address.city}</p>
-                  <p><strong>Full Address:</strong> {address.full_address}</p>
+                  <p><strong>State:</strong> {address.state}</p>
+                  <p><strong>Country:</strong> {address.country}</p>
+                  <p><strong>Postal Code:</strong> {address.postal_code}</p>
+                  <p><strong>Type:</strong> {address.type}</p>
                 </div>
               ))}
             </div>
           </div>
-        </div>
-
-        <div className="form-group">
-          <label>Upload Tasker Skill Proof (PDF):</label>
-          <input type="file" accept=".pdf" onChange={handleFileChange} required />
-        </div>
-
-        <div className="form-group">
-          <button type="submit" className="form-button">Sign Up</button>
-        </div>
-      </form>
-
-      {popupMessage && (
-        <div className="popup">
-          <div className="popup-content">
-            <span className="close-button" onClick={() => setPopupMessage("")}>&times;</span>
-            <p>{popupMessage}</p>
+          <div className="form-group">
+            <label>Skill Proof (PDF):</label>
+            <input
+              type="file"
+              name="skill_proof_pdf"
+              accept=".pdf"
+              onChange={handleFileChange}
+            />
           </div>
+          {showAddressForm && (
+            <div className="address-form-popup">
+              <AddressForm
+                onCancel={handleCancelAddressForm}
+                onSubmit={handleAddressSubmit}
+              />
+            </div>
+          )}
         </div>
-      )}
-
-      {showAddressForm && (
-        <AddressForm Name="Add New Address" onSubmit={handleAddressSubmit} onCancel={handleCancelAddressForm} existingAddresses={addresses} />
-      )}
+        <button type="submit" className="form-button">Register</button>
+      </form>
+      {popupMessage && <div className="popup-message">{popupMessage}</div>}
     </div>
   );
 };
