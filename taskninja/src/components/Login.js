@@ -75,7 +75,7 @@ const Login = () => {
       
       {/* Forgot Password link */}
       <div className="forgot-password-link">
-        <Link to="/forgot-password">Forgot Password?</Link>
+        <Link to="/reset-password">Forgot Password?</Link>
       </div>
     </div>
   );

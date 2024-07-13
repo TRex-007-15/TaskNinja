@@ -10,7 +10,6 @@ import "./App.css";
 import services from "./ServiceData";
 import Profile from "./pages/profile";
 import Login from './components/Login';
-import ForgotPassword from './components/ForgotPassword';
 import ResetPassword from './components/ResetPassword';
 
 
@@ -33,7 +32,6 @@ const App = () => {
       <Routes>
         {/* ... existing routes ... */}
         <Route path="/login" element={<Login />} /> {/* Ensure this route is defined */}
-        <Route path="/forgot-password" element={<ForgotPassword/>} />
         <Route path="/reset-password" element={<ResetPassword/>} />
         <Route
           path="/"
