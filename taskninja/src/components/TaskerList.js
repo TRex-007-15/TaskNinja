@@ -12,6 +12,7 @@ const TaskersList = ({ service, selectedAddress, onClose }) => {
   const [error, setError] = useState(null);
   const [serviceDesc, setServiceDesc] = useState("");
   const [appointmentDate, setAppointmentDate] = useState("");
+  const [appointmentTime, setAppointmentTime] = useState("")
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedTaskerId, setSelectedTaskerId] = useState(null);
 
@@ -81,13 +82,17 @@ const TaskersList = ({ service, selectedAddress, onClose }) => {
         throw new Error('Appointment date is required.');
       }
 
-      const formattedDate = moment(appointmentDate).format('YYYY-MM-DD');
+      if (!appointmentTime) {
+        throw new Error('Appointment time is required.');
+      }
+
+      const formattedDateTime = moment(`${appointmentDate} ${appointmentTime}`).format('YYYY-MM-DD HH:mm');
 
       const requestBody = {
         user: userData.id,
         tasker: selectedTaskerId,
         service_desc: serviceDesc,
-        service_date: formattedDate,
+        service_date: formattedDateTime,
         status: 1,
         address: {
           state: selectedAddress.state,
@@ -108,6 +113,7 @@ const TaskersList = ({ service, selectedAddress, onClose }) => {
       setIsModalOpen(false); // Close the modal
       setServiceDesc(""); // Clear the service description
       setAppointmentDate(""); // Clear the appointment date
+      setAppointmentTime(""); // Clear the appointment time
 
       // Redirect to /Profile after successful booking
       navigate('/Profile');
@@ -136,6 +142,7 @@ const TaskersList = ({ service, selectedAddress, onClose }) => {
     setIsModalOpen(false);
     setServiceDesc("");
     setAppointmentDate("");
+    setAppointmentTime("");
   };
 
   if (loading) {
@@ -145,6 +152,10 @@ const TaskersList = ({ service, selectedAddress, onClose }) => {
   if (error) {
     return <div>Error: {error}</div>;
   }
+
+  // Get current date and time in YYYY-MM-DDTHH:mm format for min attribute
+  const currentDate = moment().format('YYYY-MM-DD');
+  const currentTime = moment().format('HH:mm');
 
   return (
     <div className="taskers-list-overlay">
@@ -195,6 +206,16 @@ const TaskersList = ({ service, selectedAddress, onClose }) => {
                 type="date"
                 value={appointmentDate}
                 onChange={(e) => setAppointmentDate(e.target.value)}
+                min={currentDate}
+              />
+            </label>
+            <label>
+              Appointment Time:
+              <input
+                type="time"
+                value={appointmentTime}
+                onChange={(e) => setAppointmentTime(e.target.value)}
+                min={currentTime}
               />
             </label>
             <button onClick={handleBooking}>Submit</button>

@@ -5,6 +5,9 @@
   border: 1px solid #ddd; /* Optional: border for visibility */
   border-radius: 8px; /* Optional: rounded corners */
   padding-right: 10px; /* Prevent content from being hidden behind scrollbar */
+  padding-top: 10px;
+  padding-left: 10px;
+  padding-bottom: 10px;
 }
 .booking-status-pane {
   padding: 20px;

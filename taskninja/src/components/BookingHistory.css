@@ -1,4 +1,7 @@
 .booking-history-container {
+  padding-top: 10px;
+  padding-left: 10px;
+  padding-bottom: 10px;
   max-height: 60vh; /* Adjust the height as needed */
   overflow-y: auto; /* Add vertical scrollbar if content exceeds max-height */
   padding-right: 10px; /* Prevent content from being hidden behind the scrollbar */
