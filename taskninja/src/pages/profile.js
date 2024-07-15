@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencilAlt, faPlus, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import './profile.css';
 import AddressForm from '../components/AddressForm';
+import EditAddressForm from '../components/EditAdressForm';
 import BookingStatusPane from '../components/BookingStatusPane';
 import BookingHistory from '../components/BookingHistory';
 import { verifyAndRefreshToken } from '../middleware/authmiddleware';
@@ -13,6 +14,7 @@ const Profile = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [showAddressForm, setShowAddressForm] = useState(false);
+  const [showEditAddressForm, setShowEditAddressForm] = useState(false); // State for showing the EditAddressForm
   const [isEditing, setIsEditing] = useState(false);
   const [address, setAddress] = useState({
     id: '',
@@ -101,14 +103,6 @@ const Profile = () => {
     fetchBookingHistory();
   }, []);
 
-  // const handleAddressChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setAddress((prevAddress) => ({
-  //     ...prevAddress,
-  //     [name]: value
-  //   }));
-  // };
-
   const updateAddress = async (id, updatedData) => {
     setLoading(true);
     const accessToken = await verifyAndRefreshToken();
@@ -128,7 +122,7 @@ const Profile = () => {
 
       const updatedUserData = { ...userData, addresses: updatedAddresses };
       setUserData(updatedUserData);
-      setShowAddressForm(false);
+      setShowEditAddressForm(false);
       setIsEditing(false);
     } catch (error) {
       console.error('Error updating address:', error);
@@ -138,15 +132,14 @@ const Profile = () => {
     }
   };
 
-  const handleUpdateAddress = async (e) => {
-    e.preventDefault();
-    const { id, ...updatedData } = address;
+  const handleUpdateAddress = async (updatedAddress) => {
+    const { id, ...updatedData } = updatedAddress;
     await updateAddress(id, updatedData);
   };
 
   const handleEditAddress = (addr) => {
     setAddress(addr);
-    setShowAddressForm(true);
+    setShowEditAddressForm(true);
     setIsEditing(true);
   };
 
@@ -275,14 +268,24 @@ const Profile = () => {
       {showAddressForm && (
         <div className="overlay">
           <AddressForm
-            onSubmit={isEditing ? handleUpdateAddress : handleSaveNewAddress}
+            onSubmit={handleSaveNewAddress}
             onCancel={() => setShowAddressForm(false)}
+            existingAddresses={userData.addresses}
+          />
+        </div>
+      )}
+      {showEditAddressForm && (
+        <div className="overlay">
+          <EditAddressForm
+            onSubmit={handleUpdateAddress}
+            onCancel={() => setShowEditAddressForm(false)}
+            address={address}
             existingAddresses={userData.addresses}
           />
         </div>
       )}
     </div>
   );
-};  
+};
 
 export default Profile;

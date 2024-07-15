@@ -76,7 +76,7 @@ const Navbar = ({ onLoginClick }) => {
               </button>
             </li>
             <li className="nav-item">
-              <Link to="/form" onClick={handleLoginClick}>Login/Signup</Link>
+              <Link to="/form" onClick={handleLoginClick}>Login</Link>
             </li>
           </>
         )}
