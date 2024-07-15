@@ -117,66 +117,71 @@ const BookingStatusPane = ({ bookingRequests, setBookingRequests , userType}) =>
     <div className="booking-status-pane profile-section">
       <h3>Requested Bookings</h3>
       {error && <p className="error">{error}</p>}
-      {bookingRequests.length > 0 ? (
-        bookingRequests.map((req) => (
-          <div
-            key={req.req_id}
-            className="booking-card"
-            onClick={() => handleCardClick(req)}
-          >
+      <div className="booking-history-container">
+        {bookingRequests.length > 0 ? (
+          bookingRequests.map((req) => (
             <div
-              className="status-indicator"
-              style={{ backgroundColor: getStatusColor(req.status) }}
-            ></div>
-            <div className="booking-details">
-              <div>
-                <strong>Request ID:</strong> <span>{req.req_id}</span>
+              key={req.req_id}
+              className="booking-card"
+              onClick={() => handleCardClick(req)}
+            >
+              <div
+                className="status-indicator"
+                style={{ backgroundColor: getStatusColor(req.status) }}
+              ></div>
+              <div className="booking-details">
+                <div>
+                  <strong>Request ID:</strong> <span>{req.req_id}</span>
+                </div>
+                <div>
+                  <strong>Service Description:</strong> <span>{req.service_desc}</span>
+                </div>
               </div>
-              <div>
-                <strong>Service Description:</strong>{" "}
-                <span>{req.service_desc}</span>
-              </div>
-            </div>
-            <div className="booking-actions">
-              {req.status === 1 && (
-                <>
-               { userType === "tasker" && <button
-                    className="accept-button"
+              <div className="booking-actions">
+                {req.status === 1 && (
+                  <>
+                    {userType === "tasker" && (
+                      <button
+                        className="accept-button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleAccept(req.req_id);
+                        }}
+                      >
+                        Accept
+                      </button>
+                    )}
+                    {userType === "tasker" && (
+                      <button
+                        className="reject-button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleReject(req.req_id);
+                        }}
+                      >
+                        Reject
+                      </button>
+                    )}
+                  </>
+                )}
+                {(req.status === 1 || req.status === 2) && (
+                  <button
+                    className="cancel-button"
                     onClick={(e) => {
                       e.stopPropagation();
-                      handleAccept(req.req_id);
+                      handleCancel(req.req_id);
                     }}
                   >
-                    Accept
-                  </button>}
-                  {userType === "tasker" && <button
-                    className="reject-button"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleReject(req.req_id);
-                    }}
-                  >
-                    Reject
-                  </button>}
-                </>
-              )}
-              {(req.status === 1 || req.status === 2) && (
-                <button
-                  className="cancel-button"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleCancel(req.req_id);
-                  }}
-                >
-                  Cancel
-                </button>
-              )}
+                    Cancel
+                  </button>
+                )}
+              </div>
             </div>
-          </div>
-        ))
-      ) : (
-        <p>No booking requests found.</p>
-      )}
+          ))
+        ) : (
+          <p>No booking requests found.</p>
+        )}
+      </div>
 
       {selectedBooking && (
         <BookingPopup booking={selectedBooking} onClose={handleClosePopup} />

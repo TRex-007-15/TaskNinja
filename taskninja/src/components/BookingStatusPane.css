@@ -1,5 +1,11 @@
 /* BookingStatusPane.css */
-
+.booking-history-container {
+  max-height: 60vh; /* Set a height to limit the number of visible cards */
+  overflow-y: auto;  /* Enable vertical scrolling */
+  border: 1px solid #ddd; /* Optional: border for visibility */
+  border-radius: 8px; /* Optional: rounded corners */
+  padding-right: 10px; /* Prevent content from being hidden behind scrollbar */
+}
 .booking-status-pane {
   padding: 20px;
   background-color: #f9f9f9;
