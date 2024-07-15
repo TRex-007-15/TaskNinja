@@ -4,6 +4,7 @@ import './TaskerList.css';
 import api from '../api';
 import moment from 'moment';
 import { verifyAndRefreshToken } from '../middleware/authmiddleware';
+import TimePicker from './TimePicker'; // Assuming TimePicker component is in './TimePicker.js'
 
 const TaskersList = ({ service, selectedAddress, onClose }) => {
   const [taskers, setTaskers] = useState([]);
@@ -12,7 +13,7 @@ const TaskersList = ({ service, selectedAddress, onClose }) => {
   const [error, setError] = useState(null);
   const [serviceDesc, setServiceDesc] = useState("");
   const [appointmentDate, setAppointmentDate] = useState("");
-  const [appointmentTime, setAppointmentTime] = useState("")
+  const [appointmentTime, setAppointmentTime] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedTaskerId, setSelectedTaskerId] = useState(null);
 
@@ -22,7 +23,7 @@ const TaskersList = ({ service, selectedAddress, onClose }) => {
     const fetchTaskers = async () => {
       try {
         const accessToken = await verifyAndRefreshToken();
-        
+
         if (!service || !service.name) {
           setError('Service not specified.');
           setLoading(false);
@@ -86,7 +87,15 @@ const TaskersList = ({ service, selectedAddress, onClose }) => {
         throw new Error('Appointment time is required.');
       }
 
-      const formattedDateTime = moment(`${appointmentDate} ${appointmentTime}`).format('YYYY-MM-DD HH:mm');
+      // Validate and format the appointment date and time
+      const selectedDateTime = moment(`${appointmentDate} ${appointmentTime}`, 'YYYY-MM-DD HH:mm');
+      const currentDateTime = moment();
+
+      if (selectedDateTime.isBefore(currentDateTime)) {
+        throw new Error('Appointment date and time must be in the future.');
+      }
+
+      const formattedDateTime = selectedDateTime.format('YYYY-MM-DD HH:mm');
 
       const requestBody = {
         user: userData.id,
@@ -109,7 +118,9 @@ const TaskersList = ({ service, selectedAddress, onClose }) => {
         }
       });
 
-      alert('Tasker booked successfully!');
+      // Display success message
+      window.alert('Tasker booked successfully!');
+
       setIsModalOpen(false); // Close the modal
       setServiceDesc(""); // Clear the service description
       setAppointmentDate(""); // Clear the appointment date
@@ -129,7 +140,8 @@ const TaskersList = ({ service, selectedAddress, onClose }) => {
         errorMessage = error.message;
       }
 
-      alert(errorMessage);
+      // Display error message
+      window.alert(errorMessage);
     }
   };
 
@@ -152,10 +164,6 @@ const TaskersList = ({ service, selectedAddress, onClose }) => {
   if (error) {
     return <div>Error: {error}</div>;
   }
-
-  // Get current date and time in YYYY-MM-DDTHH:mm format for min attribute
-  const currentDate = moment().format('YYYY-MM-DD');
-  const currentTime = moment().format('HH:mm');
 
   return (
     <div className="taskers-list-overlay">
@@ -206,16 +214,13 @@ const TaskersList = ({ service, selectedAddress, onClose }) => {
                 type="date"
                 value={appointmentDate}
                 onChange={(e) => setAppointmentDate(e.target.value)}
-                min={currentDate}
               />
             </label>
             <label>
               Appointment Time:
-              <input
-                type="time"
+              <TimePicker
                 value={appointmentTime}
-                onChange={(e) => setAppointmentTime(e.target.value)}
-                min={currentTime}
+                onChange={(value) => setAppointmentTime(value)}
               />
             </label>
             <button onClick={handleBooking}>Submit</button>
