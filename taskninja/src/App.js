@@ -11,7 +11,7 @@ import services from "./ServiceData";
 import Profile from "./pages/profile";
 import Login from './components/Login';
 import ResetPassword from './components/ResetPassword';
-
+import Signup from './pages/Signup';
 
 
 const App = () => {
@@ -33,6 +33,7 @@ const App = () => {
         {/* ... existing routes ... */}
         <Route path="/login" element={<Login />} /> {/* Ensure this route is defined */}
         <Route path="/reset-password" element={<ResetPassword/>} />
+        <Route path="/signup" element={<Signup />} />
         <Route
           path="/"
           element={

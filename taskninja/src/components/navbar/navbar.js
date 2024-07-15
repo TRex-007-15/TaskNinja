@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import './navbar.css';  // Import the CSS file
 import Logo from '../images/logo.png';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -9,6 +9,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 const Navbar = ({ onLoginClick }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation(); // Get the current location
   const accessToken = localStorage.getItem('access_token');
   const refreshToken = localStorage.getItem('refresh_token');
   const isLoggedIn = accessToken && refreshToken;
@@ -32,6 +33,15 @@ const Navbar = ({ onLoginClick }) => {
     localStorage.removeItem('access_token');
     localStorage.removeItem('refresh_token');
     navigate('/');
+    setIsMenuOpen(false);
+  };
+
+  const handleBecomeTaskerClick = () => {
+    if (location.pathname === '/BecomeTasker') {
+      navigate('/signup');
+    } else {
+      navigate('/BecomeTasker');
+    }
     setIsMenuOpen(false);
   };
 
@@ -61,7 +71,9 @@ const Navbar = ({ onLoginClick }) => {
         ) : (
           <>
             <li className="nav-item">
-              <Link to="/BecomeTasker" className="nav-button" onClick={() => setIsMenuOpen(false)}>Become Tasker</Link>
+              <button className="nav-button" onClick={handleBecomeTaskerClick}>
+                {location.pathname === '/BecomeTasker' ? 'Register as User' : 'Register as Tasker'}
+              </button>
             </li>
             <li className="nav-item">
               <Link to="/form" onClick={handleLoginClick}>Login/Signup</Link>
