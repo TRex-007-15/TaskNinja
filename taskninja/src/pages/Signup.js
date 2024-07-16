@@ -87,7 +87,7 @@ const Signup = () => {
 
   return (
     <div className="form-container">
-      <h2>Sign Up</h2>
+      <h2 className='Header'>Sign Up</h2>
       <form onSubmit={handleSubmit}>
         {/* Form fields */}
         <div className="form-group">

@@ -83,6 +83,11 @@ const BecomeTasker = () => {
         return;
       }
 
+      if (addresses.length <= 0){
+        setPopupMessage("Please enter atleast one address!");
+        return;
+      }
+
       const data = {
         ...formData,
         skill_proof_pdf: skillProofPdf ? skillProofPdf.name : '',
