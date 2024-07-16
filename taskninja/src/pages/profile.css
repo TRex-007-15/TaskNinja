@@ -235,12 +235,12 @@
 }
 
 .form-group select {
-  width: 100%; /* Take up full width */
-  padding: 8px;
+  /* width: 100%; Take up full width */
+  /* padding: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  box-sizing: border-box; /* Include padding and border in width */
-  min-width: 200px; /* Adjust based on your design */
+  box-sizing: border-box; Include padding and border in width */
+  /* min-width: 200px;  */
 }
 
 .form-group select option {
