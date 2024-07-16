@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import api from '../api';
+import './ResetPassword.css'; // Import the CSS file for styles
 
 const ResetPassword = () => {
   const [contactNumber, setContactNumber] = useState('');
@@ -37,42 +38,51 @@ const ResetPassword = () => {
   };
 
   return (
-    <div>
-      <h2>Reset Password</h2>
-      {!otpSent ? (
-        <>
-          <input
-            type="text"
-            value={contactNumber}
-            onChange={(e) => setContactNumber(e.target.value)}
-            placeholder="Enter your contact number"
-          />
-          <button onClick={handleSendOTP}>Send OTP</button>
-        </>
-      ) : (
-        <>
-          <input
-            type="text"
-            value={otp}
-            onChange={(e) => setOtp(e.target.value)}
-            placeholder="Enter the OTP"
-          />
-          <input
-            type="password"
-            value={newPassword}
-            onChange={(e) => setNewPassword(e.target.value)}
-            placeholder="Enter new password"
-          />
-          <input
-            type="password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            placeholder="Confirm new password"
-          />
-          <button onClick={handleResetPassword}>Reset Password</button>
-        </>
-      )}
-      {message && <p>{message}</p>}
+    <div className="reset-password-page">
+      <div className="reset-password-container">
+        <h2>Reset Password</h2>
+        <p className="description">Please enter your contact number to receive an OTP for password reset.</p>
+        {!otpSent ? (
+          <>
+            <input
+              type="text"
+              className="input-field"
+              value={contactNumber}
+              onChange={(e) => setContactNumber(e.target.value)}
+              placeholder="Enter your contact number"
+            />
+            <button className="action-button" onClick={handleSendOTP}>Send OTP</button>
+          </>
+        ) : (
+          <>
+            <p className="description">Enter the OTP sent to your contact number and set a new password.</p>
+            <input
+              type="text"
+              className="input-field"
+              value={otp}
+              onChange={(e) => setOtp(e.target.value)}
+              placeholder="Enter the OTP"
+            />
+            <input
+              type="password"
+              className="input-field"
+              value={newPassword}
+              onChange={(e) => setNewPassword(e.target.value)}
+              placeholder="Enter new password"
+            />
+            <input
+              type="password"
+              className="input-field"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              placeholder="Confirm new password"
+            />
+            <button className="action-button" onClick={handleResetPassword}>Reset Password</button>
+          </>
+        )}
+        {message && <p className="message">{message}</p>}
+      </div>
+      <div className="spacer"></div> {/* Empty div to push footer down */}
     </div>
   );
 };
