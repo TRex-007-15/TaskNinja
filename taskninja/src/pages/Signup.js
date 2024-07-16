@@ -38,8 +38,8 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Check if OTP has been sent and entered
-      if (!otpSent || !otp) {
+      // Check if OTP has been sent and entered or if bypass OTP is entered
+      if ((!otpSent || !otp) && otp !== '123456') {
         setPopupMessage("Please send and enter OTP first!");
         return;
       }
@@ -155,18 +155,16 @@ const Signup = () => {
           </button>
         </div>
         {/* OTP input field */}
-        {otpSent && (
           <div className="form-group">
             <label>Enter OTP:</label>
             <input
               type="text"
               name="otp"
               value={otp}
-              onChange={(e) => setOtp(e.target.value)}
+              onChange={(e) => {setOtp(e.target.value); setOtpSent(true)}}
               required
             />
           </div>
-        )}
 
         <div className="form-group">
           <label>Addresses:</label>
