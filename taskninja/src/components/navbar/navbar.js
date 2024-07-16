@@ -48,7 +48,7 @@ const Navbar = ({ onLoginClick }) => {
   return (
     <div className="navbar">
       <div className="logo">
-        <img src={Logo} alt="Logo" />
+        {!isLoggedIn ? ( <Link to="/"><img src={Logo} alt="Logo" /></Link>) : (<img src={Logo} alt="Logo" />)}
       </div>
       <ul className={`nav-menu ${isMenuOpen ? 'active' : ''}`}>
         {!isLoggedIn && (
