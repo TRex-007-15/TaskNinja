@@ -83,7 +83,7 @@ const BecomeTasker = () => {
         return;
       }
 
-      if (addresses.length <= 0){
+      if (formData.addresses.length <= 0){
         setPopupMessage("Please enter atleast one address!");
         return;
       }
@@ -97,7 +97,7 @@ const BecomeTasker = () => {
       console.log("Tasker Registration Successful: ", response.data);
       setPopupMessage("Tasker registered successfully!");
       setTimeout(() => {
-        navigate('/login');
+        navigate('/form');
       }, 2000);
     } catch (error) {
       if (error.response && error.response.data && error.response.data.email) {
@@ -280,12 +280,12 @@ const BecomeTasker = () => {
             <div className="address-cards">
               {addresses.map((address, index) => (
                 <div key={index} className="address-card">
-                  <p><strong>Street:</strong> {address.street}</p>
+                  <p><strong>Type:</strong> {address.type}</p>
                   <p><strong>City:</strong> {address.city}</p>
                   <p><strong>State:</strong> {address.state}</p>
                   <p><strong>Country:</strong> {address.country}</p>
-                  <p><strong>Postal Code:</strong> {address.postal_code}</p>
-                  <p><strong>Type:</strong> {address.type}</p>
+                  <p><strong>Pincode:</strong> {address.pincode}</p>
+                  <p><strong>Address:</strong>{address.full_address}</p>
                 </div>
               ))}
             </div>

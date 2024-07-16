@@ -56,7 +56,7 @@ const Signup = () => {
       console.log('User registered:', response.data);
       setPopupMessage("Registered successfully!");
       setTimeout(() => {
-        navigate('/login');
+        navigate('/form');
       }, 2000);
     } catch (error) {
       setPopupMessage("Unable to Register!");
