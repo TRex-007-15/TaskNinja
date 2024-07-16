@@ -26,11 +26,14 @@
   .address-dropdown {
     margin: 20px 0;
     text-align: center;
+    
+
   }
   
   .dropdown-container {
     display: inline-block;
     position: relative;
+    padding: 1.5%;
   }
   
   .pin-icon {
@@ -40,6 +43,7 @@
     transform: translateY(-50%);
     color: #61988E;
     z-index: 1;
+    padding-left: 25px;
   }
   
   select {
