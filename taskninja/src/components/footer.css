@@ -6,6 +6,8 @@
   font-family: Arial, sans-serif;
   position: relative;
   clear: both;
+  width:100%;
+  bottom: 0px;
 }
 
 .footer-bottom {
@@ -30,7 +32,7 @@
 .footer-section h2 {
   font-size: 18px;
   margin-bottom: 15px;
-  color: #61988E;
+  color: #007aaa;
 }
 
 .footer-section p, .footer-section a {
@@ -44,7 +46,7 @@
 }
 
 .footer-section a:hover {
-  color: #61988E;
+  color: #007aaa;
 }
 
 .footer-section ul {
@@ -68,7 +70,7 @@
 }
 
 .footer-section .social-icons a:hover {
-  color: #61988E;
+  color: #007aaa;
 }
 /* footer.css */
 

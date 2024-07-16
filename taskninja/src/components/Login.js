@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import api from '../api';
-
+import './login.css'
 const Login = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -41,10 +41,11 @@ const Login = () => {
   }, [popupMessage]);
 
   return (
+    <div className="login-page">
     <div className="form-container">
       <h2>Login</h2>
       {error && <div className="error-message">{error}</div>}
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} style={{ maxWidth: '400px', margin: '0 auto' }}>
         {/* Form fields */}
         <div className="form-group">
           <label>Username:</label>
@@ -53,6 +54,7 @@ const Login = () => {
             name="username"
             value={formData.username}
             onChange={handleChange}
+            className="form-input"
             required
           />
         </div>
@@ -63,6 +65,7 @@ const Login = () => {
             name="password"
             value={formData.password}
             onChange={handleChange}
+            className="form-input"
             required
           />
         </div>
@@ -77,6 +80,10 @@ const Login = () => {
       <div className="forgot-password-link">
         <Link to="/reset-password">Forgot Password?</Link>
       </div>
+
+      {/* Empty div to push footer down */}
+      <div className="spacer"></div> {/* Empty div to push footer down */}
+    </div>
     </div>
   );
 };

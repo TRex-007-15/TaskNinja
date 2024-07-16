@@ -82,7 +82,7 @@ const ResetPassword = () => {
         )}
         {message && <p className="message">{message}</p>}
       </div>
-      <div className="spacer"></div> {/* Empty div to push footer down */}
+      {/* <div className="spacer"></div> Empty div to push footer down */}
     </div>
   );
 };

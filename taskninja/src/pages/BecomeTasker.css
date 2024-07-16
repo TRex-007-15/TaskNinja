@@ -3,22 +3,25 @@
 body {
   font-family: Arial, sans-serif; /* Change the font for the whole page */
   color: #333; /* Set the font color */
+  background: linear-gradient(to right, #a1c4fd, #c2e9fb); /* Apply the gradient background */
 }
 
 .Header {
   text-align: center;
   margin-top: 10px;
   font-size: 2em; /* Adjust font size */
+  color: #000000; /* Adjust font color for better contrast */
 }
 
 .form-container {
   max-width: 400px;
   margin: 50px auto;
-  padding: 20px;
+  padding-bottom: 40px;
+  padding-top: 40px;
   border: 1px solid #ccc;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  background-color: #fff;
+  background-color: #ffffff;
 }
 
 .form-group {
@@ -29,6 +32,7 @@ body {
   display: block;
   margin-bottom: 5px;
   font-weight: bold;
+  color: #333; /* Adjust font color */
 }
 
 .form-group input,
@@ -45,7 +49,7 @@ body {
 .form-button {
   padding: 12px 24px;
   background-color: #007bff;
-  color: #fff;
+  color: #ffffff;
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -63,13 +67,14 @@ body {
   height: 30vh; /* Adjusted to cover 30% of the screen height */
   overflow: hidden;
   z-index: -1;
+  background: linear-gradient(to bottom, #a1c4fd, #c2e9fb); /* Vertical gradient */
 }
 
 .cover .hamburger {
   position: absolute;
   top: 20px; /* Adjust top position as needed */
   left: 20px; /* Adjust left position as needed */
-  z-index: -1; /* Ensure the hamburger menu appears above the cover image */
+  z-index: 2; /* Ensure the hamburger menu appears above the cover image */
   color: white; /* Adjust color as needed */
   font-size: 2rem; /* Adjust font size as needed */
 }
@@ -86,7 +91,7 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  color: white;
+  color: rgb(0, 0, 0);
   font-size: 2rem;
   text-align: center;
   background-color: rgba(0, 0, 0, 0.5);
@@ -101,7 +106,7 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0);
+  background: rgba(0, 0, 0, 0.7); /* Add a slightly darker overlay for the popup */
   z-index: 9999; /* Ensure it's on top of everything */
   display: flex;
   justify-content: center;
@@ -109,10 +114,11 @@ body {
 }
 
 .popup-content {
-  background-color: #fefefe;
+  background-color: #ffffff;
   padding: 20px;
   border-radius: 5px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  text-align: center;
 }
 
 .close-button {
@@ -128,5 +134,5 @@ body {
 
 .popup p {
   margin: 0;
+  color: #333; /* Adjust font color */
 }
-

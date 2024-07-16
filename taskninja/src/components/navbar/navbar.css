@@ -66,14 +66,14 @@
 
 .nav-button:hover {
     background-color: #1A1915;
-    color: #FFD700;
+    color: #007aaa;
     box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
     transform: translateY(-2px);
 }
 
 .nav-button:active {
     background-color: #0B0A07;
-    color: #FFD700;
+    color: #007aaa;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transform: translateY(0);
 }
@@ -152,7 +152,7 @@ ul {
 }
 
 :root {
-    --primary: #61988E;
+    --primary: #007aaa;
     --secondary: #94778B;
     --white: #F4FAFF;
 }

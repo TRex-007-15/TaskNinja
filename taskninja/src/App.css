@@ -28,7 +28,7 @@ body {
   max-width: 500px; /* Limit maximum width */
   height: 50px;
   border-radius: 25px; /* Increase border-radius for a rounded shape */
-  border: 2px solid #007bff; /* Apply a blue border */
+  border: 2px solid #000000; /* Apply a blue border */
   outline: none;
   font-size: 1.1em; /* Adjust font size for better readability */
 }
