@@ -1,3 +1,6 @@
+/* Updated CSS with responsive and relative adjustments */
+
+/* Cover Section */
 .cover {
     position: relative;
     text-align: center;
@@ -19,6 +22,7 @@
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   }
   
+  /* Address Dropdown */
   .address-dropdown {
     margin: 20px 0;
     text-align: center;
@@ -39,7 +43,7 @@
   }
   
   select {
-    padding: 10px 20px 10px 60px; /* Adjust padding to accommodate the icon */
+    padding: 10px 20px; /* Adjust padding as needed */
     border: 2px solid #ccc;
     border-radius: 8px;
     background: #fff;
@@ -47,14 +51,16 @@
     color: #333;
     appearance: none;
     outline: none;
+    width: 100%; /* Take up full width */
+    max-width: 300px; /* Limit maximum width */
   }
   
+  /* Services Grid */
   .services-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 20px;
-    padding: 20px, 20px, 20px, 20px;
-    
+    padding: 20px; /* Adjust padding */
   }
   
   .service-tile {
@@ -64,6 +70,7 @@
     text-align: center;
     cursor: pointer;
     transition: transform 0.3s, box-shadow 0.3s;
+    position: relative;
   }
   
   .service-tile:hover {
@@ -85,7 +92,6 @@
     font-weight: bold;
   }
   
-  
   /* TaskersList Modal */
   .taskers-list-modal {
     position: fixed;
@@ -105,8 +111,7 @@
     padding: 20px;
     border-radius: 12px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-    max-width: 800px;
-    width: 100%;
+    max-width: 90%; /* Adjust as needed */
     max-height: 80vh;
     overflow-y: auto;
   }

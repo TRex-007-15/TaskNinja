@@ -47,15 +47,16 @@ body {
   
   /* Hero Section Styles */
   .hero {
-    background-color: #f0f0f0;
+    background-color: #61988E;
     padding: 100px 0;
     text-align: center;
   }
   
   .hero-header {
     font-size: 3em;
-    color: #333;
+    color: rgb(255, 239, 239);
     margin-bottom: 20px;
+    
   }
   
   .hero-subheader {
