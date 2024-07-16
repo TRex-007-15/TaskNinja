@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Cover from './images/s1.jpg';
 import services from '../ServiceData';
-import '../App.css';
+import './services.css'
 import TaskersList from './TaskerList';
 import { verifyAndRefreshToken } from '../middleware/authmiddleware';
 import api from '../api';

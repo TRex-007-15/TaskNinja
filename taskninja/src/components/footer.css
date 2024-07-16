@@ -30,7 +30,7 @@
 .footer-section h2 {
   font-size: 18px;
   margin-bottom: 15px;
-  color: #f1c40f;
+  color: #61988E;
 }
 
 .footer-section p, .footer-section a {
@@ -44,7 +44,7 @@
 }
 
 .footer-section a:hover {
-  color: #f1c40f;
+  color: #61988E;
 }
 
 .footer-section ul {
@@ -68,7 +68,7 @@
 }
 
 .footer-section .social-icons a:hover {
-  color: #f1c40f;
+  color: #61988E;
 }
 /* footer.css */
 

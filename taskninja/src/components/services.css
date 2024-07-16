@@ -1,0 +1,130 @@
+.cover {
+    position: relative;
+    text-align: center;
+  }
+  
+  .cover-image {
+    width: 100%;
+    height: auto;
+  }
+  
+  .cover-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    font-size: 2rem;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  }
+  
+  .address-dropdown {
+    margin: 20px 0;
+    text-align: center;
+  }
+  
+  .dropdown-container {
+    display: inline-block;
+    position: relative;
+  }
+  
+  .pin-icon {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    color: #61988E;
+    z-index: 1;
+  }
+  
+  select {
+    padding: 10px 20px 10px 60px; /* Adjust padding to accommodate the icon */
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    background: #fff;
+    font-size: 1rem;
+    color: #333;
+    appearance: none;
+    outline: none;
+  }
+  
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 20px, 20px, 20px, 20px;
+    
+  }
+  
+  .service-tile {
+    background: #f0f0f0;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  
+  .service-tile:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  }
+  
+  .service-tile img {
+    width: 100%;
+    height: 150px; /* Set a fixed height */
+    object-fit: cover; /* Maintain aspect ratio and cover the area */
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+  }
+  
+  .service-name {
+    padding: 15px;
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+  
+  
+  /* TaskersList Modal */
+  .taskers-list-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1100;
+  }
+  
+  .taskers-list-content {
+    background: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    max-width: 800px;
+    width: 100%;
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+  
+  .taskers-list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .taskers-list-header h2 {
+    margin: 0;
+  }
+  
+  .taskers-list-header button {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
