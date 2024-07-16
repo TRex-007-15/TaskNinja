@@ -1,5 +1,3 @@
-// TimePicker.js
-
 import React, { useState } from 'react';
 
 const TimePicker = ({ value, onChange }) => {
@@ -7,14 +5,30 @@ const TimePicker = ({ value, onChange }) => {
 
   const handleTimeChange = (e) => {
     const selectedTime = e.target.value;
+    const selectedHour = parseInt(selectedTime.split(':')[0], 10);
+    const selectedMinute = parseInt(selectedTime.split(':')[1], 10);
 
-    // Perform any validation or restrictions here
     const allowedStartHour = 9;
     const allowedEndHour = 22; // 10 PM in 24-hour format
 
-    const selectedHour = parseInt(selectedTime.split(':')[0], 10);
-    if (selectedHour < allowedStartHour || selectedHour > allowedEndHour) {
+    // Check if selected time is within allowed hours
+    if (selectedHour < allowedStartHour || selectedHour >= allowedEndHour) {
       window.alert('Please select a time between 9 AM and 10 PM.');
+      return;
+    }
+
+    // Get the current time
+    const currentTime = new Date();
+    const currentHour = currentTime.getHours();
+    const currentMinute = currentTime.getMinutes();
+
+    // Check if the selected time is at least one hour ahead of the current time
+    const currentTotalMinutes = currentHour * 60 + currentMinute;
+    const selectedTotalMinutes = selectedHour * 60 + selectedMinute;
+    const bufferMinutes = 60;
+
+    if (selectedTotalMinutes < currentTotalMinutes + bufferMinutes) {
+      window.alert('Please select a time at least one hour from the current time.');
       return;
     }
 
