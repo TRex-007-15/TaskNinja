@@ -97,7 +97,7 @@ const BecomeTasker = () => {
       console.log("Tasker Registration Successful: ", response.data);
       setPopupMessage("Tasker registered successfully!");
       setTimeout(() => {
-        navigate('/');
+        navigate('/login');
       }, 2000);
     } catch (error) {
       if (error.response && error.response.data && error.response.data.email) {

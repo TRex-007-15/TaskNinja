@@ -43,7 +43,10 @@ const Signup = () => {
         setPopupMessage("Please send and enter OTP first!");
         return;
       }
-
+      if (addresses.length <= 0){
+        setPopupMessage("Please enter atleast one address!");
+        return;
+      }
       const data = {
         ...formData,
         otp: otp,
@@ -53,7 +56,7 @@ const Signup = () => {
       console.log('User registered:', response.data);
       setPopupMessage("Registered successfully!");
       setTimeout(() => {
-        navigate('/');
+        navigate('/login');
       }, 2000);
     } catch (error) {
       setPopupMessage("Unable to Register!");
