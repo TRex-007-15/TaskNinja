@@ -18,7 +18,7 @@ const TaskersList = ({ service, selectedAddress, onClose }) => {
   const [selectedTaskerId, setSelectedTaskerId] = useState(null);
 
   const navigate = useNavigate();
-
+  const today = new Date().toISOString().split('T')[0];
   useEffect(() => {
     const fetchTaskers = async () => {
       try {
@@ -214,6 +214,7 @@ const TaskersList = ({ service, selectedAddress, onClose }) => {
                 type="date"
                 value={appointmentDate}
                 onChange={(e) => setAppointmentDate(e.target.value)}
+                min={today} // Disable past dates
               />
             </label>
             <label>
