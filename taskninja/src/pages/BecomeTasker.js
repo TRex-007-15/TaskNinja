@@ -276,11 +276,11 @@ const BecomeTasker = () => {
         <div className="form-column">
           <div className="form-group">
             <label>Addresses:</label>
-            {!showAddressForm && <button type="button" className="add-address-button" onClick={() => setShowAddressForm(true)}>Add Address</button>}
+            {!showAddressForm && <button type="button" className="add-address-button" onClick={() => setShowAddressForm(true)}>+</button>}
             <div className="address-cards">
               {addresses.map((address, index) => (
                 <div key={index} className="address-card">
-                  <p><strong>Type:</strong> {address.type}</p>
+                  <p><strong>Type:</strong> {address.name}</p>
                   <p><strong>City:</strong> {address.city}</p>
                   <p><strong>State:</strong> {address.state}</p>
                   <p><strong>Country:</strong> {address.country}</p>
@@ -299,17 +299,18 @@ const BecomeTasker = () => {
               onChange={handleFileChange}
             />
           </div>
-          {showAddressForm && (
+        </div>
+        <button type="submit" className="form-button">Register</button>
+      </form>
+      {showAddressForm && (
             <div className="address-form-popup">
               <AddressForm
                 onCancel={handleCancelAddressForm}
                 onSubmit={handleAddressSubmit}
+                existingAddresses={addresses}
               />
             </div>
           )}
-        </div>
-        <button type="submit" className="form-button">Register</button>
-      </form>
       {popupMessage && <div className="popup-message">{popupMessage}</div>}
     </div>
   );

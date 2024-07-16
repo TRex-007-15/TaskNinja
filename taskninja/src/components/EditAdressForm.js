@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './AddressForm.css';
 
 const EditAddressForm = ({ onSubmit, onCancel, address, existingAddresses }) => {
-  const [name, setName] = useState(address.name || "");
-  const [customName, setCustomName] = useState(address.name === "Other" ? address.name : "");
+  const [name, setName] = useState(address.name  !== "Home" && address.name !== "Work" ? "Other" : address.name);
+  const [customName, setCustomName] = useState(address.name !== "Home" && address.name !== "Work" ? address.name : "");
   const [state, setState] = useState(address.state || "");
   const [city, setCity] = useState(address.city || "");
   const [pincode, setPincode] = useState(address.pincode || "");
@@ -22,6 +22,14 @@ const EditAddressForm = ({ onSubmit, onCancel, address, existingAddresses }) => 
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    const isHomeExisting = existingAddresses && existingAddresses.some(addr => addr.name === "Home");
+    const isWorkExisting = existingAddresses && existingAddresses.some(addr => addr.name === "Work");
+
+    if ((name === "Home" && isHomeExisting) || (name === "Work" && isWorkExisting)) {
+      alert(`You can only have one ${name} address.`);
+      return;
+    }
+
     const addressName = name === "Other" ? customName : name;
 
     onSubmit({ id: address.id, name: addressName, state, city, pincode, full_address: fullAddress });
@@ -29,13 +37,13 @@ const EditAddressForm = ({ onSubmit, onCancel, address, existingAddresses }) => 
   };
 
   const handleCancel = () => {
-    onCancel(); // Invoke the onCancel function passed from props
-    resetForm(); // Reset form fields when cancelling
+    onCancel();
+    resetForm();
   };
 
   const resetForm = () => {
     setName(address.name || "");
-    setCustomName(address.name === "Other" ? address.name : "");
+    setCustomName(address.name !== "Home" && address.name !== "Work" ? address.name : "");
     setState(address.state || "");
     setCity(address.city || "");
     setPincode(address.pincode || "");
@@ -57,7 +65,7 @@ const EditAddressForm = ({ onSubmit, onCancel, address, existingAddresses }) => 
           </div>
           {name === "Other" && (
             <div className="form-group">
-              <label>Address Type:</label>
+              <label>Custom Name:</label>
               <input
                 type="text"
                 value={customName}
@@ -88,7 +96,7 @@ const EditAddressForm = ({ onSubmit, onCancel, address, existingAddresses }) => 
             <textarea value={fullAddress} onChange={(e) => setFullAddress(e.target.value)} required></textarea>
           </div>
           <div className="form-buttons">
-            <button type="submit" className="form-button" onClick={handleSubmit}>Submit</button>
+            <button type="submit" className="form-button">Submit</button>
             <button type="button" className="form-button" onClick={handleCancel}>Cancel</button>
           </div>
         </form>

@@ -36,9 +36,10 @@ const AddressForm = ({ onSubmit, onCancel, Name, existingAddresses }) => {
     resetForm();
   };
 
-  const handleCancel = () => {
-    onCancel(); // Invoke the onCancel function passed from props
-    resetForm(); // Reset form fields when cancelling
+  const handleCancel = (e) => {
+    e.preventDefault();
+    onCancel();
+    resetForm();
   };
 
   const resetForm = () => {
@@ -96,7 +97,7 @@ const AddressForm = ({ onSubmit, onCancel, Name, existingAddresses }) => {
             <textarea value={fullAddress} onChange={(e) => setFullAddress(e.target.value)} required></textarea>
           </div>
           <div className="form-buttons">
-            <button type="submit" className="form-button" onClick={handleSubmit}>Submit</button>
+            <button type="submit" className="form-button">Submit</button>
             <button type="button" className="form-button" onClick={handleCancel}>Cancel</button>
           </div>
         </form>
