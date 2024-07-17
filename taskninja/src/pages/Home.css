@@ -17,6 +17,40 @@ body {
   animation: fadeInUp 0.6s forwards; /* Animation */
 }
 
+/* Container for the search bar */
+.home-search-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 10px;
+}
+
+/* Search bar styling */
+.home-search-bar {
+  width: 80%; /* Adjust width as needed */
+  max-width: 600px; /* Maximum width for larger screens */
+  padding: 15px 20px; /* Padding inside the search bar */
+  border: 2px solid #ccc; /* Border around the search bar */
+  border-radius: 25px; /* Rounded corners */
+  font-size: 1.2rem; /* Font size for the input text */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  outline: none; /* Remove default outline */
+  transition: border-color 0.3s, box-shadow 0.3s; /* Smooth transition for focus effect */
+}
+
+/* Focus effect for the search bar */
+.home-search-bar:focus {
+  border-color: #61988E; /* Change border color on focus */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Increase shadow on focus */
+}
+
+/* Placeholder styling */
+.home-search-bar::placeholder {
+  color: #aaa; /* Color for the placeholder text */
+  opacity: 1; /* Ensure the placeholder is visible */
+}
+
+
 @keyframes fadeInUp {
   to {
     opacity: 1;
@@ -227,3 +261,4 @@ body {
   transform: translateY(20px);
   animation: fadeInUp 0.6s forwards; /* Animation */
 }
+

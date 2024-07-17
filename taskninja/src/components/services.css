@@ -1,136 +1,137 @@
 /* Cover Section */
 .services-cover {
-    position: relative;
-    text-align: center;
-  }
-  
-  .services-cover-image {
-    width: 100%;
-    height: auto;
-  }
-  
-  .services-cover-text {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: #fff;
-    font-size: 2rem;
-    font-weight: bold;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-  }
-  
-  /* Address Dropdown */
-  .services-address-dropdown {
-    margin: 20px 0;
-    text-align: center;
-  }
-  
-  .services-dropdown-container {
-    display: inline-block;
-    position: absolute;
-    padding: 1.5%;
-  }
-  
-  .services-pin-icon {
-    position: absolute;
-    top: 50%;
-    left: 10px;
-    transform: translateY(-50%);
-    color: #61988E;
-    z-index: 1;
-    padding-left: 25px;
-  }
-  
-  .services-dropdown {
-    padding: 10px 20px; /* Adjust padding as needed */
-    border: 2px solid #ccc;
-    border-radius: 8px;
-    background: #fff;
-    font-size: 1rem;
-    color: #333;
-    appearance: none;
-    outline: none;
-    width: 100%; /* Take up full width */
-    max-width: 100%; /* Limit maximum width */
-  }
-  
-  /* Services Grid */
-  .services-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
-    padding: 20px; /* Adjust padding */
-  }
-  
-  .services-tile {
-    background: #cbe1f4;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    cursor: pointer;
-    transition: transform 0.3s, box-shadow 0.3s;
-    position: relative;
-  }
-  
-  .services-tile:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-  }
-  
-  .services-tile img {
-    width: 100%;
-    height: 150px; /* Set a fixed height */
-    object-fit: cover; /* Maintain aspect ratio and cover the area */
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
-  }
-  
-  .services-name {
-    padding: 15px;
-    font-size: 1.2rem;
-    font-weight: bold;
-  }
-  
-  /* TaskersList Modal */
-  .services-taskers-list-modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.7);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1100;
-  }
-  
-  .services-taskers-list-content {
-    background: #fff;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-    max-width: 90%; /* Adjust as needed */
-    max-height: 80vh;
-    overflow-y: auto;
-  }
-  
-  .services-taskers-list-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-  
-  .services-taskers-list-header h2 {
-    margin: 0;
-  }
-  
-  .services-taskers-list-header button {
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-  }
-  
+  position: relative;
+  text-align: center;
+  height: 40vh; /* Use viewport height to cover 20% of the screen */
+  overflow: hidden;
+}
+
+.services-cover-image {
+  width: 100%;
+  height: 100%; /* Ensure it covers the full height of the .services-cover */
+  object-fit: cover;
+}
+
+.services-cover-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+  font-size: 2rem;
+  font-weight: bold;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Address Dropdown */
+.services-address-dropdown {
+  margin: 20px 10px;
+  position: relative; /* Add relative positioning to contain absolute children */
+}
+
+.services-dropdown-container {
+  display: inline-block;
+  padding: 3%;
+}
+
+.services-pin-icon {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  color: #61988E;
+  z-index: 1;
+  padding-left: 15px;
+}
+
+.services-dropdown {
+  padding: 80px 20px; /* Adjust padding as needed */
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  background: #fff;
+  font-size: 1rem;
+  color: #333;
+  appearance: none;
+  outline: none;
+  width: calc(100% - 35px); /* Account for the padding of the pin icon */
+  margin-left: 45px; /* Add margin to avoid overlap with pin icon */
+}
+
+/* Services Grid */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  padding: 20px; /* Adjust padding */
+}
+
+.services-tile {
+  background: #cbe1f4;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+  position: relative;
+}
+
+.services-tile:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.services-tile img {
+  width: 100%;
+  height: 150px; /* Set a fixed height */
+  object-fit: cover; /* Maintain aspect ratio and cover the area */
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.services-name {
+  padding: 15px;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+/* TaskersList Modal */
+.services-taskers-list-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1100;
+}
+
+.services-taskers-list-content {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  max-width: 90%; /* Adjust as needed */
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.services-taskers-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.services-taskers-list-header h2 {
+  margin: 0;
+}
+
+.services-taskers-list-header button {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
