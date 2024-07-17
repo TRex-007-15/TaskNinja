@@ -22,13 +22,13 @@ const EditAddressForm = ({ onSubmit, onCancel, address, existingAddresses }) => 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const isHomeExisting = existingAddresses && existingAddresses.some(addr => addr.name === "Home");
-    const isWorkExisting = existingAddresses && existingAddresses.some(addr => addr.name === "Work");
+    // const isHomeExisting = existingAddresses && existingAddresses.some(addr => addr.name === "Home");
+    // const isWorkExisting = existingAddresses && existingAddresses.some(addr => addr.name === "Work");
 
-    if ((name === "Home" && isHomeExisting) || (name === "Work" && isWorkExisting)) {
-      alert(`You can only have one ${name} address.`);
-      return;
-    }
+    // if ((name === "Home" && isHomeExisting) || (name === "Work" && isWorkExisting)) {
+    //   alert(`You can only have one ${name} address.`);
+    //   return;
+    // }
 
     const addressName = name === "Other" ? customName : name;
 
