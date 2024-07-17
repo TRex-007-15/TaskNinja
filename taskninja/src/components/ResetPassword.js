@@ -1,15 +1,22 @@
 import React, { useState } from 'react';
 import api from '../api';
 import './ResetPassword.css'; // Import the CSS file for styles
-
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 const ResetPassword = () => {
+  const navigate = useNavigate();
   const [contactNumber, setContactNumber] = useState('');
   const [otp, setOtp] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [message, setMessage] = useState('');
   const [otpSent, setOtpSent] = useState(false);
-
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setMessage("");
+    }, 2000);
+    return () => clearTimeout(timeout);
+  }, [message]);
   const handleSendOTP = async () => {
     try {
       const response = await api.post('/send_password_reset_otp/', { contact_number: contactNumber });
@@ -31,7 +38,9 @@ const ResetPassword = () => {
         otp: otp,
         new_password: newPassword,
       });
-      setMessage(response.data.message);
+      setTimeout(() => {
+        navigate('/form');
+      }, 2000);
     } catch (error) {
       setMessage(error.response?.data?.error || 'Error resetting password');
     }
