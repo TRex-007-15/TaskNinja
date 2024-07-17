@@ -1,5 +1,5 @@
 /* Navbar Container */
-.navbar {
+.navbar-container {
     position: sticky; /* Make the navbar sticky */
     top: 0; /* Stick the navbar to the top */
     width: 100%;
@@ -12,45 +12,45 @@
     background-color: #0B0A07;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     z-index: 1000; /* Ensure the navbar stays above other elements */
-}
-
-/* Logo Styling */
-.navbar .logo img {
+  }
+  
+  /* Logo Styling */
+  .navbar-logo img {
     width: 60px;
     height: auto;
     border-radius: 20%;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.navbar .logo img:hover {
+  }
+  
+  .navbar-logo img:hover {
     transform: scale(1.05);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-}
-
-/* Navigation Menu */
-.nav-menu {
+  }
+  
+  /* Navigation Menu */
+  .navbar-menu {
     display: flex;
     list-style: none;
-}
-
-.nav-item {
+  }
+  
+  .navbar-item {
     margin: 0 1rem;
     padding: 10px;
-}
-
-.nav-item a {
+  }
+  
+  .navbar-item a {
     color: var(--white);
     text-decoration: none;
     transition: color 0.3s ease;
-}
-
-.nav-item a:hover {
+  }
+  
+  .navbar-item a:hover {
     color: var(--primary);
-}
-
-/* Navigation Button */
-.nav-button {
+  }
+  
+  /* Navigation Button */
+  .navbar-button {
     background-color: #0B0A07;
     color: var(--white);
     border: 2px solid var(--white);
@@ -62,118 +62,119 @@
     cursor: pointer;
     transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.nav-button:hover {
+  }
+  
+  .navbar-button:hover {
     background-color: #1A1915;
     color: #007aaa;
     box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
     transform: translateY(-2px);
-}
-
-.nav-button:active {
+  }
+  
+  .navbar-button:active {
     background-color: #0B0A07;
     color: #007aaa;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transform: translateY(0);
-}
-
-/* Hamburger Icon */
-.hamburger {
+  }
+  
+  /* Hamburger Icon */
+  .navbar-hamburger {
     display: none;
     cursor: pointer;
-}
-
-.user-icon {
+  }
+  
+  .navbar-user-icon {
     font-size: 2rem;
     vertical-align: middle;
     margin-right: 5px;
-}
-
-.user-icon:hover {
+  }
+  
+  .navbar-user-icon:hover {
     color: var(--primary);
-}
-
-/* Media Queries for Responsiveness */
-@media (max-width: 768px) {
-    .nav-menu {
-        display: none;
-        flex-direction: column;
-        width: 100%;
-        text-align: center;
+  }
+  
+  /* Media Queries for Responsiveness */
+  @media (max-width: 768px) {
+    .navbar-menu {
+      display: none;
+      flex-direction: column;
+      width: 100%;
+      text-align: center;
     }
-
-    .nav-menu.active {
-        display: flex;
-        position: absolute;
-        top: 100px;
-        left: 0;
-        background-color: #0B0A07;
-        padding: 1rem;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  
+    .navbar-menu.active {
+      display: flex;
+      position: absolute;
+      top: 100px;
+      left: 0;
+      background-color: #0B0A07;
+      padding: 1rem;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
-
-    .hamburger {
-        display: block;
-        color: var(--white);
-        font-size: 2rem;
+  
+    .navbar-hamburger {
+      display: block;
+      color: var(--white);
+      font-size: 2rem;
     }
-
-    .nav-item {
-        margin: 1rem 0;
+  
+    .navbar-item {
+      margin: 1rem 0;
     }
-}
-
-@media (max-width: 480px) {
-    .navbar {
-        padding: 0.5rem;
+  }
+  
+  @media (max-width: 480px) {
+    .navbar-container {
+      padding: 0.5rem;
     }
-
-    .navbar .logo img {
-        width: 80px;
+  
+    .navbar-logo img {
+      width: 80px;
     }
-
-    .nav-item {
-        margin: 0.5rem 0;
+  
+    .navbar-item {
+      margin: 0.5rem 0;
     }
-}
-
-/* Additional Styles */
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap');
-
-* {
+  }
+  
+  /* Additional Styles */
+  @import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap');
+  
+  * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-}
-
-ul {
+  }
+  
+  ul {
     list-style-type: none;
-}
-
-:root {
+  }
+  
+  :root {
     --primary: #007aaa;
     --secondary: #94778B;
     --white: #F4FAFF;
-}
-
-a {
+  }
+  
+  a {
     text-decoration: none;
     color: #008bff;
-}
-
-body {
+  }
+  
+  body {
     line-height: 1.5;
     font-family: "Roboto Slab", serif;
     background-color: var(--white); /* Set background color */
-}
-
-.primary-color {
+  }
+  
+  .primary-color {
     color: var(--primary);
-}
-
-div {
+  }
+  
+  div {
     color: var(--primary);
     margin: 0; /* Remove default margin */
     padding: 0; /* Remove default padding */
-}
+  }
+  

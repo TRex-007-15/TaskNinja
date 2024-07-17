@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const TimePicker = ({ value, onChange }) => {
+const TimePicker = ({ value, onChange,appointmentDate }) => {
   const [time, setTime] = useState(value);
 
   const handleTimeChange = (e) => {
@@ -19,6 +19,7 @@ const TimePicker = ({ value, onChange }) => {
 
     // Get the current time
     const currentTime = new Date();
+    console.log(currentTime);
     const currentHour = currentTime.getHours();
     const currentMinute = currentTime.getMinutes();
 
@@ -27,7 +28,7 @@ const TimePicker = ({ value, onChange }) => {
     const selectedTotalMinutes = selectedHour * 60 + selectedMinute;
     const bufferMinutes = 60;
 
-    if (selectedTotalMinutes < currentTotalMinutes + bufferMinutes) {
+    if (selectedTotalMinutes < currentTotalMinutes + bufferMinutes && currentTime === appointmentDate) {
       window.alert('Please select a time at least one hour from the current time.');
       return;
     }

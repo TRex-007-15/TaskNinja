@@ -5,52 +5,92 @@ body {
   padding: 0;
   background: linear-gradient(to right, #a1c4fd, #c2e9fb); /* Horizontal light to dark */
   color: #333333;
+  overflow-x: hidden; /* Prevent horizontal scroll */
 }
 
 .container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.6s forwards; /* Animation */
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Hero Section Styles */
-.hero {
+.home-hero {
   padding: 100px 0;
   text-align: center;
   background: linear-gradient(to right, #a1c4fd, #c2e9fb); /* Horizontal light to dark */
+  animation: slideIn 0.8s forwards; /* Animation */
 }
 
-.hero-header {
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.home-hero-header {
   font-size: 3em;
   color: #000000;
   margin-bottom: 20px;
+  opacity: 0;
+  transform: translateY(-20px);
+  animation: fadeInDown 0.6s forwards 0.2s; /* Delayed animation */
 }
 
-.hero-subheader {
+@keyframes fadeInDown {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.home-hero-subheader {
   font-size: 1.5em;
   color: #00000096;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.6s forwards 0.4s; /* Delayed animation */
 }
 
 /* Services Section Styles */
-.services {
+.home-services {
   padding: 80px 0;
   background: linear-gradient(to bottom, #a1c4fd, #c2e9fb); /* Vertical light to dark */
+  animation: fadeInUp 0.8s forwards; /* Animation */
 }
 
-.section-header {
+.home-section-header {
   font-size: 3.5em;
   text-align: center;
   margin-bottom: 40px;
   color: #000000;
+  opacity: 0;
+  transform: translateY(-20px);
+  animation: fadeInDown 0.6s forwards; /* Animation */
 }
 
-.services-container {
+.home-services-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
 }
 
-.service-tile {
+.home-service-tile {
   width: 200px;
   margin: 20px;
   text-align: center;
@@ -58,141 +98,132 @@ body {
   padding: 20px;
   border-radius: 10px;
   transition: transform 0.3s ease, background 0.3s ease;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.6s forwards;
 }
 
-.service-tile:hover {
+.home-service-tile:hover {
   transform: scale(1.05);
   background: rgba(255, 255, 255, 0.3);
 }
 
-.service-tile img {
+.home-service-tile img {
   width: 100%;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(108, 108, 108, 0.1);
 }
 
-.service-name {
+.home-service-name {
   font-size: 1.2em;
   margin-top: 10px;
   color: #333333;
 }
 
 /* About Us Section Styles */
-.about-us {
+.home-about-us {
   padding: 80px 0;
-  background: linear-gradient(to right, #a1c4fd, #c2e9fb); /* Horizontal light to dark */
+  background: linear-gradient(to bottom, #c2e9fb, #a1c4fd); /* Vertical dark to light */
+  text-align: center;
 }
 
-.about-us-content {
+.home-about-us-content {
   font-size: 1.2em;
   line-height: 1.6;
-  text-align: center;
-  color: #333333;
+  max-width: 800px;
+  margin: 0 auto;
+  color: #000000;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.6s forwards; /* Animation */
 }
 
 /* Testimonials Section Styles */
-.testimonials {
+.home-testimonials {
   padding: 80px 0;
+  background: #f7f7f7;
   text-align: center;
-  background: linear-gradient(to bottom, #a1c4fd, #c2e9fb); /* Vertical light to dark */
-  color: #333333;
 }
 
-.testimonial {
-  margin-bottom: 40px;
+.home-testimonials-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
 }
 
-.testimonial-content {
+.home-testimonial {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 300px;
+  margin: 0 20px;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.6s forwards; /* Animation */
+}
+
+.home-testimonial-content {
   font-size: 1.2em;
+  line-height: 1.6;
+  color: #333333;
   margin-bottom: 10px;
-  color: #000000a7;
 }
 
-.testimonial-author {
+.home-testimonial-author {
   font-size: 1em;
-  color: #0000006f;
+  font-weight: bold;
+  color: #666666;
 }
 
 /* Call to Action Section Styles */
-.call-to-action {
+.home-call-to-action {
   padding: 80px 0;
+  background: linear-gradient(to bottom, #a1c4fd, #c2e9fb); /* Vertical light to dark */
   text-align: center;
-  background: linear-gradient(to right, #a1c4fd, #c2e9fb); /* Horizontal light to dark */
-  color: #0000009c;
 }
 
-.call-to-action-content {
+.home-call-to-action-content {
   font-size: 1.5em;
-  margin-bottom: 20px;
+  max-width: 800px;
+  margin: 0 auto 20px;
+  line-height: 1.6;
+  color: #000000;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.6s forwards; /* Animation */
 }
 
-.cta-button {
+.home-cta-button {
+  background-color: #2ecc71;
+  color: white;
   padding: 15px 30px;
   font-size: 1.2em;
-  background-color: #000000;
-  color: #fdfeff;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s ease-in-out;
+  transition: background-color 0.3s ease;
 }
 
-.cta-button:hover {
-  background-color: #5d8ea4;
+.home-cta-button:hover {
+  background-color: #27ae60;
 }
 
-
-.info-content {
-  margin-bottom: 20px; /* Add some bottom margin for spacing between paragraphs */
-  font-size: 1.1rem; /* Adjust font size as needed */
-  line-height: 1.6; /* Adjust line height for better readability */
-  padding: 20px;
+/* Information Section Styles */
+.home-info-section {
+  padding: 80px 0;
+  background: linear-gradient(to bottom, #c2e9fb, #a1c4fd); /* Vertical dark to light */
   text-align: center;
-  color: #333333;
 }
 
-/* Responsive Styles */
-@media screen and (max-width: 768px) {
-  .navbar {
-      padding: 10px;
-  }
-
-  .navbar-brand {
-      font-size: 1.2em;
-  }
-
-  .hero-header {
-      font-size: 2.5em;
-  }
-
-  .hero-subheader {
-      font-size: 1.2em;
-  }
-
-  .service-tile {
-      width: 150px;
-  }
-}
-
-@media screen and (max-width: 576px) {
-  .hero-header {
-      font-size: 2em;
-  }
-
-  .hero-subheader {
-      font-size: 1em;
-  }
-
-  .section-header {
-      font-size: 1.5em;
-  }
-
-  .services-container {
-      justify-content: flex-start;
-  }
-
-  .service-tile {
-      width: 100%;
-      margin: 10px 0;
-  }
+.home-info-content {
+  font-size: 1.2em;
+  line-height: 1.6;
+  max-width: 800px;
+  margin: 0 auto;
+  color: #000000;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.6s forwards; /* Animation */
 }

@@ -223,6 +223,7 @@ const TaskersList = ({ service, selectedAddress, onClose }) => {
               <TimePicker
                 value={appointmentTime}
                 onChange={(value) => setAppointmentTime(value)}
+                appointmentDate = {appointmentDate}
               />
             </label>
             <button onClick={handleBooking}>Submit</button>

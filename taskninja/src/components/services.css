@@ -1,17 +1,15 @@
-/* Updated CSS with responsive and relative adjustments */
-
 /* Cover Section */
-.cover {
+.services-cover {
     position: relative;
     text-align: center;
   }
   
-  .cover-image {
+  .services-cover-image {
     width: 100%;
     height: auto;
   }
   
-  .cover-text {
+  .services-cover-text {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -23,20 +21,18 @@
   }
   
   /* Address Dropdown */
-  .address-dropdown {
+  .services-address-dropdown {
     margin: 20px 0;
     text-align: center;
-    
-
   }
   
-  .dropdown-container {
+  .services-dropdown-container {
     display: inline-block;
     position: absolute;
     padding: 1.5%;
   }
   
-  .pin-icon {
+  .services-pin-icon {
     position: absolute;
     top: 50%;
     left: 10px;
@@ -46,7 +42,7 @@
     padding-left: 25px;
   }
   
-  select {
+  .services-dropdown {
     padding: 10px 20px; /* Adjust padding as needed */
     border: 2px solid #ccc;
     border-radius: 8px;
@@ -67,7 +63,7 @@
     padding: 20px; /* Adjust padding */
   }
   
-  .service-tile {
+  .services-tile {
     background: #cbe1f4;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -77,12 +73,12 @@
     position: relative;
   }
   
-  .service-tile:hover {
+  .services-tile:hover {
     transform: translateY(-5px);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
   }
   
-  .service-tile img {
+  .services-tile img {
     width: 100%;
     height: 150px; /* Set a fixed height */
     object-fit: cover; /* Maintain aspect ratio and cover the area */
@@ -90,14 +86,14 @@
     border-top-right-radius: 8px;
   }
   
-  .service-name {
+  .services-name {
     padding: 15px;
     font-size: 1.2rem;
     font-weight: bold;
   }
   
   /* TaskersList Modal */
-  .taskers-list-modal {
+  .services-taskers-list-modal {
     position: fixed;
     top: 0;
     left: 0;
@@ -110,7 +106,7 @@
     z-index: 1100;
   }
   
-  .taskers-list-content {
+  .services-taskers-list-content {
     background: #fff;
     padding: 20px;
     border-radius: 12px;
@@ -120,20 +116,21 @@
     overflow-y: auto;
   }
   
-  .taskers-list-header {
+  .services-taskers-list-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
   }
   
-  .taskers-list-header h2 {
+  .services-taskers-list-header h2 {
     margin: 0;
   }
   
-  .taskers-list-header button {
+  .services-taskers-list-header button {
     background: none;
     border: none;
     font-size: 1.5rem;
     cursor: pointer;
   }
+  

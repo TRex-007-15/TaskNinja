@@ -175,7 +175,7 @@
   padding: 15px 25px; /* Increased padding */
   border-radius: 8px; /* Increased border radius */
   cursor: pointer;
-  width: 100%;
+  width: 50%;
   text-align: center;
   font-size: 1.2rem; /* Increased font size */
 }
@@ -278,6 +278,7 @@
 
 .form-button:last-child {
   background-color: #007aaa;
+  margin-top: 10px;
 }
 
 .form-button:last-child:hover {

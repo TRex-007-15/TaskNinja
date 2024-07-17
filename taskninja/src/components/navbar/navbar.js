@@ -46,42 +46,46 @@ const Navbar = ({ onLoginClick }) => {
   };
 
   return (
-    <div className="navbar">
-      <div className="logo">
-        {!isLoggedIn ? ( <Link to="/"><img src={Logo} alt="Logo" /></Link>) : (<img src={Logo} alt="Logo" />)}
+    <div className="navbar-container">
+      <div className="navbar-logo">
+        {!isLoggedIn ? (
+          <Link to="/"><img src={Logo} alt="Logo" /></Link>
+        ) : (
+          <img src={Logo} alt="Logo" />
+        )}
       </div>
-      <ul className={`nav-menu ${isMenuOpen ? 'active' : ''}`}>
+      <ul className={`navbar-menu ${isMenuOpen ? 'active' : ''}`}>
         {!isLoggedIn && (
-          <li className="nav-item">
+          <li className="navbar-item">
             <Link to="/" onClick={() => setIsMenuOpen(false)}>Home</Link>
           </li>
         )}
-        <li className="nav-item">
+        <li className="navbar-item">
           <Link to="/services" onClick={() => setIsMenuOpen(false)}>Services</Link>
         </li>
         {isLoggedIn ? (
           <>
-            <li className="nav-item">
-              <button className="nav-button" onClick={handleLogout}>Logout</button>
+            <li className="navbar-item">
+              <button className="navbar-button" onClick={handleLogout}>Logout</button>
             </li>
-            <li className="nav-item" onClick={handleProfileClick}>
-              <AccountCircleIcon className="user-icon" />
+            <li className="navbar-item" onClick={handleProfileClick}>
+              <AccountCircleIcon className="navbar-user-icon" />
             </li>
           </>
         ) : (
           <>
-            <li className="nav-item">
-              <button className="nav-button" onClick={handleBecomeTaskerClick}>
+            <li className="navbar-item">
+              <button className="navbar-button" onClick={handleBecomeTaskerClick}>
                 {location.pathname === '/BecomeTasker' ? 'Register as User' : 'Register as Tasker'}
               </button>
             </li>
-            <li className="nav-item">
+            <li className="navbar-item">
               <Link to="/form" onClick={handleLoginClick}>Login</Link>
             </li>
           </>
         )}
       </ul>
-      <div className="hamburger" onClick={toggleMenu}>
+      <div className="navbar-hamburger" onClick={toggleMenu}>
         {isMenuOpen ? <CloseIcon /> : <MenuIcon />}
       </div>
     </div>
