@@ -113,6 +113,11 @@ const BookingStatusPane = ({ bookingRequests, setBookingRequests , userType}) =>
     }
   }, [error]);
 
+  const formatDate = (dateString) => {
+    const options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' };
+    return new Date(dateString).toLocaleString(undefined, options);
+  };
+
   return (
     <div className="booking-status-pane profile-section">
       <h3>Requested Bookings</h3>
@@ -135,6 +140,9 @@ const BookingStatusPane = ({ bookingRequests, setBookingRequests , userType}) =>
                 </div>
                 <div>
                   <strong>Service Description:</strong> <span>{req.service_desc}</span>
+                </div>
+                <div>
+                  <strong>Service Date:</strong> <span>{formatDate(req.service_date)}</span>
                 </div>
               </div>
               <div className="booking-actions">
