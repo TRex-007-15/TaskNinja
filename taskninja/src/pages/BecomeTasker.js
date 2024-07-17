@@ -278,7 +278,11 @@ const BecomeTasker = () => {
               onChange={handleFileChange}
             />
           </div>
-          {showAddressForm && (
+        </div>
+
+        <button type="submit" className="register-button-become-tasker">Register as Tasker</button>
+      </form>
+      {showAddressForm && (
             <div className="address-form-popup-become-tasker">
               <AddressForm
                 onCancel={handleCancelAddressForm}
@@ -286,11 +290,6 @@ const BecomeTasker = () => {
               />
             </div>
           )}
-        </div>
-
-        <button type="submit" className="register-button-become-tasker">Register as Tasker</button>
-      </form>
-
       {popupMessage && (
         <div className={`popup-message-become-tasker ${popupMessage.includes("successful") ? "success-become-tasker" : "error-become-tasker"}`}>
           {popupMessage}
