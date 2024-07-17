@@ -1,139 +1,180 @@
-/* BecomeTasker.css */
-
-body {
-  font-family: Arial, sans-serif; /* Change the font for the whole page */
-  color: #333; /* Set the font color */
-  background: linear-gradient(to right, #a1c4fd, #c2e9fb); /* Apply the gradient background */
-}
-
-.Header {
-  text-align: center;
-  margin-top: 10px;
-  font-size: 2em; /* Adjust font size */
-  color: #000000; /* Adjust font color for better contrast */
-}
-
-.form-container {
-  max-width: 400px;
-  margin: 50px auto;
-  padding-bottom: 40px;
-  padding-top: 40px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+/* General container styling */
+.form-container-become-tasker {
+  width: 90%;
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 30px;
   background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
 }
 
-.form-group {
+/* Header styling */
+.header-become-tasker {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #333333;
+}
+
+/* Form layout and inputs styling */
+.signup-form-become-tasker {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.form-column-become-tasker {
+  flex: 1;
+  min-width: 280px;
+  margin: 10px;
+}
+
+.form-group-become-tasker {
   margin-bottom: 20px;
 }
 
-.form-group label {
+.form-group-become-tasker label {
   display: block;
-  margin-bottom: 5px;
+  margin-bottom: 8px;
   font-weight: bold;
-  color: #333; /* Adjust font color */
+  color: #333333;
 }
 
-.form-group input,
-.form-group select,
-.form-group textarea {
-  width: calc(100% - 22px);
+.form-group-become-tasker input,
+.form-group-become-tasker select,
+.form-group-become-tasker textarea {
+  width: 100%;
   padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
   box-sizing: border-box;
-  font-size: 1em; /* Adjust font size */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
 }
 
-.form-button {
-  padding: 12px 24px;
+/* Address section styling */
+.address-section-become-tasker {
+  width: 100%;
+  margin: 20px 0;
+}
+
+.address-item-become-tasker {
+  background-color: #e8e8e8;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.address-item-become-tasker h4 {
+  margin: 0 0 5px 0;
+}
+
+/* Button styling */
+.form-button-become-tasker {
+  display: inline-block;
   background-color: #007bff;
-  color: #ffffff;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  text-align: center;
+}
+
+.form-button-become-tasker:hover {
+  background-color: #0056b3;
+}
+
+.add-address-button-become-tasker {
+  background-color: #28a745;
+  color: white;
+  padding: 10px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   margin-top: 10px;
-  font-size: 1em; /* Adjust font size */
+  font-size: 1rem;
+  text-align: center;
 }
 
-.form-button + .form-button {
-  margin-left: 10px;
+.add-address-button-become-tasker:hover {
+  background-color: #218838;
 }
 
-.cover {
-  position: relative;
+.register-button-become-tasker {
+  display: block;
   width: 100%;
-  height: 30vh; /* Adjusted to cover 30% of the screen height */
-  overflow: hidden;
-  z-index: -1;
-  background: linear-gradient(to bottom, #a1c4fd, #c2e9fb); /* Vertical gradient */
+  background-color: #007bff;
+  color: white;
+  padding: 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  text-align: center;
 }
 
-.cover .hamburger {
-  position: absolute;
-  top: 20px; /* Adjust top position as needed */
-  left: 20px; /* Adjust left position as needed */
-  z-index: 2; /* Ensure the hamburger menu appears above the cover image */
-  color: white; /* Adjust color as needed */
-  font-size: 2rem; /* Adjust font size as needed */
+.register-button-become-tasker:hover {
+  background-color: #0056b3;
 }
 
-.cover-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: 1; /* Ensure the cover image appears below the hamburger menu */
-
+.address-cards-become-tasker {
+  margin-top: 10px;
 }
 
-.cover-text {
-  position: absolute;
+.address-card-become-tasker {
+  background-color: #f8f9fa;
+  padding: 10px;
+  border: 1px solid #dee2e6;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+/* Popup message styling */
+.popup-message-become-tasker {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 15px;
+  border-radius: 5px;
+  color: white;
+  text-align: center;
+  opacity: 0.9;
+  z-index: 1000;
+  background-color: #000000a3;
+}
+
+.popup.success-become-tasker {
+  background-color: green;
+}
+
+.popup.error-become-tasker {
+  background-color: red;
+}
+
+.address-form-popup-become-tasker {
+  position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  color: rgb(0, 0, 0);
-  font-size: 2rem;
-  text-align: center;
-  background-color: rgba(255, 255, 255, 0.5);
-  padding: 10px 20px;
-  border-radius: 5px;
-}
-
-/* Popup Styles */
-.popup {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.7); /* Add a slightly darker overlay for the popup */
-  z-index: 9999; /* Ensure it's on top of everything */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.popup-content {
   background-color: #ffffff;
   padding: 20px;
-  border-radius: 5px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-  text-align: center;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 2000;
 }
 
-.close-button {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  cursor: pointer;
-}
+/* Responsive design */
+@media (max-width: 768px) {
+  .form-column-become-tasker {
+    min-width: 100%;
+    margin: 0;
+  }
 
-.close-button:hover {
-  color: #aaa;
-}
-
-.popup p {
-  margin: 0;
-  color: #333; /* Adjust font color */
+  .signup-form-become-tasker {
+    flex-direction: column;
+  }
 }

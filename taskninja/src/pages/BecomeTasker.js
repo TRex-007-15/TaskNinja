@@ -4,27 +4,13 @@ import { useNavigate } from 'react-router-dom';
 import AddressForm from '../components/AddressForm';
 import './BecomeTasker.css';
 
-// Service options
 const services = [
   { name: "Packers and Movers", image: "packers_and_movers.jpg" },
   { name: "Plumbers", image: "plumbers.jpg" },
   { name: "Electricians", image: "electricians.jpg" },
-  { name: "Cleaning Services", image: "cleaning_services.jpg" },
-  { name: "Carpenters", image: "carpenters.jpg" },
-  { name: "Pest Control", image: "pest_control.jpg" },
-  { name: "Painters", image: "painters.jpg" },
-  { name: "AC Services", image: "ac_services.jpg" },
-  { name: "Gardening", image: "gardening.jpg" },
-  { name: "Home Security", image: "home_security.jpg" },
-  { name: "Laundry", image: "laundry.jpg" },
-  { name: "Moving Services", image: "moving_services.jpg" },
-  { name: "Home Cleaning", image: "home_cleaning.jpg" },
-  { name: "Furniture Assembly", image: "furniture_assembly.jpg" },
-  { name: "Computer Repair", image: "computer_repair.jpg" },
-  { name: "Interior Design", image: "interior_design.jpg" }
+  // Add more services as needed
 ];
 
-// Experience options
 const experienceOptions = [
   { value: "Less than 1 year", label: "Less than 1 year" },
   { value: "1-2 years", label: "1-2 years" },
@@ -53,7 +39,7 @@ const BecomeTasker = () => {
   });
   const [popupMessage, setPopupMessage] = useState("");
   const [showAddressForm, setShowAddressForm] = useState(false);
-  const [otpSent, setOtpSent] = useState(false); // Track OTP sent state
+  const [otpSent, setOtpSent] = useState(false);
   const [skillProofPdf, setSkillProofPdf] = useState(null);
 
   useEffect(() => {
@@ -77,14 +63,8 @@ const BecomeTasker = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Check if OTP has been sent and entered
-      if (formData.otp !== '123456' && (!otpSent || !formData.otp)) {
+      if (!otpSent || !formData.otp) {
         setPopupMessage("Please send and enter OTP first!");
-        return;
-      }
-
-      if (formData.addresses.length <= 0){
-        setPopupMessage("Please enter atleast one address!");
         return;
       }
 
@@ -97,7 +77,7 @@ const BecomeTasker = () => {
       console.log("Tasker Registration Successful: ", response.data);
       setPopupMessage("Tasker registered successfully!");
       setTimeout(() => {
-        navigate('/form');
+        navigate('/');
       }, 2000);
     } catch (error) {
       if (error.response && error.response.data && error.response.data.email) {
@@ -134,11 +114,11 @@ const BecomeTasker = () => {
   };
 
   return (
-    <div className="form-container">
-      <h2 className="Header">Become a Tasker</h2>
-      <form onSubmit={handleSubmit} className="signup-form">
-        <div className="form-column">
-          <div className="form-group">
+    <div className="form-container-become-tasker">
+      <h2 className="header-become-tasker">Become a Tasker</h2>
+      <form onSubmit={handleSubmit} className="signup-form-become-tasker">
+        <div className="form-column-become-tasker">
+          <div className="form-group-become-tasker">
             <label>Username:</label>
             <input
               type="text"
@@ -148,7 +128,7 @@ const BecomeTasker = () => {
               required
             />
           </div>
-          <div className="form-group">
+          <div className="form-group-become-tasker">
             <label>Email:</label>
             <input
               type="email"
@@ -158,7 +138,7 @@ const BecomeTasker = () => {
               required
             />
           </div>
-          <div className="form-group">
+          <div className="form-group-become-tasker">
             <label>Password:</label>
             <input
               type="password"
@@ -168,7 +148,7 @@ const BecomeTasker = () => {
               required
             />
           </div>
-          <div className="form-group">
+          <div className="form-group-become-tasker">
             <label>First Name:</label>
             <input
               type="text"
@@ -178,7 +158,7 @@ const BecomeTasker = () => {
               required
             />
           </div>
-          <div className="form-group">
+          <div className="form-group-become-tasker">
             <label>Last Name:</label>
             <input
               type="text"
@@ -190,8 +170,8 @@ const BecomeTasker = () => {
           </div>
         </div>
 
-        <div className="form-column">
-          <div className="form-group">
+        <div className="form-column-become-tasker">
+          <div className="form-group-become-tasker">
             <label>About:</label>
             <textarea
               name="about"
@@ -200,7 +180,7 @@ const BecomeTasker = () => {
               required
             ></textarea>
           </div>
-          <div className="form-group">
+          <div className="form-group-become-tasker">
             <label>Contact Number:</label>
             <input
               type="text"
@@ -209,11 +189,11 @@ const BecomeTasker = () => {
               onChange={handleChange}
               required
             />
-            <button type="button" className="form-button" onClick={handleSendOTP} disabled={otpSent}>
+            <button type="button" className="form-button-become-tasker" onClick={handleSendOTP} disabled={otpSent}>
               {otpSent ? "OTP Sent" : "Send OTP"}
             </button>
           </div>
-          <div className="form-group">
+          <div className="form-group-become-tasker">
             <label>OTP:</label>
             <input
               type="text"
@@ -223,7 +203,7 @@ const BecomeTasker = () => {
               required
             />
           </div>
-          <div className="form-group">
+          <div className="form-group-become-tasker">
             <label>Service:</label>
             <select
               name="service"
@@ -237,7 +217,7 @@ const BecomeTasker = () => {
               ))}
             </select>
           </div>
-          <div className="form-group">
+          <div className="form-group-become-tasker">
             <label>Experience:</label>
             <select
               name="experience"
@@ -251,7 +231,7 @@ const BecomeTasker = () => {
               ))}
             </select>
           </div>
-          <div className="form-group">
+          <div className="form-group-become-tasker">
             <label>Price:</label>
             <input
               type="number"
@@ -261,7 +241,7 @@ const BecomeTasker = () => {
               required
             />
           </div>
-          <div className="form-group">
+          <div className="form-group-become-tasker">
             <label>Price Per Day:</label>
             <input
               type="number"
@@ -273,24 +253,24 @@ const BecomeTasker = () => {
           </div>
         </div>
 
-        <div className="form-column">
-          <div className="form-group">
+        <div className="form-column-become-tasker">
+          <div className="form-group-become-tasker address-section-become-tasker">
             <label>Addresses:</label>
-            {!showAddressForm && <button type="button" className="add-address-button" onClick={() => setShowAddressForm(true)}>+</button>}
-            <div className="address-cards">
+            {!showAddressForm && <button type="button" className="add-address-button-become-tasker" onClick={() => setShowAddressForm(true)}>Add Address</button>}
+            <div className="address-cards-become-tasker">
               {addresses.map((address, index) => (
-                <div key={index} className="address-card">
-                  <p><strong>Type:</strong> {address.name}</p>
+                <div key={index} className="address-card-become-tasker">
+                  <p><strong>Street:</strong> {address.street}</p>
                   <p><strong>City:</strong> {address.city}</p>
                   <p><strong>State:</strong> {address.state}</p>
                   <p><strong>Country:</strong> {address.country}</p>
-                  <p><strong>Pincode:</strong> {address.pincode}</p>
-                  <p><strong>Address:</strong>{address.full_address}</p>
+                  <p><strong>Postal Code:</strong> {address.postal_code}</p>
+                  <p><strong>Type:</strong> {address.type}</p>
                 </div>
               ))}
             </div>
           </div>
-          <div className="form-group">
+          <div className="form-group-become-tasker">
             <label>Skill Proof (PDF):</label>
             <input
               type="file"
@@ -299,19 +279,24 @@ const BecomeTasker = () => {
               onChange={handleFileChange}
             />
           </div>
-        </div>
-        <button type="submit" className="form-button">Register</button>
-      </form>
-      {showAddressForm && (
-            <div className="address-form-popup">
+          {showAddressForm && (
+            <div className="address-form-popup-become-tasker">
               <AddressForm
                 onCancel={handleCancelAddressForm}
                 onSubmit={handleAddressSubmit}
-                existingAddresses={addresses}
               />
             </div>
           )}
-      {popupMessage && <div className="popup-message">{popupMessage}</div>}
+        </div>
+
+        <button type="submit" className="register-button-become-tasker">Register as Tasker</button>
+      </form>
+
+      {popupMessage && (
+        <div className={`popup-message-become-tasker ${popupMessage.includes("successful") ? "success-become-tasker" : "error-become-tasker"}`}>
+          {popupMessage}
+        </div>
+      )}
     </div>
   );
 };
