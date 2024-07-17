@@ -119,6 +119,7 @@ const TaskersList = ({ service, selectedAddress, onClose }) => {
       });
 
       // Display success message
+      console.log(response)
       window.alert('Tasker booked successfully!');
 
       setIsModalOpen(false); // Close the modal

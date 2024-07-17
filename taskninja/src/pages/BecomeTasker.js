@@ -280,10 +280,9 @@ const BecomeTasker = () => {
             <div className="address-cards">
               {addresses.map((address, index) => (
                 <div key={index} className="address-card">
-                  <p><strong>Type:</strong> {address.name}</p>
+                  <p><strong>Name:</strong> {address.name}</p>
                   <p><strong>City:</strong> {address.city}</p>
                   <p><strong>State:</strong> {address.state}</p>
-                  <p><strong>Country:</strong> {address.country}</p>
                   <p><strong>Pincode:</strong> {address.pincode}</p>
                   <p><strong>Address:</strong>{address.full_address}</p>
                 </div>
