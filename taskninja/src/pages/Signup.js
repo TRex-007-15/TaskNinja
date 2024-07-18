@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import api from '../api';
 import { useNavigate } from 'react-router-dom';
 import AddressForm from '../components/AddressForm';
-import "./BecomeTasker.css"
+import "./Signup.css"; // Assuming you have a Signup.css file for styling
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -14,12 +14,12 @@ const Signup = () => {
     first_name: '',
     last_name: '',
     contact_number: '',
-    addresses: [] // Initialize addresses
+    addresses: []
   });
   const [popupMessage, setPopupMessage] = useState("");
   const [showAddressForm, setShowAddressForm] = useState(false);
-  const [otpSent, setOtpSent] = useState(false); // Track OTP sent state
-  const [otp, setOtp] = useState(""); // State to store OTP input
+  const [otpSent, setOtpSent] = useState(false);
+  const [otp, setOtp] = useState("");
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -38,13 +38,12 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Check if OTP has been sent and entered or if bypass OTP is entered
       if ((!otpSent || !otp) && otp !== '123456') {
         setPopupMessage("Please send and enter OTP first!");
         return;
       }
       if (addresses.length <= 0){
-        setPopupMessage("Please enter atleast one address!");
+        setPopupMessage("Please enter at least one address!");
         return;
       }
       const data = {
@@ -89,10 +88,9 @@ const Signup = () => {
   };
 
   return (
-    <div className="form-container">
-      <h2 className='Header'>Sign Up</h2>
-      <form onSubmit={handleSubmit}>
-        {/* Form fields */}
+    <div className="signup-container">
+      <h2 className="signup-header">Sign Up</h2>
+      <form onSubmit={handleSubmit} className="signup-form">
         <div className="form-group">
           <label>Username:</label>
           <input
@@ -152,23 +150,20 @@ const Signup = () => {
             onChange={handleChange}
             required
           />
-          {/* Button to send OTP */}
           <button type="button" className="form-button" onClick={handleSendOTP} disabled={otpSent}>
             {otpSent ? "OTP Sent" : "Send OTP"}
           </button>
         </div>
-        {/* OTP input field */}
-          <div className="form-group">
-            <label>Enter OTP:</label>
-            <input
-              type="text"
-              name="otp"
-              value={otp}
-              onChange={(e) => {setOtp(e.target.value); setOtpSent(true)}}
-              required
-            />
-          </div>
-
+        <div className="form-group">
+          <label>Enter OTP:</label>
+          <input
+            type="text"
+            name="otp"
+            value={otp}
+            onChange={(e) => {setOtp(e.target.value); setOtpSent(true)}}
+            required
+          />
+        </div>
         <div className="form-group">
           <label>Addresses:</label>
           {!showAddressForm && <button type="button" className="add-address-button" onClick={() => setShowAddressForm(true)}>+</button>}
@@ -184,10 +179,8 @@ const Signup = () => {
             ))}
           </div>
         </div>
-        {/* Submit button */}
-        <button type="submit" className="form-button">Sign Up</button>
+        <button type="submit" className="signup-button">Sign Up</button>
       </form>
-      {/* Popup message for success/error */}
       {popupMessage && <div className="popup-message">{popupMessage}</div>}
       {showAddressForm && (
         <AddressForm Name="Add New Address" onSubmit={handleAddressSubmit} onCancel={handleCancelAddressForm} existingAddresses={addresses} />

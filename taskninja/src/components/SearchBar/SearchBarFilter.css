@@ -10,7 +10,7 @@
     align-items: center;
 }
 
-input {
+.search-input {
     background-color: transparent;
     border: none;
     height: 100%;
@@ -20,10 +20,24 @@ input {
     align-items: center;
 }
 
-input:focus {
+.search-input:focus {
     outline: none;
 }
 
-#search-icon {
-    color: royalblue;
+.search-results {
+    list-style-type: none;
+    padding: 0;
+    margin: 10px 0 0 0;
+}
+
+.search-results li {
+    padding: 10px;
+    background-color: #f2f2f2;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    cursor: pointer;
+}
+
+.search-results li:hover {
+    background-color: #e0e0e0;
 }
