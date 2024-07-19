@@ -7,6 +7,10 @@
     background-color: #f9f9f9;
 }
 
+.sup{
+    padding: 30px;
+}
+
 .signup-header {
     text-align: center;
     font-size: 24px;
@@ -78,4 +82,46 @@
     text-align: center;
     font-weight: bold;
     border-radius: 5px;
+    background-color: #f2dede; /* Example background color for error message */
+    color: #a94442; /* Example text color for error message */
+}
+
+.button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 3px;
+    margin-top: 10px;
+    margin-right: 10px;
+}
+
+.button-primary {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.button-primary:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.button-success {
+    background-color: #28a745;
+    color: #fff;
+}
+
+.button-success:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.button-secondary {
+    background-color: #6c757d;
+    color: #fff;
+}
+
+.button-secondary:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
 }

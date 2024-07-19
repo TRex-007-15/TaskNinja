@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import api from '../api';
 import { useNavigate } from 'react-router-dom';
 import AddressForm from '../components/AddressForm';
-import "./Signup.css"; // Assuming you have a Signup.css file for styling
+import "./Signup.css"; // Update with the appropriate CSS file path
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -14,12 +14,12 @@ const Signup = () => {
     first_name: '',
     last_name: '',
     contact_number: '',
-    addresses: []
+    addresses: [] // Initialize addresses
   });
   const [popupMessage, setPopupMessage] = useState("");
   const [showAddressForm, setShowAddressForm] = useState(false);
-  const [otpSent, setOtpSent] = useState(false);
-  const [otp, setOtp] = useState("");
+  const [otpSent, setOtpSent] = useState(false); // Track OTP sent state
+  const [otp, setOtp] = useState(""); // State to store OTP input
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -29,15 +29,23 @@ const Signup = () => {
   }, [popupMessage]);
 
   const handleChange = (e) => {
+    const { name, value } = e.target;
+    
+    if (name === "contact_number" && !/^\d{0,10}$/.test(value)) {
+      // Allow only 10 numeric digits for contact_number
+      return;
+    }
+    
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [name]: value,
     });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      // Check if OTP has been sent and entered or if bypass OTP is entered
       if ((!otpSent || !otp) && otp !== '123456') {
         setPopupMessage("Please send and enter OTP first!");
         return;
@@ -88,103 +96,116 @@ const Signup = () => {
   };
 
   return (
-    <div className="signup-container">
-      <h2 className="signup-header">Sign Up</h2>
-      <form onSubmit={handleSubmit} className="signup-form">
-        <div className="form-group">
-          <label>Username:</label>
-          <input
-            type="text"
-            name="username"
-            value={formData.username}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label>Password:</label>
-          <input
-            type="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label>Email:</label>
-          <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label>First Name:</label>
-          <input
-            type="text"
-            name="first_name"
-            value={formData.first_name}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label>Last Name:</label>
-          <input
-            type="text"
-            name="last_name"
-            value={formData.last_name}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label>Contact Number:</label>
-          <input
-            type="text"
-            name="contact_number"
-            value={formData.contact_number}
-            onChange={handleChange}
-            required
-          />
-          <button type="button" className="form-button" onClick={handleSendOTP} disabled={otpSent}>
-            {otpSent ? "OTP Sent" : "Send OTP"}
-          </button>
-        </div>
-        <div className="form-group">
-          <label>Enter OTP:</label>
-          <input
-            type="text"
-            name="otp"
-            value={otp}
-            onChange={(e) => {setOtp(e.target.value); setOtpSent(true)}}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label>Addresses:</label>
-          {!showAddressForm && <button type="button" className="add-address-button" onClick={() => setShowAddressForm(true)}>+</button>}
-          <div className='address-cards'>
-            {addresses.map((address, index) => (
-              <div key={index} className='address-card'>
-                <p><strong>Name:</strong> {address.name}</p>
-                <p><strong>State:</strong> {address.state}</p>
-                <p><strong>City:</strong> {address.city}</p>
-                <p><strong>Pincode:</strong> {address.pincode}</p>
-                <p><strong>Full Address:</strong> {address.full_address}</p>
-              </div>
-            ))}
+    <div className='sup'>
+      <div className="signup-container">
+        <h2 className="signup-header">Sign Up</h2>
+        <form className="signup-form" onSubmit={handleSubmit}>
+          {/* Form fields */}
+          <div className="form-group">
+            <label>Username:</label>
+            <input
+              type="text"
+              name="username"
+              value={formData.username}
+              onChange={handleChange}
+              required
+            />
           </div>
-        </div>
-        <button type="submit" className="signup-button">Sign Up</button>
-      </form>
-      {popupMessage && <div className="popup-message">{popupMessage}</div>}
-      {showAddressForm && (
-        <AddressForm Name="Add New Address" onSubmit={handleAddressSubmit} onCancel={handleCancelAddressForm} existingAddresses={addresses} />
-      )}
+          <div className="form-group">
+            <label>Password:</label>
+            <input
+              type="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label>Email:</label>
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label>First Name:</label>
+            <input
+              type="text"
+              name="first_name"
+              value={formData.first_name}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label>Last Name:</label>
+            <input
+              type="text"
+              name="last_name"
+              value={formData.last_name}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label>Contact Number:</label>
+            <input
+              type="text"
+              name="contact_number"
+              value={formData.contact_number}
+              onChange={handleChange}
+              required
+            />
+            {/* Button to send OTP */}
+            <button type="button" className="form-button button-primary" onClick={handleSendOTP} disabled={otpSent}>
+              {otpSent ? "OTP Sent" : "Send OTP"}
+            </button>
+          </div>
+          {/* OTP input field */}
+          <div className="form-group">
+            <label>Enter OTP:</label>
+            <input
+              type="text"
+              name="otp"
+              value={otp}
+              onChange={(e) => { 
+                const value = e.target.value;
+                if (/^\d{0,6}$/.test(value)) {
+                  setOtp(value); 
+                  setOtpSent(true);
+                }
+              }}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label>Addresses:</label>
+            {!showAddressForm && <button type="button" className="add-address-button button-success" onClick={() => setShowAddressForm(true)}>+</button>}
+            <div className="address-cards">
+              {addresses.map((address, index) => (
+                <div key={index} className="address-card">
+                  <p><strong>Name:</strong> {address.name}</p>
+                  <p><strong>State:</strong> {address.state}</p>
+                  <p><strong>City:</strong> {address.city}</p>
+                  <p><strong>Pincode:</strong> {address.pincode}</p>
+                  <p><strong>Full Address:</strong> {address.full_address}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+          {/* Submit button */}
+          <button type="submit" className="form-button button-primary">Sign Up</button>
+        </form>
+        {/* Popup message for success/error */}
+        {popupMessage && <div className="popup-message">{popupMessage}</div>}
+        {showAddressForm && (
+          <AddressForm Name="Add New Address" onSubmit={handleAddressSubmit} onCancel={handleCancelAddressForm} existingAddresses={addresses}/>
+        )}
+      </div>
     </div>
   );
 };

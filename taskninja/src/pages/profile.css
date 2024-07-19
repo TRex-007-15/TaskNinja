@@ -234,15 +234,6 @@
   box-sizing: border-box; /* Include padding and border in width */
 }
 
-.form-group select {
-  /* width: 100%; Take up full width */
-  /* padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box; Include padding and border in width */
-  /* min-width: 200px;  */
-}
-
 .form-group select option {
   min-width: 150px; /* Set a minimum width for options */
   padding: 8px;
