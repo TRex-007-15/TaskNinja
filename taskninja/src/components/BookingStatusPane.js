@@ -114,8 +114,16 @@ const BookingStatusPane = ({ bookingRequests, setBookingRequests , userType}) =>
   }, [error]);
 
   const formatDate = (dateString) => {
-    const options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' };
-    return new Date(dateString).toLocaleString(undefined, options);
+    const date = new Date(dateString);
+    const options = {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
+      timeZone: 'UTC'
+    };
+    return date.toLocaleString('en-US', options);
   };
 
   return (
