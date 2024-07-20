@@ -3,13 +3,7 @@ import api from '../api';
 import { useNavigate } from 'react-router-dom';
 import AddressForm from '../components/AddressForm';
 import './BecomeTasker.css';
-
-const services = [
-  { name: "Packers and Movers", image: "packers_and_movers.jpg" },
-  { name: "Plumbers", image: "plumbers.jpg" },
-  { name: "Electricians", image: "electricians.jpg" },
-  // Add more services as needed
-];
+import services from '../ServiceData';
 
 const experienceOptions = [
   { value: "Less than 1 year", label: "Less than 1 year" },
