@@ -21,7 +21,7 @@ const BookingHistory = ({ bookingHistory }) => {
       default: return 'red';
     }
   };
-
+  
   return (
     <div>
       <h3>Booking History</h3>

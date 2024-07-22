@@ -200,7 +200,7 @@ const BookingStatusPane = ({ bookingRequests, setBookingRequests , userType}) =>
       </div>
 
       {selectedBooking && (
-        <BookingPopup booking={selectedBooking} onClose={handleClosePopup} />
+        <BookingPopup booking={selectedBooking} onClose={handleClosePopup} userType = {userType}/>
       )}
     </div>
   );
