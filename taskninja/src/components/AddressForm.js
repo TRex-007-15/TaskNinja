@@ -24,13 +24,17 @@ const AddressForm = ({ onSubmit, onCancel, Name, existingAddresses }) => {
 
     const lowercaseHome = "home";
     const lowercaseWork = "work";
+  
     const isHomeExisting = existingAddresses && existingAddresses.some(address => address.name.toLowerCase() === lowercaseHome);
     const isWorkExisting = existingAddresses && existingAddresses.some(address => address.name.toLowerCase() === lowercaseWork);
   
-    if ((name.toLowerCase() === lowercaseHome && isHomeExisting) || 
-        (name.toLowerCase() === lowercaseWork && isWorkExisting) || 
-        (customName.toLowerCase() === lowercaseHome && isHomeExisting) || 
-        (customName.toLowerCase() === lowercaseWork && isWorkExisting)) {
+    const normalizedName = name.toLowerCase();
+    const normalizedCustomName = customName.toLowerCase();
+  
+    if ((normalizedName === lowercaseHome && isHomeExisting) || 
+        (normalizedName === lowercaseWork && isWorkExisting) || 
+        (normalizedCustomName === lowercaseHome && isHomeExisting) || 
+        (normalizedCustomName === lowercaseWork && isWorkExisting)) {
       alert(`You can only have one ${name} address.`);
       return;
     }
