@@ -284,6 +284,7 @@ const BecomeTasker = () => {
               <AddressForm
                 onCancel={handleCancelAddressForm}
                 onSubmit={handleAddressSubmit}
+                existingAddresses={addresses}
               />
             </div>
           )}
