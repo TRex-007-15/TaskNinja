@@ -38,6 +38,8 @@ const ResetPassword = () => {
         otp: otp,
         new_password: newPassword,
       });
+      setMessage("Password chnaged successfully!");
+      console.log(response);
       setTimeout(() => {
         navigate('/form');
       }, 2000);
