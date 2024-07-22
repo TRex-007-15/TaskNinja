@@ -44,10 +44,29 @@ const BecomeTasker = () => {
   }, [popupMessage]);
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+    const { name, value } = e.target;
+
+    // Validate phone number and OTP
+    if (name === 'contact_number') {
+      if (/^\d*$/.test(value) && value.length <= 10) {
+        setFormData({
+          ...formData,
+          [name]: value,
+        });
+      }
+    } else if (name === 'otp') {
+      if (/^\d*$/.test(value) && value.length <= 6) {
+        setFormData({
+          ...formData,
+          [name]: value,
+        });
+      }
+    } else {
+      setFormData({
+        ...formData,
+        [name]: value,
+      });
+    }
   };
 
   const handleFileChange = (event) => {
