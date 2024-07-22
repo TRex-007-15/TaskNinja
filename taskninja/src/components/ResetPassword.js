@@ -38,6 +38,8 @@ const ResetPassword = () => {
         otp: otp,
         new_password: newPassword,
       });
+      setMessage("Password chnaged successfully!");
+      console.log(response);
       setTimeout(() => {
         navigate('/form');
       }, 2000);
@@ -59,6 +61,7 @@ const ResetPassword = () => {
               value={contactNumber}
               onChange={(e) => setContactNumber(e.target.value)}
               placeholder="Enter your contact number"
+              required
             />
             <button className="action-button" onClick={handleSendOTP}>Send OTP</button>
           </>
@@ -71,6 +74,7 @@ const ResetPassword = () => {
               value={otp}
               onChange={(e) => setOtp(e.target.value)}
               placeholder="Enter the OTP"
+              required
             />
             <input
               type="password"
@@ -78,6 +82,7 @@ const ResetPassword = () => {
               value={newPassword}
               onChange={(e) => setNewPassword(e.target.value)}
               placeholder="Enter new password"
+              required
             />
             <input
               type="password"
@@ -85,13 +90,13 @@ const ResetPassword = () => {
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               placeholder="Confirm new password"
+              required
             />
             <button className="action-button" onClick={handleResetPassword}>Reset Password</button>
           </>
         )}
         {message && <p className="message">{message}</p>}
       </div>
-      {/* <div className="spacer"></div> Empty div to push footer down */}
     </div>
   );
 };

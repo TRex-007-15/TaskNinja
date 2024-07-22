@@ -56,6 +56,13 @@ const AddressForm = ({ onSubmit, onCancel, Name, existingAddresses }) => {
     setFullAddress("");
   };
 
+  const handlePincodeChange = (e) => {
+    const { value } = e.target;
+    if (/^\d{0,6}$/.test(value)) {
+      setPincode(value);
+    }
+  };
+
   return (
     <div className="overlay">
       <div className="address-form">
@@ -95,7 +102,12 @@ const AddressForm = ({ onSubmit, onCancel, Name, existingAddresses }) => {
           </div>
           <div className="form-group">
             <label>Pincode:</label>
-            <input type="text" value={pincode} onChange={(e) => setPincode(e.target.value)} required />
+            <input
+              type="text"
+              value={pincode}
+              onChange={handlePincodeChange}
+              required
+            />
           </div>
           <div className="form-group">
             <label>Address:</label>
