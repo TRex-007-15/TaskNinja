@@ -65,7 +65,7 @@ const ResetPassword = () => {
           </>
         ) : (
           <>
-            <p className="description">Enter the OTP sent to your contact number and set a new password.</p>
+            <p className="description">Enter the OTPsent to your contact number and set a new password.</p>
             <input
               type="text"
               className="input-field"
