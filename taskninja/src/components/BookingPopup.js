@@ -55,7 +55,7 @@ const BookingPopup = ({ booking, onClose, userType }) => {
           )}
           {userType === "user" && (
             <div>
-              <strong>Tasker Contact Number:</strong> <span>{booking.tasker_contact_number}</span>
+              <strong>Tasker Contact Number:</strong> <span>{booking.user_contact_number}</span>
             </div>
           )}
           <div>

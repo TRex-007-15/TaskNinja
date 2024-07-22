@@ -38,7 +38,7 @@ const ResetPassword = () => {
         otp: otp,
         new_password: newPassword,
       });
-      setMessage("Password chnaged successfully!");
+      setMessage("Password changed successfully!");
       console.log(response);
       setTimeout(() => {
         navigate('/form');
@@ -52,9 +52,9 @@ const ResetPassword = () => {
     <div className="reset-password-page">
       <div className="reset-password-container">
         <h2>Reset Password</h2>
-        <p className="description">Please enter your contact number to receive an OTP for password reset.</p>
         {!otpSent ? (
           <>
+           <p className="description">Please enter your contact number to receive an OTP for password reset.</p>
             <input
               type="text"
               className="input-field"

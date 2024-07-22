@@ -66,8 +66,8 @@ const Signup = () => {
         navigate('/form');
       }, 2000);
     } catch (error) {
-      setPopupMessage("Unable to Register!");
-      console.error('Error registering user:', error.response?.data || error.message);
+      setPopupMessage(error.response?.data?.error || 'Error Registering. Please try again.');
+      console.error('Error registering user:', error.response?.data?.error);
     }
   };
 
