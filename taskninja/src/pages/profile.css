@@ -7,6 +7,7 @@
   padding-bottom: 80px; /* Adjust this value as needed */
   position: relative;
   overflow: hidden; /* Hide overflow to ensure waves stay within bounds */
+  animation: fadeIn 1s ease-in-out;
 }
 
 /* Enhanced Moving Waves Background */
