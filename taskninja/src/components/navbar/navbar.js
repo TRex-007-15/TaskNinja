@@ -5,9 +5,12 @@ import Logo from '../images/logo.png';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import Notifications from '../Notifications';  // Import the Notifications component
 
 const Navbar = ({ onLoginClick }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [showNotifications, setShowNotifications] = useState(false);
   const navigate = useNavigate();
   const location = useLocation(); // Get the current location
   const accessToken = localStorage.getItem('access_token');
@@ -20,6 +23,11 @@ const Navbar = ({ onLoginClick }) => {
 
   const handleProfileClick = () => {
     navigate('/profile');
+    setIsMenuOpen(false);
+  };
+
+  const handleNotificationClick = () => {
+    setShowNotifications(!showNotifications);
     setIsMenuOpen(false);
   };
 
@@ -68,6 +76,9 @@ const Navbar = ({ onLoginClick }) => {
             <li className="navbar-item">
               <button className="navbar-button" onClick={handleLogout}>Logout</button>
             </li>
+            <li className="navbar-item" onClick={handleNotificationClick}>
+              <NotificationsIcon className="navbar-notification-icon" />
+            </li>
             <li className="navbar-item" onClick={handleProfileClick}>
               <AccountCircleIcon className="navbar-user-icon" />
             </li>
@@ -88,6 +99,7 @@ const Navbar = ({ onLoginClick }) => {
       <div className="navbar-hamburger" onClick={toggleMenu}>
         {isMenuOpen ? <CloseIcon /> : <MenuIcon />}
       </div>
+      {showNotifications && <Notifications onClose={() => setShowNotifications(false)} />}
     </div>
   );
 };

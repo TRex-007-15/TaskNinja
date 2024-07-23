@@ -214,7 +214,7 @@ const TaskersList = ({ service, selectedAddress, onClose }) => {
                 type="text"
                 value={serviceDesc}
                 onChange={(e) => setServiceDesc(e.target.value)}
-                maxLength={40}
+                maxLength={30}
               />
             </label>
             <label>
