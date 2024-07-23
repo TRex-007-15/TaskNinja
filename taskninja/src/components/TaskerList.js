@@ -182,7 +182,7 @@ const TaskersList = ({ service, selectedAddress, onClose }) => {
         ) : (
           <ul>
             {taskers.map((tasker, index) => (
-              <li key={index}>
+              <li className='bor' key={index}>
                 <ul>
                   <li>{tasker.first_name} {tasker.last_name}</li>
                   <li>{tasker.contact_number}</li>
@@ -214,6 +214,7 @@ const TaskersList = ({ service, selectedAddress, onClose }) => {
                 type="text"
                 value={serviceDesc}
                 onChange={(e) => setServiceDesc(e.target.value)}
+                maxLength={40}
               />
             </label>
             <label>

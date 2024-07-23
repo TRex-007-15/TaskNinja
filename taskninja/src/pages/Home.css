@@ -12,100 +12,36 @@ body {
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
+}
+
+.home-section {
   opacity: 0;
   transform: translateY(20px);
-  animation: fadeInUp 0.6s forwards; /* Animation */
-}
-
-/* Container for the search bar */
-.home-search-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding-bottom: 10px;
-}
-
-/* Search bar styling */
-.home-search-bar {
-  width: 80%; /* Adjust width as needed */
-  max-width: 600px; /* Maximum width for larger screens */
-  padding: 15px 20px; /* Padding inside the search bar */
-  border: 2px solid #ccc; /* Border around the search bar */
-  border-radius: 25px; /* Rounded corners */
-  font-size: 1.2rem; /* Font size for the input text */
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-  outline: none; /* Remove default outline */
-  transition: border-color 0.3s, box-shadow 0.3s; /* Smooth transition for focus effect */
-}
-
-/* Focus effect for the search bar */
-.home-search-bar:focus {
-  border-color: #61988E; /* Change border color on focus */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Increase shadow on focus */
-}
-
-/* Placeholder styling */
-.home-search-bar::placeholder {
-  color: #aaa; /* Color for the placeholder text */
-  opacity: 1; /* Ensure the placeholder is visible */
-}
-
-
-@keyframes fadeInUp {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
 }
 
 /* Hero Section Styles */
 .home-hero {
   padding: 100px 0;
   text-align: center;
-  background: linear-gradient(to right, #a1c4fd, #c2e9fb); /* Horizontal light to dark */
-  animation: slideIn 0.8s forwards; /* Animation */
-}
-
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateX(-100%);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
+  background: linear-gradient(to left, #a1c4fd, #c2e9fb); /* Horizontal light to dark */
 }
 
 .home-hero-header {
   font-size: 3em;
   color: #000000;
   margin-bottom: 20px;
-  opacity: 0;
-  transform: translateY(-20px);
-  animation: fadeInDown 0.6s forwards 0.2s; /* Delayed animation */
-}
-
-@keyframes fadeInDown {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 
 .home-hero-subheader {
   font-size: 1.5em;
   color: #00000096;
-  opacity: 0;
-  transform: translateY(20px);
-  animation: fadeInUp 0.6s forwards 0.4s; /* Delayed animation */
 }
 
 /* Services Section Styles */
 .home-services {
   padding: 80px 0;
-  background: linear-gradient(to bottom, #a1c4fd, #c2e9fb); /* Vertical light to dark */
-  animation: fadeInUp 0.8s forwards; /* Animation */
+  background: linear-gradient(to right, #a1c4fd, #c2e9fb); /* Vertical light to dark */
 }
 
 .home-section-header {
@@ -113,9 +49,6 @@ body {
   text-align: center;
   margin-bottom: 40px;
   color: #000000;
-  opacity: 0;
-  transform: translateY(-20px);
-  animation: fadeInDown 0.6s forwards; /* Animation */
 }
 
 .home-services-container {
@@ -128,13 +61,10 @@ body {
   width: 200px;
   margin: 20px;
   text-align: center;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.631);
   padding: 20px;
   border-radius: 10px;
   transition: transform 0.3s ease, background 0.3s ease;
-  opacity: 0;
-  transform: translateY(20px);
-  animation: fadeInUp 0.6s forwards;
 }
 
 .home-service-tile:hover {
@@ -154,10 +84,38 @@ body {
   color: #333333;
 }
 
+.home-services-tile {
+  background: #cbe1f4;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+  position: relative;
+}
+
+.services-tile:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.services-tile img {
+  width: 100%;
+  height: 150px; /* Set a fixed height */
+  object-fit: cover; /* Maintain aspect ratio and cover the area */
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.services-name {
+  padding: 15px;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
 /* About Us Section Styles */
 .home-about-us {
   padding: 80px 0;
-  background: linear-gradient(to bottom, #c2e9fb, #a1c4fd); /* Vertical dark to light */
+  background: linear-gradient(to right, #c2e9fb, #a1c4fd); /* Vertical dark to light */
   text-align: center;
 }
 
@@ -167,15 +125,12 @@ body {
   max-width: 800px;
   margin: 0 auto;
   color: #000000;
-  opacity: 0;
-  transform: translateY(20px);
-  animation: fadeInUp 0.6s forwards; /* Animation */
 }
 
 /* Testimonials Section Styles */
 .home-testimonials {
   padding: 80px 0;
-  background: #f7f7f7;
+  background: linear-gradient(to right, #a1c4fd, #c2e9fb);
   text-align: center;
 }
 
@@ -193,9 +148,6 @@ body {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   max-width: 300px;
   margin: 0 20px;
-  opacity: 0;
-  transform: translateY(20px);
-  animation: fadeInUp 0.6s forwards; /* Animation */
 }
 
 .home-testimonial-content {
@@ -214,7 +166,7 @@ body {
 /* Call to Action Section Styles */
 .home-call-to-action {
   padding: 80px 0;
-  background: linear-gradient(to bottom, #a1c4fd, #c2e9fb); /* Vertical light to dark */
+  background: linear-gradient(to left, #a1c4fd, #c2e9fb); /* Vertical light to dark */
   text-align: center;
 }
 
@@ -224,9 +176,6 @@ body {
   margin: 0 auto 20px;
   line-height: 1.6;
   color: #000000;
-  opacity: 0;
-  transform: translateY(20px);
-  animation: fadeInUp 0.6s forwards; /* Animation */
 }
 
 .home-cta-button {
@@ -247,7 +196,7 @@ body {
 /* Information Section Styles */
 .home-info-section {
   padding: 80px 0;
-  background: linear-gradient(to bottom, #c2e9fb, #a1c4fd); /* Vertical dark to light */
+  background: linear-gradient(to left, #c2e9fb, #a1c4fd); /* Vertical dark to light */
   text-align: center;
 }
 
@@ -257,8 +206,38 @@ body {
   max-width: 800px;
   margin: 0 auto;
   color: #000000;
-  opacity: 0;
-  transform: translateY(20px);
-  animation: fadeInUp 0.6s forwards; /* Animation */
 }
 
+/* Intersection Observer Animations */
+.show {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+
+/* Search bar styling */
+.home-search-bar {
+  width: 80%; /* Adjust width as needed */
+  max-width: 600px; /* Maximum width for larger screens */
+  padding: 15px 20px; /* Padding inside the search bar */
+  border: 2px solid #ccc; /* Border around the search bar */
+  border-radius: 25px; /* Rounded corners */
+  font-size: 1.2rem; /* Font size for the input text */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  outline: none; /* Remove default outline */
+  transition: border-color 0.3s, box-shadow 0.3s; /* Smooth transition for focus effect */
+  position: relative;
+  margin-left: 420px;
+}
+
+/* Focus effect for the search bar */
+.home-search-bar:focus {
+  border-color: #61988E; /* Change border color on focus */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Increase shadow on focus */
+}
+
+/* Placeholder styling */
+.home-search-bar::placeholder {
+  color: #aaa; /* Color for the placeholder text */
+  opacity: 1; /* Ensure the placeholder is visible */
+}

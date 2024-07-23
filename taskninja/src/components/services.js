@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Cover from './images/s1.jpg';
+import Cover from './images/s1.png';
 import services from '../ServiceData';
 import './services.css';
 import TaskersList from './TaskerList';
@@ -66,7 +66,7 @@ const Services = () => {
     <>
       <div className="services-cover">
         <img id="services-cover-image" src={Cover} alt="cover-img" className="services-cover-image" />
-        <p className="services-cover-text">Your To-do list is on us!</p>
+        <p className="services-cover-text"></p>
       </div>
       {isLoggedIn() && (
         <div className="services-address-dropdown">

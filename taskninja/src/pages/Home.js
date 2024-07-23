@@ -1,4 +1,4 @@
-import { React, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import '../App.css'; // Import your global styles
 import './Home.css';
@@ -7,6 +7,28 @@ import TaskersList from '../components/TaskerList';
 const Home = ({ searchQuery, setSearchQuery, filteredServices }) => {
   const [selectedService, setSelectedService] = useState(null);
   const navigate = useNavigate(); // Initialize useNavigate
+
+  useEffect(() => {
+    const sections = document.querySelectorAll('.home-section');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.33 });
+
+    sections.forEach(section => {
+      observer.observe(section);
+    });
+
+    return () => {
+      sections.forEach(section => {
+        observer.unobserve(section);
+      });
+    };
+  }, []);
 
   const isLoggedIn = () => {
     return !!localStorage.getItem('access_token');
@@ -27,13 +49,13 @@ const Home = ({ searchQuery, setSearchQuery, filteredServices }) => {
   return (
     <div>
       {/* Hero Section */}
-      <section className="home-hero">
+      <section className="home-hero home-section">
         <h1 className="home-hero-header">Book Trusted Help for Home Tasks</h1>
         <p className="home-hero-subheader">Find and book top-rated professionals for all your home service needs.</p>
       </section>
 
       {/* Services Section */}
-      <section className="home-services">
+      <section className="home-services home-section">
         <h2 className="home-section-header">Our Services</h2>
         <div className="home-search-container">
           <input
@@ -55,7 +77,7 @@ const Home = ({ searchQuery, setSearchQuery, filteredServices }) => {
       </section>
 
       {/* About Us Section */}
-      <section className="home-about-us">
+      <section className="home-about-us home-section">
         <h2 className="home-section-header">Why Choose Us?</h2>
         <p className="home-about-us-content">
           At TaskNinja, we are dedicated to providing you with the best home service professionals. Our team is carefully
@@ -65,7 +87,7 @@ const Home = ({ searchQuery, setSearchQuery, filteredServices }) => {
       </section>
 
       {/* Testimonials Section */}
-      <section className="home-testimonials">
+      <section className="home-testimonials home-section">
         <h2 className="home-section-header">What Our Customers Say</h2>
         <div className="home-testimonials-container">
           <div className="home-testimonial">
@@ -84,7 +106,7 @@ const Home = ({ searchQuery, setSearchQuery, filteredServices }) => {
       </section>
 
       {/* Call to Action Section */}
-      <section className="home-call-to-action">
+      <section className="home-call-to-action home-section">
         <h2 className="home-section-header">Get Started Today!</h2>
         <p className="home-call-to-action-content">
           Ready to book a professional for your home tasks? Browse our services and find the help you need now.
@@ -93,7 +115,7 @@ const Home = ({ searchQuery, setSearchQuery, filteredServices }) => {
       </section>
 
       {/* Information for Seekers and Providers */}
-      <section className="home-info-section">
+      <section className="home-info-section home-section">
         <h2 className="home-section-header">Connecting Task Providers and Task Seekers</h2>
         <p className="home-info-content">
           TaskNinja is designed to bridge the gap between task providers and task seekers. Our platform allows task seekers to

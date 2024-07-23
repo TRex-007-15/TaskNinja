@@ -29,6 +29,7 @@ body {
   overflow-y: auto; /* Enable vertical scrolling */
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* More pronounced shadow */
   animation: fadeIn 0.3s ease-out; /* Subtle fade-in effect */
+  
 }
 
 .taskers-list h2 {
@@ -43,21 +44,26 @@ body {
   list-style: none;
   padding: 0;
   margin: 20px 0;
+  border: 1px;
+  
 }
 
 .taskers-list li {
   margin-bottom: 15px;
   padding: 10px;
-  background: linear-gradient(to right, #c2e9fb, #a1c4fd); /* Apply the gradient background */
+  background: #c2e9fb; /* Apply the gradient background */
   border-radius: 8px;
   display: flex;
   flex-direction: column;
   transition: background 0.3s ease;
+  
+
 }
 
-.taskers-list li:hover {
-  background: linear-gradient(to right, #a1c4fd, #c2e9fb); /* Slight hover effect */
+.taskers-list li.bor{
+  border: 1px solid #000000;
 }
+
 
 .taskers-list li span {
   display: block;
