@@ -27,24 +27,54 @@
 }
 
 /* Address Dropdown */
-.services-address-dropdown {
-  margin: 20px 10px;
-  position: relative; /* Add relative positioning to contain absolute children */
-}
+/* Container for dropdown */
 
+
+/* Dropdown container styling */
 .services-dropdown-container {
-  display: inline-block;
-  padding: 3%;
+  display: flex;
+  align-items: center;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  margin-left: 36.3%;
+  margin-top: 8px;
 }
 
+/* Pin icon styling */
 .services-pin-icon {
-  position: absolute;
-  top: 50%;
-  left: 10px;
-  transform: translateY(-50%);
-  color: #61988E;
-  z-index: 1;
-  padding-left: 15px;
+  color: #007bff;
+  margin-right: 0.5rem;
+  font-size: 1.25rem;
+}
+
+/* Select element styling */
+select {
+  flex: 1;
+  border: none;
+  background-color: #ffffff;
+  color: #333;
+  font-size: 1rem;
+  padding: 0.5rem;
+  border-radius: 4px;
+  outline: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Select element hover state */
+select:hover {
+  background-color: #f1f1f1;
+}
+
+/* Select element focus state */
+select:focus {
+  background-color: #e9ecef;
+  border-color: #007bff;
 }
 
 .services-dropdown {

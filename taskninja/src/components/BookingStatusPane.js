@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import api from '../api'; // Ensure you have configured axios instance
 import BookingPopup from './BookingPopup';
+import ConfirmationPopup from './ConfirmationPopup'; // Import the ConfirmationPopup component
 import './BookingStatusPane.css'; // Import the CSS file for styling
 import { verifyAndRefreshToken } from '../middleware/authmiddleware';
 
-const BookingStatusPane = ({ bookingRequests, setBookingRequests , userType}) => {
+const BookingStatusPane = ({ bookingRequests, setBookingRequests, userType }) => {
   const [selectedBooking, setSelectedBooking] = useState(null);
   const [error, setError] = useState(null);
+  const [confirmation, setConfirmation] = useState({ show: false, action: null, req_id: null });
 
   const handleCardClick = (req) => {
     setSelectedBooking(req);
@@ -29,32 +31,12 @@ const BookingStatusPane = ({ bookingRequests, setBookingRequests , userType}) =>
     }
   };
 
-  const handleAccept = async (req_id) => {
-    const accessToken = await verifyAndRefreshToken();
-    if (!accessToken) {
-      setError('Access token not found.');
-      return;
-    }
-
-    try {
-      const response = await api.put(`/tasker/accept/${req_id}`, null, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
-      console.log('Request accepted:', response.data);
-      setBookingRequests((prevRequests) =>
-        prevRequests.map((req) =>
-          req.req_id === req_id ? { ...req, status: 2 } : req
-        )
-      );
-    } catch (error) {
-      console.error('Error accepting request:', error);
-      setError(error.response?.data?.error || 'Error accepting request. Please try again.');
-    }
+  const confirmAction = (action, req_id) => {
+    setConfirmation({ show: true, action, req_id });
   };
 
-  const handleReject = async (req_id) => {
+  const performAction = async () => {
+    const { action, req_id } = confirmation;
     const accessToken = await verifyAndRefreshToken();
     if (!accessToken) {
       setError('Access token not found.');
@@ -62,45 +44,49 @@ const BookingStatusPane = ({ bookingRequests, setBookingRequests , userType}) =>
     }
 
     try {
-      const response = await api.put(`/tasker/reject/${req_id}`, null, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
-      console.log('Request rejected:', response.data);
-      setBookingRequests((prevRequests) =>
-        prevRequests.map((req) =>
-          req.req_id === req_id ? { ...req, status: 4 } : req
-        )
-      );
+      let response;
+      switch (action) {
+        case 'accept':
+          response = await api.put(`/tasker/accept/${req_id}`, null, {
+            headers: { Authorization: `Bearer ${accessToken}` },
+          });
+          console.log('Request accepted:', response.data);
+          setBookingRequests((prevRequests) =>
+            prevRequests.map((req) =>
+              req.req_id === req_id ? { ...req, status: 2 } : req
+            )
+          );
+          break;
+        case 'reject':
+          response = await api.put(`/tasker/reject/${req_id}`, null, {
+            headers: { Authorization: `Bearer ${accessToken}` },
+          });
+          console.log('Request rejected:', response.data);
+          setBookingRequests((prevRequests) =>
+            prevRequests.map((req) =>
+              req.req_id === req_id ? { ...req, status: 4 } : req
+            )
+          );
+          break;
+        case 'cancel':
+          response = await api.put(`/cancel/${req_id}`, null, {
+            headers: { Authorization: `Bearer ${accessToken}` },
+          });
+          console.log('Request cancelled:', response.data);
+          setBookingRequests((prevRequests) =>
+            prevRequests.map((req) =>
+              req.req_id === req_id ? { ...req, status: 4 } : req
+            )
+          );
+          break;
+        default:
+          throw new Error('Unknown action');
+      }
     } catch (error) {
-      console.error('Error rejecting request:', error);
-      setError(error.response?.data?.error || 'Error rejecting request. Please try again.');
-    }
-  };
-
-  const handleCancel = async (req_id) => {
-    const accessToken = await verifyAndRefreshToken();
-    if (!accessToken) {
-      setError('Access token not found.');
-      return;
-    }
-
-    try {
-      const response = await api.put(`/cancel/${req_id}`, null, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
-      console.log('Request cancelled:', response.data);
-      setBookingRequests((prevRequests) =>
-        prevRequests.map((req) =>
-          req.req_id === req_id ? { ...req, status: 4 } : req
-        )
-      );
-    } catch (error) {
-      console.error('Error cancelling request:', error);
-      setError(error.response?.data?.error || 'Error cancelling request. Please try again.');
+      console.error(`Error ${action}ing request:`, error);
+      setError(error.response?.data?.error || `Error ${action}ing request. Please try again.`);
+    } finally {
+      setConfirmation({ show: false, action: null, req_id: null });
     }
   };
 
@@ -161,7 +147,7 @@ const BookingStatusPane = ({ bookingRequests, setBookingRequests , userType}) =>
                         className="accept-button"
                         onClick={(e) => {
                           e.stopPropagation();
-                          handleAccept(req.req_id);
+                          confirmAction('accept', req.req_id);
                         }}
                       >
                         Accept
@@ -172,7 +158,7 @@ const BookingStatusPane = ({ bookingRequests, setBookingRequests , userType}) =>
                         className="reject-button"
                         onClick={(e) => {
                           e.stopPropagation();
-                          handleReject(req.req_id);
+                          confirmAction('reject', req.req_id);
                         }}
                       >
                         Reject
@@ -185,7 +171,7 @@ const BookingStatusPane = ({ bookingRequests, setBookingRequests , userType}) =>
                     className="cancel-button"
                     onClick={(e) => {
                       e.stopPropagation();
-                      handleCancel(req.req_id);
+                      confirmAction('cancel', req.req_id);
                     }}
                   >
                     Cancel
@@ -200,7 +186,15 @@ const BookingStatusPane = ({ bookingRequests, setBookingRequests , userType}) =>
       </div>
 
       {selectedBooking && (
-        <BookingPopup booking={selectedBooking} onClose={handleClosePopup} userType = {userType}/>
+        <BookingPopup booking={selectedBooking} onClose={handleClosePopup} userType={userType} />
+      )}
+
+      {confirmation.show && (
+        <ConfirmationPopup
+          message={`Are you sure you want to ${confirmation.action} this request?`}
+          onConfirm={performAction}
+          onCancel={() => setConfirmation({ show: false, action: null, req_id: null })}
+        />
       )}
     </div>
   );

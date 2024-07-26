@@ -278,3 +278,41 @@
 }
 
 
+/* Add Address Button Styling */
+.addbut {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #007bff; /* Primary color */
+  color: #ffffff; /* Text color */
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  outline: none;
+}
+
+.addbut:hover {
+  background-color: #0056b3; /* Darker shade for hover effect */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow on hover */
+}
+
+.addbut:focus {
+  background-color: #0056b3; /* Same color for focus state */
+  box-shadow: 0 0 0 2px rgba(38, 143, 255, 0.5); /* Focus ring for accessibility */
+}
+
+.addbut svg {
+  margin-right: 0.5rem; /* Space between icon and text */
+  font-size: 1.25rem; /* Size of the icon */
+}
+
+.addbut:disabled {
+  background-color: #c0c0c0; /* Disabled state background */
+  color: #6c757d; /* Disabled state text color */
+  cursor: not-allowed;
+  box-shadow: none;
+}

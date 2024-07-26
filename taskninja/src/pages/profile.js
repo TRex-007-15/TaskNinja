@@ -254,7 +254,7 @@ const Profile = () => {
                         </div>
                       </div>
                     ))}
-                    <button onClick={handleAddAddress}>
+                    <button className='addbut' onClick={handleAddAddress}>
                       <FontAwesomeIcon icon={faPlus} /> Add Address
                     </button>
                   </div>
