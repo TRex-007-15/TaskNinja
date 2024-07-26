@@ -187,6 +187,7 @@ const TaskersList = ({ service, selectedAddress, onClose }) => {
                   <li>{tasker.first_name} {tasker.last_name}</li>
                   <li>{tasker.contact_number}</li>
                   <li>Price Per Hour: ₹ {tasker.price}</li>
+                  <li>Price Per Day: ₹{tasker.price_per_day} </li>
                   <li>Experience: {tasker.experience}</li>
                   <li>
                     <button

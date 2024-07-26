@@ -33,6 +33,7 @@ const Navbar = ({ onLoginClick }) => {
     // Perform logout action (e.g., clear local storage, redirect to login page)
     localStorage.removeItem('access_token');
     localStorage.removeItem('refresh_token');
+    localStorage.removeItem('token_expiry');
     navigate('/');
     setIsMenuOpen(false);
   };

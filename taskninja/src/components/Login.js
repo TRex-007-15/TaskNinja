@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import api from '../api';
-import './login.css'
+import './login.css';
+import moment from 'moment';
 const Login = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -24,6 +25,8 @@ const Login = () => {
       const response = await api.post('/api/token/', formData);
       localStorage.setItem('access_token', response.data.access);
       localStorage.setItem('refresh_token', response.data.refresh);
+      const newExpiry = moment().add(5, 'minutes').toISOString();
+      localStorage.setItem('token_expiry', newExpiry);
       navigate('/Profile'); // Redirect to profile page after successful login
     } catch (error) {
       setError('Invalid credentials. Please try again.');

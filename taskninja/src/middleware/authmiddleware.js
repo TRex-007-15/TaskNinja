@@ -20,7 +20,7 @@ export const verifyAndRefreshToken = async () => {
     const response = await api.post('/api/token/refresh/', {
       refresh: refreshToken,
     });
-    const { access, expiry } = response.data;
+    const { access} = response.data;
 
     localStorage.setItem('access_token', access);
     const newExpiry = moment().add(5, 'minutes').toISOString();
