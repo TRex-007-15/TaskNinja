@@ -133,6 +133,9 @@ const BookingStatusPane = ({ bookingRequests, setBookingRequests, userType }) =>
                   <strong>Request ID:</strong> <span>{req.req_id}</span>
                 </div>
                 <div>
+                  <strong>Name </strong> : <span>{req.username}</span>
+                </div>
+                <div>
                   <strong>Service Description:</strong> <span>{req.service_desc}</span>
                 </div>
                 <div>
