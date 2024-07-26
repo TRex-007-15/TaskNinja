@@ -23,7 +23,8 @@ export const verifyAndRefreshToken = async () => {
     const { access, expiry } = response.data;
 
     localStorage.setItem('access_token', access);
-    localStorage.setItem('token_expiry', expiry);
+    const newExpiry = moment().add(5, 'minutes').toISOString();
+    localStorage.setItem('token_expiry', newExpiry);
 
     return access;
   } catch (error) {

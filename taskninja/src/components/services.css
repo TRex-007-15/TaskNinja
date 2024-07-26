@@ -86,7 +86,7 @@ select:focus {
   color: #333;
   appearance: none;
   outline: none;
-  width: calc(100% - 35px); /* Account for the padding of the pin icon */
+  width: 100%; /* Account for the padding of the pin icon */
   margin-left: 45px; /* Add margin to avoid overlap with pin icon */
 }
 
