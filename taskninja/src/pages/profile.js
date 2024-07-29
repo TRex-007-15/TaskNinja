@@ -7,6 +7,7 @@ import AddressForm from '../components/AddressForm';
 import EditAddressForm from '../components/EditAdressForm';
 import BookingStatusPane from '../components/BookingStatusPane';
 import BookingHistory from '../components/BookingHistory';
+import TaskerEditForm from '../components/TaskerEditform';
 import { verifyAndRefreshToken } from '../middleware/authmiddleware';
 
 const Profile = () => {
@@ -14,7 +15,8 @@ const Profile = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [showAddressForm, setShowAddressForm] = useState(false);
-  const [showEditAddressForm, setShowEditAddressForm] = useState(false); // State for showing the EditAddressForm
+  const [showEditAddressForm, setShowEditAddressForm] = useState(false);
+  const [showTaskerEditForm, setShowTaskerEditForm] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [address, setAddress] = useState({
     id: '',
@@ -47,6 +49,7 @@ const Profile = () => {
         setUserData(response.data);
         setUsertype(response.data.user_type);
         setLoading(false);
+        localStorage.setItem('user_type', response.data.user_type);
       } catch (error) {
         console.error('Error fetching user data:', error);
         setError('Error fetching user data. Please try again.');
@@ -102,6 +105,33 @@ const Profile = () => {
     fetchBookingRequests();
     fetchBookingHistory();
   }, []);
+
+  const updateTasker = async (updatedData) => {
+    setLoading(true);
+    const accessToken = await verifyAndRefreshToken();
+    const url = `/tasker/update/${userData.id}`;
+  
+    try {
+      const response = await api.put(url, updatedData, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        }
+      });
+      console.log('Tasker details updated:', response.data);
+      setUserData({ ...userData, ...response.data });
+      setShowTaskerEditForm(false);
+    } catch (error) {
+      console.error('Error updating tasker details:', error);
+      setError('Error updating tasker details. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
+  
+
+  const handleEditTasker = () => {
+    setShowTaskerEditForm(true);
+  };
 
   const updateAddress = async (id, updatedData) => {
     setLoading(true);
@@ -237,6 +267,13 @@ const Profile = () => {
                   <div>
                     <strong>Email:</strong> {userData.email}
                   </div>
+                  {userType === "tasker" && (  // Check if user is a tasker
+                    <div>
+                      <button onClick={handleEditTasker}>
+                        <FontAwesomeIcon icon={faPencilAlt} /> Edit Tasker Details
+                      </button>
+                    </div>
+                  )}
                   <div className="address-list">
                     <h4>Addresses</h4>
                     {userData.addresses.map((addr) => (
@@ -281,6 +318,15 @@ const Profile = () => {
             onCancel={() => setShowEditAddressForm(false)}
             address={address}
             existingAddresses={userData.addresses}
+          />
+        </div>
+      )}
+      {showTaskerEditForm && (
+        <div className="overlay">
+          <TaskerEditForm
+            tasker={userData}
+            onSubmit={updateTasker}
+            onCancel={() => setShowTaskerEditForm(false)}
           />
         </div>
       )}

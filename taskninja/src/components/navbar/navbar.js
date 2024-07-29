@@ -14,7 +14,7 @@ const Navbar = ({ onLoginClick }) => {
   const accessToken = localStorage.getItem('access_token');
   const refreshToken = localStorage.getItem('refresh_token');
   const isLoggedIn = accessToken && refreshToken;
-
+  const userType = localStorage.getItem('user_type');
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
@@ -34,6 +34,7 @@ const Navbar = ({ onLoginClick }) => {
     localStorage.removeItem('access_token');
     localStorage.removeItem('refresh_token');
     localStorage.removeItem('token_expiry');
+    localStorage.removeItem('user_type');
     navigate('/');
     setIsMenuOpen(false);
   };
@@ -60,11 +61,13 @@ const Navbar = ({ onLoginClick }) => {
             <Link to="/" onClick={() => setIsMenuOpen(false)}>Home</Link>
           </li>
         )}
-        <li className="navbar-item">
-          <Link to="/services" onClick={() => setIsMenuOpen(false)}>Services</Link>
-        </li>
         {isLoggedIn ? (
           <>
+            {userType === "user" && (
+              <li className="navbar-item">
+                <Link to="/services" onClick={() => setIsMenuOpen(false)}>Services</Link>
+              </li>
+            )}
             <li className="navbar-item" onClick={handleProfileClick}>
               <AccountCircleIcon className="navbar-user-icon" />
             </li>
@@ -77,6 +80,9 @@ const Navbar = ({ onLoginClick }) => {
           </>
         ) : (
           <>
+            <li className="navbar-item">
+              <Link to="/services" onClick={() => setIsMenuOpen(false)}>Services</Link>
+            </li>
             <li className="navbar-item">
               <button className="navbar-button" onClick={handleBecomeTaskerClick}>
                 {location.pathname === '/BecomeTasker' ? 'Register as User' : 'Register as Tasker'}
