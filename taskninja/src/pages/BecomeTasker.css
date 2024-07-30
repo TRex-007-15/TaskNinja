@@ -179,3 +179,29 @@
     flex-direction: column;
   }
 }
+
+/* Popup message styling */
+.popup-message-become-tasker {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 15px;
+  border-radius: 5px;
+  color: white;
+  text-align: center;
+  opacity: 0.9;
+  z-index: 1000;
+}
+
+/* Success message styling */
+.popup-message-become-tasker.success-become-tasker {
+  background-color: #dff0d8; /* Light green background */
+  color: #3c763d; /* Dark green text */
+}
+
+/* Error message styling */
+.popup-message-become-tasker.error-become-tasker {
+  background-color: #f2dede; /* Light red background */
+  color: #a94442; /* Dark red text */
+}

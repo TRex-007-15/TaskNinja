@@ -91,9 +91,14 @@ const EditAddressForm = ({ onSubmit, onCancel, address, existingAddresses }) => 
             <label>Pincode:</label>
             <input type="text" value={pincode} onChange={(e) => setPincode(e.target.value)} required />
           </div>
-          <div className="form-group">
-            <label>Address:</label>
-            <textarea value={fullAddress} onChange={(e) => setFullAddress(e.target.value)} required></textarea>
+          <div className='from-group'>
+          <label>Address:</label>
+          <textarea 
+            value={fullAddress} 
+            onChange={(e) => setFullAddress(e.target.value)} 
+            maxLength={30} 
+            required
+          ></textarea>
           </div>
           <div className="form-buttons">
             <button type="submit" className="form-button">Submit</button>

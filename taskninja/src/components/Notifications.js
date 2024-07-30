@@ -28,6 +28,7 @@ const Notifications = () => {
     }
     try {
       const response = await api.get('/user/notifications');
+      console.log('Fetched notifications:', response.data); // Debugging
       setNotifications(response.data);
       const unread = response.data.filter(n => n.status === 0).length;
       setUnreadCount(unread);
@@ -37,14 +38,17 @@ const Notifications = () => {
   };
 
   const markAsRead = async (notificationId) => {
-    setLoading(true);
     try {
-      await api.put(`/notification/open/${notificationId}`);
-      await fetchNotifications();  // Re-fetch notifications after marking as read
+      const response = await api.put(`/notification/open/${notificationId}`);
+      console.log('Marked as read:', response.data); // Debugging
+      setNotifications(prevNotifications =>
+        prevNotifications.map(notification =>
+          notification.notification_id === notificationId ? { ...notification, status: 1 } : notification
+        )
+      );
+      setUnreadCount(prevUnreadCount => prevUnreadCount - 1);
     } catch (error) {
       console.error("Error marking notification as read:", error);
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -66,7 +70,7 @@ const Notifications = () => {
     // Mark as read only if the notification is unread
     const notification = notifications.find(n => n.request === requestId);
     if (notification && notification.status === 0) {
-      await markAsRead(notification.id); // Assuming notification.id is used to mark as read
+      await markAsRead(notification.notification_id); // Assuming notification.notification_id is used to mark as read
     }
     setIsDropdownOpen(false); // Close the dropdown when a notification is clicked
   };
@@ -74,9 +78,14 @@ const Notifications = () => {
   const handleNotificationDelete = async (notificationId) => {
     setLoading(true);
     try {
-      await api.delete(`/notification/delete/${notificationId}`);
-      console.log('Notification deleted:', notificationId); // Debugging
-      await fetchNotifications();  // Re-fetch notifications after deleting
+      const response = await api.delete(`/notification/delete/${notificationId}`);
+      console.log('Notification deleted:', response.data); // Debugging
+      setNotifications(prevNotifications =>
+        prevNotifications.filter(notification => notification.notification_id !== notificationId)
+      );
+      if (response.data.status === 0) {
+        setUnreadCount(prevUnreadCount => prevUnreadCount - 1);
+      }
     } catch (error) {
       console.error("Can't delete notification:", error);
     } finally {
@@ -104,7 +113,7 @@ const Notifications = () => {
             {notifications.length > 0 ? (
               notifications.map(notification => (
                 <NotificationItem
-                  key={notification.id}
+                  key={notification.notification_id}
                   notification={notification}
                   onClick={handleNotificationClick}
                   onDelete={handleNotificationDelete}

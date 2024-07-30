@@ -17,6 +17,7 @@ const Signup = () => {
     addresses: [] // Initialize addresses
   });
   const [popupMessage, setPopupMessage] = useState("");
+  const [popupStyle, setPopupStyle] = useState('');
   const [showAddressForm, setShowAddressForm] = useState(false);
   const [otpSent, setOtpSent] = useState(false); // Track OTP sent state
   const [otp, setOtp] = useState(""); // State to store OTP input
@@ -48,10 +49,12 @@ const Signup = () => {
       // Check if OTP has been sent and entered or if bypass OTP is entered
       if ((!otpSent || !otp) && otp !== '123456') {
         setPopupMessage("Please send and enter OTP first!");
+        setPopupStyle('failure');
         return;
       }
       if (addresses.length <= 0){
         setPopupMessage("Please enter at least one address!");
+        setPopupStyle('failure');
         return;
       }
       const data = {
@@ -62,11 +65,13 @@ const Signup = () => {
       const response = await api.post('/user/register/', data);
       console.log('User registered:', response.data);
       setPopupMessage("Registered successfully!");
+      setPopupStyle('success');
       setTimeout(() => {
         navigate('/form');
       }, 2000);
     } catch (error) {
       setPopupMessage(error.response?.data?.error || 'Error Registering. Please try again.');
+      setPopupStyle('failure');
       console.error('Error registering user:', error.response?.data?.error);
     }
   };
@@ -76,8 +81,10 @@ const Signup = () => {
       await api.post('/otp/', { contact_number: formData.contact_number });
       setOtpSent(true);
       setPopupMessage("OTP Sent!");
+      setPopupStyle('success');
     } catch (error) {
       setPopupMessage("Error sending OTP!");
+      setPopupStyle('failure');
       console.error('Error sending OTP:', error.response?.data || error.message);
     }
   };
@@ -176,7 +183,6 @@ const Signup = () => {
                 const value = e.target.value;
                 if (/^\d{0,6}$/.test(value)) {
                   setOtp(value); 
-                  setOtpSent(true);
                 }
               }}
               required
@@ -201,7 +207,7 @@ const Signup = () => {
           <button type="submit" className="form-button button-primary">Sign Up</button>
         </form>
         {/* Popup message for success/error */}
-        {popupMessage && <div className="popup-message">{popupMessage}</div>}
+        {popupMessage && <div className={`popup-message ${popupStyle}`}>{popupMessage}</div>}
         {showAddressForm && (
           <AddressForm Name="Add New Address" onSubmit={handleAddressSubmit} onCancel={handleCancelAddressForm} existingAddresses={addresses}/>
         )}

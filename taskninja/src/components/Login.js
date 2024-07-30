@@ -3,6 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import api from '../api';
 import './login.css';
 import moment from 'moment';
+
 const Login = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -11,6 +12,7 @@ const Login = () => {
   });
   const [error, setError] = useState(null);
   const [popupMessage, setPopupMessage] = useState('');
+  const [popupStyle, setPopupStyle] = useState('');
 
   const handleChange = (e) => {
     setFormData({
@@ -27,9 +29,14 @@ const Login = () => {
       localStorage.setItem('refresh_token', response.data.refresh);
       const newExpiry = moment().add(5, 'minutes').toISOString();
       localStorage.setItem('token_expiry', newExpiry);
-      navigate('/Profile'); // Redirect to profile page after successful login
+      setPopupMessage('Login successful!');
+      setPopupStyle('success'); // Set popup style to success (green)
+      setTimeout(() => {
+        navigate('/Profile'); // Redirect to profile page after 2 seconds
+      }, 5000);
     } catch (error) {
-      setError('Invalid credentials. Please try again.');
+      setPopupMessage('Invalid credentials. Please try again.');
+      setPopupStyle('failure'); // Set popup style to failure (red)
     }
   };
 
@@ -45,48 +52,52 @@ const Login = () => {
 
   return (
     <div className="login-page">
-    <div className="form-container">
-      <h2>Login</h2>
-      {error && <div className="error-message">{error}</div>}
-      <form onSubmit={handleSubmit} style={{ maxWidth: '400px', margin: '0 auto' }}>
-        {/* Form fields */}
-        <div className="form-group">
-          <label>Username:</label>
-          <input
-            type="text"
-            name="username"
-            value={formData.username}
-            onChange={handleChange}
-            className="form-input"
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label>Password:</label>
-          <input
-            type="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            className="form-input"
-            required
-          />
-        </div>
+      <div className="form-container">
+        <h2>Login</h2>
+        {error && <div className="error-message">{error}</div>}
+        <form onSubmit={handleSubmit} style={{ maxWidth: '400px', margin: '0 auto' }}>
+          {/* Form fields */}
+          <div className="form-group">
+            <label>Username:</label>
+            <input
+              type="text"
+              name="username"
+              value={formData.username}
+              onChange={handleChange}
+              className="form-input"
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label>Password:</label>
+            <input
+              type="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              className="form-input"
+              required
+            />
+          </div>
+          
+          {/* Submit button */}
+          <button type="submit" className="form-button">Login</button>
+        </form>
+        {/* Popup message for success */}
+        {popupMessage && (
+          <div className={`popup-message ${popupStyle}`}>
+            {popupMessage}
+          </div>
+        )}
         
-        {/* Submit button */}
-        <button type="submit" className="form-button">Login</button>
-      </form>
-      {/* Popup message for success */}
-      {popupMessage && <p>{popupMessage}</p>}
-      
-      {/* Forgot Password link */}
-      <div className="forgot-password-link">
-        <Link to="/reset-password">Forgot Password?</Link>
-      </div>
+        {/* Forgot Password link */}
+        <div className="forgot-password-link">
+          <Link to="/reset-password">Forgot Password?</Link>
+        </div>
 
-      {/* Empty div to push footer down */}
-      <div className="spacer"></div> {/* Empty div to push footer down */}
-    </div>
+        {/* Empty div to push footer down */}
+        <div className="spacer"></div> {/* Empty div to push footer down */}
+      </div>
     </div>
   );
 };
