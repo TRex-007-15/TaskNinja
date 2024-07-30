@@ -111,7 +111,14 @@ const BookingStatusPane = ({ bookingRequests, setBookingRequests, userType }) =>
     };
     return date.toLocaleString('en-US', options);
   };
-
+  const getStatusText = (status) => {
+    switch (status) {
+      case 1: return 'Requested';
+      case 5: return 'Completed';
+      case 2: return 'Booked';
+      default: return 'Cancelled';
+    }
+  };
   return (
     <div className="booking-status-pane profile-section">
       <h3>Requested Bookings</h3>
@@ -127,7 +134,9 @@ const BookingStatusPane = ({ bookingRequests, setBookingRequests, userType }) =>
               <div
                 className="status-indicator"
                 style={{ backgroundColor: getStatusColor(req.status) }}
-              ></div>
+              >
+                <span className="status-tooltip">{getStatusText(req.status)}</span>
+              </div>
               <div className="booking-details">
                 <div>
                   <strong>Request ID:</strong> <span>{req.req_id}</span>

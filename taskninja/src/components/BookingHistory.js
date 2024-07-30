@@ -21,7 +21,16 @@ const BookingHistory = ({ bookingHistory }) => {
       default: return 'red';
     }
   };
-  
+
+  const getStatusText = (status) => {
+    switch (status) {
+      case 1: return 'Requested';
+      case 5: return 'Completed';
+      case 2: return 'Booked';
+      default: return 'Cancelled';
+    }
+  };
+
   return (
     <div>
       <h3>Booking History</h3>
@@ -36,7 +45,9 @@ const BookingHistory = ({ bookingHistory }) => {
               <div
                 className="status-indicator"
                 style={{ backgroundColor: getStatusColor(req.status) }}
-              ></div>
+              >
+                <span className="status-tooltip">{getStatusText(req.status)}</span>
+              </div>
               <div className="booking-details">
                 <div>
                   <strong>Request ID:</strong> <span>{req.req_id}</span>
