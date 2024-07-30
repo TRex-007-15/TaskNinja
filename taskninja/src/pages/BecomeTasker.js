@@ -76,19 +76,24 @@ const BecomeTasker = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      if(formData.otp === "123456"){
+      if (formData.otp === "123456") {
         setOtpSent(true);
       }
       if (!otpSent || !formData.otp) {
         setPopupMessage("Please send and enter OTP first!");
         return;
       }
-
+  
+      if (!skillProofPdf) {
+        setPopupMessage("Please upload the skill proof document!");
+        return;
+      }
+  
       const data = {
         ...formData,
-        skill_proof_pdf: skillProofPdf ? skillProofPdf.name : '',
+        skill_proof_pdf: skillProofPdf.name,
       };
-
+  
       const response = await api.post('/tasker/register/', data);
       console.log("Tasker Registration Successful: ", response.data);
       setPopupMessage("Tasker registered successfully!");
@@ -104,6 +109,7 @@ const BecomeTasker = () => {
       console.error("Registration Error: ", error);
     }
   };
+  
 
   const handleSendOTP = async () => {
     try {
@@ -285,7 +291,7 @@ const BecomeTasker = () => {
               ))}
             </div>
           </div>
-          <div className="form-group-become-tasker">
+          <div className="form-group-become-tasker" required>
             <label>Skill Proof (PDF):</label>
             <input
               type="file"
